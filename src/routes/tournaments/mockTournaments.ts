@@ -7,7 +7,8 @@ export interface Tournament {
 	startDate: string;
 	endDate: string;
 	status: TournamentStatus;
-	teams: number;
+	players: number;
+	rounds: number[];
 	prizePool: number;
 	format: string;
 	location: string;
@@ -21,7 +22,8 @@ export const SAMPLE_TOURNAMENTS: Tournament[] = [
 		startDate: "2024-09-01",
 		endDate: "2024-10-31",
 		status: "ongoing",
-		teams: 16,
+		players: 16,
+		rounds: [1,2,3,4,5,6,7],
 		prizePool: 1000000,
 		format: "Best of 3, Single Elimination",
 		location: "Stockholm, Sweden",
@@ -33,7 +35,8 @@ export const SAMPLE_TOURNAMENTS: Tournament[] = [
 		startDate: "2025-04-01",
 		endDate: "2025-04-10",
 		status: "upcoming",
-		teams: 18,
+		players: 512,
+		rounds: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
 		prizePool: 2000000,
 		format: "Group Stage + Single Elimination",
 		location: "Singapore",
@@ -45,7 +48,8 @@ export const SAMPLE_TOURNAMENTS: Tournament[] = [
 		startDate: "2024-12-15",
 		endDate: "2024-12-20",
 		status: "completed",
-		teams: 24,
+		players: 24,
+		rounds: [1,2,3,4,5,6,7,8,9],
 		prizePool: 1500000,
 		format: "Group Stage + Double Elimination",
 		location: "Seoul, South Korea",
@@ -65,3 +69,7 @@ export const getStatusColor = (status: string) => {
 			return 'bg-gray-500 hover:bg-gray-600';
 	}
 };
+
+export const reverseRounds = (rounds: number[]) => {
+	return rounds.reverse();
+}

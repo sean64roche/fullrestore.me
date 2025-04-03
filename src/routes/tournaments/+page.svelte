@@ -23,10 +23,11 @@
 			Browse upcoming and past esports tournaments across multiple games
 		</p>
 	</div>
-	<div class="space-y-6">
+	<div class="space">
 			{#each SAMPLE_TOURNAMENTS as tournament}
-				<div class="flex flex-col gap-6">
+				<div class="flex flex-col">
 					<TournamentCard tournament={tournament} />
+					<div class="divider"></div>
 				</div>
 			{/each}
 	</div>

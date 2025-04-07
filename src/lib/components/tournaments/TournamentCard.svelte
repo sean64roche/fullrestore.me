@@ -6,7 +6,6 @@
 	let { tournament } = $props<{ tournament: Tournament }>();
 	let rounds: number[] = reverseRounds(tournament.rounds);
 
-	let isDropdownOpen: boolean = $state(false);
 	let descExpanded = $state(false);
 	let canExpandDesc = $state(false);
 
@@ -14,10 +13,6 @@
 
 	let visibleRounds = rounds.slice(0, 4);
 	let hiddenRounds = rounds.length > 4 ? rounds.slice(4) : [];
-
-	function toggleDropdown() {
-		isDropdownOpen = !isDropdownOpen;
-	}
 
 	function toggleExpandedDesc() {
 		descExpanded = !descExpanded;

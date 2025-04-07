@@ -1,23 +1,19 @@
 <script lang="ts">
 	import { getStatusColor, type Tournament } from '../../../routes/tournaments/mockTournaments';
-	import { Calendar, ChevronDown } from 'lucide-svelte';
-	import { reverseRounds } from '../../../routes/tournaments/mockTournaments.js';
+	import { Calendar, Ellipsis } from 'lucide-svelte';
 
 	let { tournament } = $props<{ tournament: Tournament }>();
-	let rounds: number[] = reverseRounds(tournament.rounds);
+	let rounds: number[] = (tournament.rounds.slice().reverse());
+	$inspect(rounds);
 
+	let visibleRounds = (rounds.slice(0, 4));
+	let hiddenRounds = (rounds.length > 4 ? rounds.slice(4) : []);
 	let descExpanded = $state(false);
 	let canExpandDesc = $state(false);
-
 	let textContainer: HTMLDivElement | undefined;
-
-	let visibleRounds = rounds.slice(0, 4);
-	let hiddenRounds = rounds.length > 4 ? rounds.slice(4) : [];
-
 	function toggleExpandedDesc() {
 		descExpanded = !descExpanded;
 	}
-
 	$effect(() => {
 		if (!textContainer) return;
 		canExpandDesc = textContainer.scrollHeight > textContainer.clientHeight;
@@ -54,12 +50,12 @@
 						</a>
 					{/each}
 					{#if hiddenRounds.length > 0}
-						<div class="dropdown">
+						<div class="dropdown dropdown-end dropdown-hover">
 							<button
 								tabindex="0"
 								class="btn btn-ghost btn-xs"
 							>
-								<ChevronDown class="w-4 h-4" />
+								<Ellipsis class="w-4 h-4" />
 							</button>
 							<ul class="dropdown-content absolute right-0 top-6 bg-base-100 shadow-lg rounded-lg p-2 z-10 w-36 flex flex-col gap-1">
 								{#each hiddenRounds as round}

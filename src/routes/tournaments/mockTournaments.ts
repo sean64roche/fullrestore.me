@@ -69,7 +69,3 @@ export const getStatusColor = (status: string) => {
 			return 'bg-gray-500 hover:bg-gray-600';
 	}
 };
-
-export const reverseRounds = (rounds: number[]) => {
-	return rounds.reverse();
-}

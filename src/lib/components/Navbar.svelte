@@ -12,7 +12,7 @@
 	<li><a href={home}>Home</a></li>
 	<li>
 		<div class="block lg:hidden">
-			<p class="font-bold">Tournaments</p>
+			<a href={tournaments} class="font-bold">Tournaments</a>
 			<ul class="pl-4 bg-base-100 p-2 list-disc">
 				<li><a href={tournaments}>All Tournaments</a></li>
 				<li><a href="{tournaments}/ongoing">Ongoing</a></li>
@@ -21,9 +21,9 @@
 			</ul>
 		</div>
 		<div class="dropdown dropdown-center dropdown-hover hidden lg:block">
-			<button tabindex="0" class="inline-flex items-center gap-1">
+			<a href={tournaments} tabindex="0" class="inline-flex items-center gap-1">
 				Tournaments <ChevronDown class="w-4 h-4" />
-			</button>
+			</a>
 			<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc">
 				<li><a href={tournaments}>All Tournaments</a></li>
 				<li><a href="{tournaments}/ongoing">Ongoing</a></li>

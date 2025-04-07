@@ -2,6 +2,7 @@
 	import { getStatusColor, type Tournament } from '../../../routes/tournaments/mockTournaments';
 	import { Calendar, ChevronDown } from 'lucide-svelte';
 	import { reverseRounds } from '../../../routes/tournaments/mockTournaments.js';
+
 	let { tournament } = $props<{ tournament: Tournament }>();
 	let rounds: number[] = reverseRounds(tournament.rounds);
 
@@ -17,9 +18,11 @@
 	function toggleDropdown() {
 		isDropdownOpen = !isDropdownOpen;
 	}
+
 	function toggleExpandedDesc() {
 		descExpanded = !descExpanded;
 	}
+
 	$effect(() => {
 		if (!textContainer) return;
 		canExpandDesc = textContainer.scrollHeight > textContainer.clientHeight;
@@ -49,50 +52,47 @@
 				</div>
 			</div>
 			<div class="mt-2 md:mt-0 md:static">
-						<div class="flex gap-2 items-center justify-end">
-							{#each visibleRounds as round}
-								<a href={round.toString()} class="link text-sm">
-									{round === rounds[0] && tournament.status === 'completed' ? 'Finals' : `Round ${round}`}
-								</a>
-							{/each}
-
-							{#if hiddenRounds.length > 0}
-								<div class="relative">
-									<button
-										class="btn btn-ghost btn-xs"
-										onclick={toggleDropdown}
-									>
-										<ChevronDown class="w-4 h-4" />
-									</button>
-
-									{#if isDropdownOpen}
-										<div class="dropdown-menu absolute right-0 top-6 bg-base-100 shadow-lg rounded-lg p-2 z-10 w-36 flex flex-col gap-1">
-											{#each hiddenRounds as round}
-												<a href={round.toString()} class="link text-sm block p-1 hover:bg-base-200 rounded">
-													{`Round ${round}`}
-												</a>
-											{/each}
-										</div>
-									{/if}
-								</div>
-							{/if}
+				<div class="flex gap-2 items-center justify-end">
+					{#each visibleRounds as round}
+						<a href={round.toString()} class="link text-sm">
+							{round === rounds[0] && tournament.status === 'completed' ? 'Finals' : `Round ${round}`}
+						</a>
+					{/each}
+					{#if hiddenRounds.length > 0}
+						<div class="dropdown">
+							<button
+								tabindex="0"
+								class="btn btn-ghost btn-xs"
+							>
+								<ChevronDown class="w-4 h-4" />
+							</button>
+							<ul class="dropdown-content absolute right-0 top-6 bg-base-100 shadow-lg rounded-lg p-2 z-10 w-36 flex flex-col gap-1">
+								{#each hiddenRounds as round}
+									<li><a href={round.toString()} class="link text-sm block p-1 hover:bg-base-200 rounded">
+										{`Round ${round}`}
+									</a></li>
+								{/each}
+							</ul>
 						</div>
-					</div>
+					{/if}
+				</div>
+			</div>
 		</div>
-			<div
-				bind:this={textContainer}
-				class={descExpanded ? 'text-sm sm:text-base' : 'line-clamp-5 text-sm sm:text-base'}
-				>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		<div
+			bind:this={textContainer}
+			class={descExpanded ? 'text-sm sm:text-base' : 'line-clamp-5 text-sm sm:text-base'}
+		>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+				magna aliqua.
 				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</p>
-			</div>
+		</div>
 		{#if canExpandDesc}
-			<button class="btn btn-xs mt-2" onclick={toggleExpandedDesc}>
-				{descExpanded ? 'Show less' : 'Read more'}
-			</button>
+				<button class="btn btn-xs mt-2" onclick={toggleExpandedDesc}>
+					{descExpanded ? 'Show less' : 'Read more'}
+				</button>
 		{/if}
 	</div>
 </div>

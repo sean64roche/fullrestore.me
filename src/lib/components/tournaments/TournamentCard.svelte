@@ -4,7 +4,6 @@
 
 	let { tournament } = $props<{ tournament: Tournament }>();
 	let rounds: number[] = (tournament.rounds.slice().reverse());
-	$inspect(rounds);
 
 	let visibleRounds = (rounds.slice(0, 4));
 	let hiddenRounds = (rounds.length > 4 ? rounds.slice(4) : []);

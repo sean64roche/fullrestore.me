@@ -28,6 +28,7 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+		"@fullrestore/fullrestore-service": "^0.1.5",
 		"daisyui": "^5.0.9",
 		"lucide-svelte": "^0.484.0"
 	}

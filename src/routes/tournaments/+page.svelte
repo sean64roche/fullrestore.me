@@ -1,6 +1,7 @@
 <script lang="ts">
 	import TournamentCard from '$components/tournaments/TournamentCard.svelte';
-	import { SAMPLE_TOURNAMENTS } from './mockTournaments';
+
+	const { data } = $props();
 
 	let getStatusColor = (status: string) => {
 		switch (status) {
@@ -28,12 +29,12 @@
 		</p>
 	</div>
 	<div class="space">
-			{#each SAMPLE_TOURNAMENTS as tournament}
-				<div class="flex flex-col">
-					<TournamentCard tournament={tournament} />
-					<div class="divider"></div>
-				</div>
-			{/each}
+		{#each data.tournaments as tournament}
+			<div class="flex flex-col">
+				<TournamentCard tournament={tournament}/>
+				<div class="divider"></div>
+			</div>
+		{/each}
 	</div>
 </div>
 

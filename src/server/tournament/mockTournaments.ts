@@ -56,16 +56,3 @@ export const SAMPLE_TOURNAMENTS: Tournament[] = [
 		game: "Gen 3 OU"
 	}
 ];
-
-export const getStatusColor = (status: string) => {
-	switch (status) {
-		case 'upcoming':
-			return 'bg-green-500 hover:bg-green-600';
-		case 'completed':
-			return 'bg-gray-500 hover:bg-gray-600';
-		case 'ongoing':
-			return 'bg-blue-500 hover:bg-blue-600';
-		default:
-			return 'bg-gray-500 hover:bg-gray-600';
-	}
-};

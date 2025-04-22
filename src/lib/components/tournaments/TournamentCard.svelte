@@ -1,9 +1,12 @@
 <script lang="ts">
-	import { getStatusColor, type Tournament } from '../../../routes/tournaments/mockTournaments';
 	import { Calendar, Ellipsis } from 'lucide-svelte';
+  import type { Tournament } from '../../../routes/tournaments/+page.server';
+  import { compareAsc } from 'date-fns';
 
-	let { tournament } = $props<{ tournament: Tournament }>();
-	let rounds: number[] = (tournament.rounds.slice().reverse());
+	let { tournament }: { tournament: Tournament } = $props();
+	let rounds: number[] = tournament.rounds.
+		map(round => round.number).
+		toSorted((a, b) => b - a);
 
 	let visibleRounds = (rounds.slice(0, 4));
 	let hiddenRounds = (rounds.length > 4 ? rounds.slice(4) : []);
@@ -18,7 +21,41 @@
 		canExpandDesc = textContainer.scrollHeight > textContainer.clientHeight;
 	});
 
+  const getStatus = (startDate: Date, endDate?: Date) => {
+	  switch (compareAsc(startDate, Date.now())) {
+		  case 1:
+			case 0:
+				if (endDate && compareAsc(endDate, Date.now()) === 1) {
+					return {
+						style: 'bg-gray-500 hover:bg-gray-600',
+						status: 'completed'
+					};
+				} else {
+					return {
+						style: 'bg-blue-500 hover:bg-blue-600',
+						status: 'ongoing'
+					};
+				}
+			case -1:
+				return {
+					style: 'bg-green-500 hover:bg-green-600',
+					status: 'upcoming'
+				};
+		  default:
+			  return {
+					style: 'bg-gray-500 hover:bg-gray-600',
+					status: 'unknown'
+				};
+	  }
+  };
+
 </script>
+
+{#snippet status()}
+	<div class="badge badge-ghost {getStatus(tournament.startDate, tournament.endDate).style}">
+		{getStatus(tournament.startDate, tournament.endDate).status}
+	</div>
+{/snippet}
 
 <div class="card md:card-side bg-base-100 shadow-sm hover:shadow-lg transition-shadow">
 	<figure class="content-center md:w-1/2">
@@ -34,18 +71,16 @@
 				<h2 class="card-title">{tournament.name}</h2>
 				<div class="flex items-center gap-2 text-sm text-gray-500 flex-wrap">
 					<Calendar class="w-4 h-4" />
-					{new Date(tournament.startDate).toLocaleDateString()} - {new Date(tournament.endDate).toLocaleDateString()}
-					<div class="badge badge-ghost bg-purple-500 hover:bg-purple-600">{tournament.game}</div>
-					<div class="badge badge-ghost {getStatusColor(tournament.status)}">
-						{tournament.status.charAt(0).toUpperCase() + tournament.status.slice(1)}
-					</div>
+					{new Date(tournament.startDate).toLocaleDateString()} - {tournament.endDate?.toLocaleDateString()}
+					<div class="badge badge-ghost bg-purple-500 hover:bg-purple-600">{tournament.format}</div>
+					{@render status()}
 				</div>
 			</div>
 			<div class="mt-2 md:mt-0 md:static">
 				<div class="flex gap-2 items-center justify-end">
 					{#each visibleRounds as round}
 						<a href={round.toString()} class="link text-sm">
-							{round === rounds[0] && tournament.status === 'completed' ? 'Finals' : `Round ${round}`}
+							{round === rounds[0] && getStatus(tournament.startDate, tournament.endDate).status === 'completed' ? 'Finals' : `Round ${round}`}
 						</a>
 					{/each}
 					{#if hiddenRounds.length > 0}

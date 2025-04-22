@@ -21,6 +21,7 @@
 		"@tailwindcss/line-clamp": "^0.4.4",
 		"@tailwindcss/typography": "^0.5.16",
 		"@tailwindcss/vite": "^4.0.17",
+		"@types/node": "^22.14.1",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"tailwindcss": "^4.0.17",
@@ -28,8 +29,9 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"@fullrestore/fullrestore-service": "^0.1.5",
+		"@fullrestore/fullrestore-service": "^0.2.0",
 		"daisyui": "^5.0.9",
+		"date-fns": "^4.1.0",
 		"lucide-svelte": "^0.484.0"
 	}
 }

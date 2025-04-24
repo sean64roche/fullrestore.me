@@ -21,7 +21,7 @@
 		canExpandDesc = textContainer.scrollHeight > textContainer.clientHeight;
 	});
 
-  const getStatus = (startDate: Date, endDate?: Date) => {
+  const getStatus = (startDate: string, endDate?: string) => {
 	  switch (compareAsc(startDate, Date.now())) {
 		  case 1:
 			case 0:
@@ -52,17 +52,17 @@
 </script>
 
 {#snippet status()}
-	<div class="badge badge-ghost {getStatus(tournament.startDate, tournament.endDate).style}">
-		{getStatus(tournament.startDate, tournament.endDate).status}
+	<div class="badge badge-ghost {getStatus(tournament.startDate, tournament.finishDate).style}">
+		{getStatus(tournament.startDate, tournament.finishDate).status}
 	</div>
 {/snippet}
 
 <div class="card md:card-side bg-base-100 shadow-sm hover:shadow-lg transition-shadow">
-	<figure class="content-center md:w-1/2">
+	<figure class="md:w-auto h-auto md:min-w-[200px] flex items-center justify-center">
 		<img
 			src="revival2.webp"
 			alt="Image of {tournament.name} Logo"
-			class="md:object-contain m-auto w-full"
+			class="h-auto md:h-[200px] object-contain w-auto max-w-full"
 		/>
 	</figure>
 	<div class="card-body flex flex-col justify-between">
@@ -71,7 +71,10 @@
 				<h2 class="card-title">{tournament.name}</h2>
 				<div class="flex items-center gap-2 text-sm text-gray-500 flex-wrap">
 					<Calendar class="w-4 h-4" />
-					{new Date(tournament.startDate).toLocaleDateString()} - {tournament.endDate?.toLocaleDateString()}
+					{new Date(tournament.startDate).toLocaleDateString()} -
+					{#if tournament.finishDate}
+						{new Date(tournament.finishDate).toLocaleDateString()}
+					{/if}
 					<div class="badge badge-ghost bg-purple-500 hover:bg-purple-600">{tournament.format}</div>
 					{@render status()}
 				</div>
@@ -80,7 +83,7 @@
 				<div class="flex gap-2 items-center justify-end">
 					{#each visibleRounds as round}
 						<a href="{tournament.slug}/{round.toString()}" class="link text-sm">
-							{round === rounds[0] && getStatus(tournament.startDate, tournament.endDate).status === 'completed' ? 'Finals' : `Round ${round}`}
+							{round === rounds[0] && getStatus(tournament.startDate, tournament.finishDate).status === 'completed' ? 'Finals' : `Round ${round}`}
 						</a>
 					{/each}
 					{#if hiddenRounds.length > 0}
@@ -107,12 +110,16 @@
 			bind:this={textContainer}
 			class={descExpanded ? 'text-sm sm:text-base' : 'line-clamp-5 text-sm sm:text-base'}
 		>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-				magna aliqua.
-				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</p>
+			{#if tournament.info}
+				<p>{tournament.info}</p>
+			{:else}
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+					magna aliqua.
+					Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+					Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+				{/if}
 		</div>
 		{#if canExpandDesc}
 				<button class="btn btn-xs mt-2" onclick={toggleExpandedDesc}>

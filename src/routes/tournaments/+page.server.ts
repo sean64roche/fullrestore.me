@@ -6,9 +6,10 @@ export interface Tournament {
 	slug: string;
 	format: string,
 	rounds: Round[],
-	startDate: Date,
-	endDate?: Date,
-	individualWinner?: string
+	startDate: string,
+	finishDate?: string,
+	individualWinner?: string,
+	info?: string,
 }
 export interface Round {
 	id: string,
@@ -34,9 +35,10 @@ export const load = async ({ url }) => {
 			slug: toSlug(tournament.name, tournament.season),
 			format: tournament.format,
 			rounds,
-			startDate: new Date(Date.now()),
-			endDate: undefined,
+			startDate: tournament.start_date,
+			finishDate: tournament.finish_date || undefined,
 			individualWinner: tournament.individual_winner || undefined,
+			info: tournament.info || undefined
 		};
 	}));
 

@@ -79,7 +79,7 @@
 			<div class="mt-2 md:mt-0 md:static">
 				<div class="flex gap-2 items-center justify-end">
 					{#each visibleRounds as round}
-						<a href={round.toString()} class="link text-sm">
+						<a href="{tournament.slug}/{round.toString()}" class="link text-sm">
 							{round === rounds[0] && getStatus(tournament.startDate, tournament.endDate).status === 'completed' ? 'Finals' : `Round ${round}`}
 						</a>
 					{/each}
@@ -93,7 +93,7 @@
 							</button>
 							<ul class="dropdown-content absolute right-0 top-6 bg-base-100 shadow-lg rounded-lg p-2 z-10 w-36 flex flex-col gap-1">
 								{#each hiddenRounds as round}
-									<li><a href={round.toString()} class="link text-sm block p-1 hover:bg-base-200 rounded">
+									<li><a href="{tournament.slug}/{round.toString()}" class="link text-sm block p-1 hover:bg-base-200 rounded">
 										{`Round ${round}`}
 									</a></li>
 								{/each}

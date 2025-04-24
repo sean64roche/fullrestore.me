@@ -1,9 +1,9 @@
-import type { PageServerLoad } from './$types';
 import { loadRounds, loadTournaments } from '../../server/tournament/tournamentsApi';
 
 export interface Tournament {
 	id: string,
 	name: string;
+	slug: string;
 	format: string,
 	rounds: Round[],
 	startDate: Date,
@@ -16,7 +16,7 @@ export interface Round {
 	deadline?: string,
 }
 
-export const load: PageServerLoad = async ({ url }) => {
+export const load = async ({ url }) => {
 	const page = Number(url.searchParams.get('page') ?? 1);
 	const limit = Number(url.searchParams.get('limit') ?? 10);
 
@@ -31,6 +31,7 @@ export const load: PageServerLoad = async ({ url }) => {
 		return {
 			id: tournament.id,
 			name: tournament.name,
+			slug: toSlug(tournament.name, tournament.season),
 			format: tournament.format,
 			rounds,
 			startDate: new Date(Date.now()),
@@ -42,4 +43,8 @@ export const load: PageServerLoad = async ({ url }) => {
 	return {
 		tournaments,
 	};
+}
+
+function toSlug(name: string, season: string | number): string {
+	return name.toLowerCase().replace(/ /g, '-') + '-' + season.toString();
 }

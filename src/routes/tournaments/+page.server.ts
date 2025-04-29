@@ -3,6 +3,7 @@ import { loadRounds, loadTournaments } from '../../server/tournament/tournaments
 export interface Tournament {
 	id: string,
 	name: string;
+	season: string | number;
 	slug: string;
 	format: string,
 	rounds: Round[],
@@ -32,6 +33,7 @@ export const load = async ({ url }) => {
 		return {
 			id: tournament.id,
 			name: tournament.name,
+			season: tournament.season,
 			slug: toSlug(tournament.name, tournament.season),
 			format: tournament.format,
 			rounds,
@@ -48,5 +50,6 @@ export const load = async ({ url }) => {
 }
 
 function toSlug(name: string, season: string | number): string {
-	return name.toLowerCase().replace(/ /g, '-') + '-' + season.toString();
+	return name.toLowerCase().replace(/ /g, '-') +
+			(+season === 1 ? '' : '-' + season.toString());
 }

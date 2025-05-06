@@ -1,6 +1,6 @@
 import { createConfig } from "@fullrestore/fullrestore-service";
 import type { ApiConfig } from "@fullrestore/fullrestore-service";
-import { TournamentRepository, RoundRepository } from "@fullrestore/fullrestore-service";
+import { TournamentRepository, RoundRepository, PlayerRepository } from "@fullrestore/fullrestore-service";
 import axios from "axios";
 import log4js from 'log4js';
 import {
@@ -52,3 +52,4 @@ export const apiConfig: ApiConfig = createConfig({
 
 export const tournamentRepo: TournamentRepository = new TournamentRepository(apiConfig);
 export const roundRepo: RoundRepository = new RoundRepository(apiConfig);
+export const playerRepo: PlayerRepository = new PlayerRepository(apiConfig);

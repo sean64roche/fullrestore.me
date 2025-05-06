@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { Calendar, Ellipsis } from 'lucide-svelte';
-  import type { Tournament } from '../../../routes/tournaments/+page.server';
+  import type { TournamentQParams } from '../../../api/tournamentsApi';
   import { compareAsc } from 'date-fns';
 
-	let { tournament }: { tournament: Tournament } = $props();
+	let { tournament }: { tournament: TournamentQParams } = $props();
 	let rounds: number[] = tournament.rounds.
-		map(round => round.number).
+		map(round => round.roundNumber).
 		toSorted((a, b) => b - a);
 
 	let visibleRounds = (rounds.slice(0, 4));

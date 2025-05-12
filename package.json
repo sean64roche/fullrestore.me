@@ -29,7 +29,7 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"@fullrestore/fullrestore-service": "^0.2.0",
+		"@fullrestore/service": "^0.4.0",
 		"daisyui": "^5.0.9",
 		"date-fns": "^4.1.0",
 		"lucide-svelte": "^0.484.0"

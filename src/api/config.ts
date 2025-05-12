@@ -1,6 +1,6 @@
-import { createConfig } from "@fullrestore/fullrestore-service";
-import type { ApiConfig } from "@fullrestore/fullrestore-service";
-import { TournamentRepository, RoundRepository, PlayerRepository } from "@fullrestore/fullrestore-service";
+import { createConfig } from "@fullrestore/service";
+import type { ApiConfig } from "@fullrestore/service";
+import { TournamentRepository, RoundRepository, PlayerRepository } from "@fullrestore/service";
 import axios from "axios";
 import log4js from 'log4js';
 import {

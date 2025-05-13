@@ -1,4 +1,5 @@
-import { type RoundEntity, type TournamentResponse, type RoundResponse, transformTournamentResponse } from "@fullrestore/service/";
+import type { RoundEntity, TournamentResponse, RoundResponse } from '@fullrestore/service/';
+import { transformTournamentResponse } from '@fullrestore/service';
 import { roundRepo } from './config';
 import type { PageApi } from './pageApi';
 

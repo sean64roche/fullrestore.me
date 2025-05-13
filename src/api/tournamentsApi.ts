@@ -1,4 +1,4 @@
-import { type TournamentEntity, type TournamentResponse } from "@fullrestore/service/";
+import type { TournamentEntity, TournamentResponse } from '@fullrestore/service/';
 import { tournamentRepo } from './config';
 import type { PageApi } from './pageApi';
 import type { RoundQParams } from './roundsApi';

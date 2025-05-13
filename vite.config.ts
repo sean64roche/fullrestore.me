@@ -9,4 +9,7 @@ export default defineConfig({
 			allow: [],
 		},
 	},
+	optimizeDeps: {
+		exclude: ['node_modules/.cache'],
+	}
 });

@@ -32,6 +32,7 @@
 		"@fullrestore/service": "^0.4.0",
 		"daisyui": "^5.0.9",
 		"date-fns": "^4.1.0",
+		"log4js": "^6.9.1",
 		"lucide-svelte": "^0.484.0"
 	}
 }

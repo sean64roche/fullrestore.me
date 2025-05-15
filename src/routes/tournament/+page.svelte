@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TournamentCard from '$components/tournaments/TournamentCard.svelte';
+	import TournamentCard from '$components/tournament/TournamentCard.svelte';
 
 	const { data } = $props();
 

@@ -14,12 +14,12 @@
 	<div class="space">
 		{#each data.pairings as pairing}
 			<h2 class="text-2xl font-bold mb-2">
-				<a href="pairings/{pairing.id}">
+				<a href="/pairing/{pairing.id}">
 					{pairing.player1} vs {pairing.player2}
 				</a>
 			</h2>
 			<div class="flex flex-col">
-<!--				<PairingCard pairing={pairing}/>-->
+				<!--				<PairingCard pairing={pairing}/>-->
 				<div class="divider"></div>
 			</div>
 		{/each}

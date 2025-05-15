@@ -13,8 +13,8 @@
 	</div>
 	<div class="space">
 		{#each data.pairings as pairing}
-			<h2 class="text-2xl font-bold mb-2">
-				<a href="/pairing/{pairing.id}">
+			<h2 class="text-2xl mb-2">
+				<a href="/pairing/{pairing.id}" class="link">
 					{pairing.player1} vs {pairing.player2}
 				</a>
 			</h2>

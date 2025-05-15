@@ -49,7 +49,7 @@
 						{@render items()}
 					</ul>
 				</details>
-				<a href="/" class="btn btn-ghost text-xl">Full Restore Tournaments</a>
+				<a href="/" class="text-xl link-hover">Full Restore Tournaments</a>
 			</div>
 		</div>
 	</div>

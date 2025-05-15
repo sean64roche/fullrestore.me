@@ -29,23 +29,23 @@
 			case 0:
 				if (endDate && compareAsc(endDate, Date.now()) === 1) {
 					return {
-						style: 'bg-gray-500 hover:bg-gray-600',
+						style: 'bg-neutral text-neutral-content',
 						status: 'completed'
 					};
 				} else {
 					return {
-						style: 'bg-blue-500 hover:bg-blue-600',
+						style: 'bg-secondary text-secondary-content',
 						status: 'ongoing'
 					};
 				}
 			case -1:
 				return {
-					style: 'bg-green-500 hover:bg-green-600',
+					style: 'bg-secondary text-secondary-content',
 					status: 'upcoming'
 				};
 		  default:
 			  return {
-					style: 'bg-gray-500 hover:bg-gray-600',
+					style: 'bg-secondary text-secondary-content',
 					status: 'unknown'
 				};
 	  }
@@ -77,7 +77,7 @@
 					{#if tournament.finishDate}
 						{new Date(tournament.finishDate).toLocaleDateString()}
 					{/if}
-					<div class="badge badge-ghost bg-purple-500 hover:bg-purple-600">{tournament.format}</div>
+					<div class="badge badge-ghost bg-accent text-accent-content">{tournament.format}</div>
 					{@render status()}
 				</div>
 			</div>

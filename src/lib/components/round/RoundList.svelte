@@ -12,7 +12,9 @@
 	let hiddenRounds = (rounds?.length > 4 ? rounds.slice(4) : []);
 </script>
 
-<div class="flex gap-2 items-center">
+
+
+<div class="flex gap-2 ps-2 items-center whitespace-nowrap">
 	{#each visibleRounds as round}
 		<a href="/tournament/{tournament.slug}/r{round}" class="link text-sm">
 			{round === rounds[0] && status === 'completed' ? 'Finals' : `Round ${round}`}

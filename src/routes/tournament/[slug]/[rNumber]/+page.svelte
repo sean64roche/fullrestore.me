@@ -26,7 +26,15 @@
 	<div class="space">
 		{#each data.pairings as pairing}
 			<h2 class="text-2xl mb-2">
-				<a href="/pairing/{pairing.id}" class="link" target="_blank">
+				<a href="
+				/match
+				/{data.tournament.format}
+				/{data.tournament.slug}
+				/r{data.round.roundNumber}
+				/{pairing.player1}-vs-{pairing.player2}"
+					 class="link"
+					 target="_blank"
+				>
 					{pairing.player1} vs. {pairing.player2}
 				</a>
 			</h2>

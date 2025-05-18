@@ -1,5 +1,5 @@
 <script lang="ts">
-		import MatchPanel from '$components/pairing/MatchPanel.svelte';
+		import MatchPanel from '$components/match/MatchPanel.svelte';
 		const { data } = $props();
 </script>
 

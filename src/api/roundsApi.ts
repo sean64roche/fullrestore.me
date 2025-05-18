@@ -1,14 +1,13 @@
-import type { RoundEntity, TournamentResponse, RoundResponse } from '@fullrestore/service/';
-import { transformTournamentResponse } from '@fullrestore/service';
+import type { RoundEntity, TournamentEntity } from '@fullrestore/service/';
 import { roundRepo } from './config';
 import type { PageApi } from './pageApi';
 
 export type RoundQParams = Omit<RoundEntity, 'tournament'> & PageApi;
 
-export async function loadRounds(tournament: TournamentResponse): Promise<RoundResponse[]> {
+export async function loadRounds(tournament: TournamentEntity): Promise<RoundEntity[]> {
 	return await roundRepo.getByTournamentId(tournament.id);
 }
 
-export async function loadRound(reqTournament: TournamentResponse, round: number): Promise<RoundEntity> {
-	return await roundRepo.get(transformTournamentResponse(reqTournament), round);
+export async function loadRound(reqTournament: TournamentEntity, round: number): Promise<RoundEntity> {
+	return await roundRepo.get(reqTournament, round);
 }

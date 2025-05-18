@@ -11,13 +11,13 @@ export const load = async ({ url }) => {
 		const roundsData = await loadRounds(tournament);
 		const rounds: RoundQParams[] = roundsData.map((round) => ({
 			id: round.id,
-			roundNumber: round.round,
+			roundNumber: round.roundNumber,
 			deadline: round.deadline,
 			slug: `r${round}`,
 		}));
 		let winner = undefined;
-		if (!!tournament.individual_winner) {
-			winner = await playerRepo.findPlayerByAlias(tournament.individual_winner) || undefined;
+		if (!!tournament.individualWinner) {
+			winner = await playerRepo.findPlayerByAlias(tournament.individualWinner.psUser) || undefined;
 		}
 		return {
 			id: tournament.id,
@@ -26,10 +26,10 @@ export const load = async ({ url }) => {
 			slug: toSlug(tournament.name, tournament.season),
 			format: tournament.format,
 			rounds,
-			startDate: tournament.start_date,
-			finishDate: tournament.finish_date || undefined,
-			currentRound: tournament.current_round,
-			prizePool: tournament.prize_pool,
+			startDate: tournament.startDate,
+			finishDate: tournament.finishDate || undefined,
+			currentRound: tournament.currentRound,
+			prizePool: tournament.prizePool,
 			individualWinner: winner,
 			info: tournament.info || undefined,
 			page: page,

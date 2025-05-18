@@ -1,4 +1,5 @@
 import { pairingRepo, roundRepo, tournamentRepo } from '../../../../api/config';
+import { loadRounds } from '../../../../api/roundsApi';
 
 export const load = async ({ params }) => {
 	const tournament = await tournamentRepo.getBySlug(params.slug);
@@ -12,10 +13,12 @@ export const load = async ({ params }) => {
 		winner: pairing.winner?.player.psUser,
 		replays: pairing.replays,
 	}));
+	const allRounds = await loadRounds(tournament);
 
 	return {
 		pairings,
 		tournament,
 		round,
+		allRounds,
 	};
 }

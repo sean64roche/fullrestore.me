@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Ellipsis } from 'lucide-svelte';
-	import type { TournamentQParams } from '../../../api/tournamentsApi';
+	import type { TournamentEntity } from '@fullrestore/service';
 
 	let { tournament, rounds, status }: {
-		tournament: TournamentQParams,
+		tournament: TournamentEntity,
 		rounds: number[],
 		status: string
 	} = $props();

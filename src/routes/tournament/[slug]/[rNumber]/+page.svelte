@@ -6,20 +6,19 @@
   import { createSearchStore, searchHandler } from '$stores/search';
 
   const { data } = $props();
-  const rounds: number[] = [];
-  data.allRounds.forEach((round) => {
-	  rounds.push(round.roundNumber);
-	});
+  const rounds = data.allRounds.map(r => r.roundNumber);
 
-  const searchPlayers = data.pairings.map((pairing) => ({
+  let searchPlayers = $derived(data.pairings.map((pairing) => ({
 		...pairing,
 		searchTerms: `${pairing.player1} ${pairing.player2}`,
-	}));
-  const searchStore = createSearchStore(searchPlayers);
-  const unsubscribe = searchStore.subscribe((model) => searchHandler(model));
-  onDestroy(() => {
-	  unsubscribe();
+	})));
+  let searchStore = $derived(createSearchStore(searchPlayers));
+  let unsubscribe: (() => void) | undefined;
+  $effect(() => {
+	  unsubscribe?.();
+	  unsubscribe = searchStore.subscribe((model) => searchHandler(model));
   });
+  onDestroy(() => unsubscribe?.());
 
 </script>
 
@@ -45,7 +44,8 @@
 				<RoundList
 					tournament={data.tournament}
 					rounds={rounds}
-					status={getTournamentStatus(data.tournament.startDate, data.tournament.finishDate).style}/>
+					status={getTournamentStatus(data.tournament.startDate, data.tournament.finishDate).style}
+				/>
 			</div>
 
 		</div>
@@ -67,7 +67,6 @@
 				</a>
 			</h2>
 			<div class="flex flex-col">
-				<!--				<PairingCard pairing={pairing}/>-->
 				<div class="divider"></div>
 			</div>
 		{/each}

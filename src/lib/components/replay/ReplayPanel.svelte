@@ -48,7 +48,7 @@
 			iframeDoc.open();
 			iframeDoc.write(
 					`<!DOCTYPE html>` +
-					`<html>` +
+					`<html lang="en">` +
 						`<head>` +
 						`<meta charset="utf-8">` +
 						`<title>Pokemon Showdown Replay</title>` +
@@ -104,7 +104,7 @@
 <div class="replay-container">
 	<div bind:this={iframeContainer} class="iframe-wrapper"></div>
 	{#if isLoading}
-		<div class="loading centered">Loading replay...</div>
+		<div class="loading centered"></div>
 	{:else if error}
 		<div class="error">Error: {error}</div>
 	{/if}

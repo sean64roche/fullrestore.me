@@ -3,6 +3,11 @@
 		import { ChevronsLeftRight } from 'lucide-svelte';
 		const { data } = $props();
 </script>
+<svelte:head>
+	<title>{data.post.title}</title>
+	<meta name="og:title" content={data.post.title}>
+	<meta name="og:description" content={data.post.content}>
+</svelte:head>
 
 <div class="container mx-auto py-8 px-4">
 	<div class="breadcrumbs text-sm">

@@ -39,6 +39,10 @@ export const load = async ({ url }) => {
 
 	return {
 		tournaments,
+		post: {
+			title: `Tournaments - Full Restore`,
+			content: `Tournaments search`,
+		}
 	};
 }
 

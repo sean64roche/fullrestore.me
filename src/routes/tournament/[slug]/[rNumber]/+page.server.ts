@@ -20,5 +20,9 @@ export const load = async ({ params }) => {
 		tournament,
 		round,
 		allRounds,
+		post: {
+			title: `${tournament.name} Round ${roundNumber} - Full Restore`,
+			content: `{tournament.name} Round ${roundNumber}`,
+		}
 	};
 }

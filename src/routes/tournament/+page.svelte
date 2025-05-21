@@ -17,6 +17,12 @@
 	};
 </script>
 
+<svelte:head>
+	<title>{data.post.title}</title>
+	<meta name="og:title" content={data.post.title}>
+	<meta name="og:description" content={data.post.content}>
+</svelte:head>
+
 <div class="container mx-auto py-8 px-4">
 	<div class="mb-8">
 		<h1 class="text-4xl font-bold mb-2">Tournaments</h1>

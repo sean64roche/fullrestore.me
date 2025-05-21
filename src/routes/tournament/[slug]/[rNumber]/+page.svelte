@@ -24,12 +24,19 @@
 </script>
 
 <div class="container mx-auto py-8 px-4">
+	<div class="breadcrumbs text-sm">
+		<ul>
+			<li><a href="/tournament">Tournaments</a></li>
+			<li><a href="/tournament/{data.tournament.slug}">{data.tournament.name}</a></li>
+			<li><a href="/tournament/{data.tournament.slug}/r{data.round.roundNumber}">Round {data.round.roundNumber}</a></li>
+		</ul>
+	</div>
 	<div class="mb-8">
 		<h1 class="text-4xl font-bold mb-2">{data.tournament.name} Round {data.round.roundNumber}</h1>
 		<p class="text-gray-500">
 			{data.tournament.info}
 		</p>
-		<div class="player-cards" data-player-cards-container>
+		<div class="player-cards">
 			<div class="search-wrapper inline-flex">
 				<label class="input">
 					<Search class="w-4 h-4" />
@@ -38,7 +45,7 @@
 				<RoundList
 					tournament={data.tournament}
 					rounds={rounds}
-					status={getTournamentStatus(data.tournament.startDate, data.tournament.finishDate)}/>
+					status={getTournamentStatus(data.tournament.startDate, data.tournament.finishDate).style}/>
 			</div>
 
 		</div>

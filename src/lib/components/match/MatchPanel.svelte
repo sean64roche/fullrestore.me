@@ -3,6 +3,7 @@
 	import type { ContentQParams } from '../../../api/pairingsApi';
 	import { goto } from '$app/navigation';
   import { page } from '$app/state';
+  import ReplayPanel from '$components/replay/ReplayPanel.svelte';
 
   interface Props {
 		tournament: TournamentEntity,
@@ -68,12 +69,12 @@
 </script>
 
 <div class="card md:card-side bg-base-100 transition-shadow">
-	<h1 class="text-4xl font-bold mb-2">
+	<h1 class="text-4xl font-bold mb-2 px-4">
 		{player1.psUser} vs. {player2.psUser} — {tournament.name} Round {round.roundNumber}
 	</h1>
 </div>
 <div class="card mb-4">
-	<div class="card-header">
+	<div class="card-header px-4">
 		<div class="flex justify-between items-center">
 			<h3 class="card-title text-lg">
 				Hello World
@@ -106,8 +107,6 @@
 			</div>
 		</div>
 	</div>
-
-	<hr class="separator" />
 
 	<div class="card-content pt-4">
 		{#if activeTab === 'content'}
@@ -147,13 +146,7 @@
 
 						{#each replays as replay}
 							{#if +activeReplay === +replay.matchNumber}
-								<div>
-									<iframe
-										src={replay.url}
-										title="Pokemon Showdown Replay"
-										class="w-full aspect-video"
-									></iframe>
-								</div>
+								<ReplayPanel replay={replay} />
 							{/if}
 						{/each}
 					</div>

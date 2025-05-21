@@ -12,5 +12,10 @@
     <orderEntry type="library" name="classless" level="application" />
     <orderEntry type="module" module-name="fullrestore-api" />
     <orderEntry type="module" module-name="fullrestore-service" />
+    <orderEntry type="library" name="replay-embed" level="application" />
+    <orderEntry type="library" name="font-awesome" level="application" />
+    <orderEntry type="library" name="battle" level="application" />
+    <orderEntry type="library" name="replay" level="application" />
+    <orderEntry type="library" name="utilichart" level="application" />
   </component>
 </module>

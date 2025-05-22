@@ -81,11 +81,18 @@ License: GPLv2
 @media (max-width: 820px) {
 	.battle {
 		flex-direction: column;
+		position: relative;
 	}
-
 	.battle-log {
 		flex: 1;
 		order: 2;
+		position: relative; /* Key change */
+		left: 0;
+		top: 10px; /* Small gap instead of large fixed position */
+		right: 0;
+		width: 100%;
+		max-width: 640px;
+		margin: 0 auto;
 	}
 }
 .dark .battle, .dark .battle-log, .dark .battle-log-add {

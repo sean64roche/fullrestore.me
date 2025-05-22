@@ -55,18 +55,15 @@
 						`<meta name="viewport" content="width=device-width, initial-scale=1">` +
 						// `<base href="https://play.pokemonshowdown.com/">` +
 						`<style>` +
-						`body { background-color: white; color: black; }` +
+						`body { background-color: white; color: black; margin: 0 }` +
 						`.wrapper { margin: 0 auto; max-width: 1180px; height: 720px; }` +
 						`.battle-log {
-							position: absolute;
+							position: relative;
 							text-align: left;
 							border: 1px solid #AAAAAA;
 							background: #EEF2F5;
 							color: black;
 							top: 9px;
-							left: 640px;
-							right: -1px;
-							height: 360px;
 
 							font-family: Verdana, sans-serif;
 							font-size: 10pt;

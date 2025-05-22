@@ -45,6 +45,16 @@
 	font-family: Verdana, sans-serif;
 	font-size: 10pt;
 }
+@media (max-width: 640px) {
+	.replay-controls {
+		position: relative;
+		top: 10px;
+	}
+	.replay-controls-2 {
+		position: relative;
+		top: 10px;
+	}
+}
 .replay-controls button {
 	font-family: Verdana, sans-serif;
 	font-size: 10pt;

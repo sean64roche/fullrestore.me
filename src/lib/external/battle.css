@@ -84,8 +84,8 @@ License: GPLv2
 	}
 
 	.battle-log {
-		flex: 1; /* Full width on mobile */
-		order: 2; /* Moves it below main content */
+		flex: 1;
+		order: 2;
 	}
 }
 .dark .battle, .dark .battle-log, .dark .battle-log-add {

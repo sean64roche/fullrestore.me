@@ -4,13 +4,19 @@
   import RoundList from '$components/round/RoundList.svelte';
   import { getTournamentStatus } from '$lib/helpers';
   import { createSearchStore, searchHandler } from '$stores/search';
+  import { primaryUsername } from '../../../../api/playerApi.js';
 
   const { data } = $props();
   const rounds = data.allRounds.map(r => r.roundNumber);
 
   let searchPlayers = $derived(data.pairings.map((pairing) => ({
 		...pairing,
-		searchTerms: `${pairing.player1} ${pairing.player2}`,
+		searchTerms: `
+		${pairing.player1.psUser}
+		${pairing.player2.psUser}
+		${primaryUsername(pairing.player1)}
+		${primaryUsername(pairing.player2)}
+		`,
 	})));
   let searchStore = $derived(createSearchStore(searchPlayers));
   let unsubscribe: (() => void) | undefined;
@@ -65,11 +71,11 @@
 				/{data.tournament.format}
 				/{data.tournament.slug}
 				/r{data.round.roundNumber}
-				/{pairing.player1}-vs-{pairing.player2}"
+				/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
 					 class="link"
 					 target="_blank"
 				>
-					{pairing.player1} vs. {pairing.player2}
+					{primaryUsername(pairing.player1)} vs. {primaryUsername(pairing.player2)}
 				</a>
 			</h2>
 			<div class="flex flex-col">

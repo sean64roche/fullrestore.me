@@ -1,4 +1,5 @@
 import { pairingRepo, playerRepo, roundRepo, tournamentRepo } from '../../../../../../api/config';
+import { primaryUsername } from '../../../../../../api/playerApi';
 
 export const load = async ({ params }) => {
 	const tournament = await tournamentRepo.getBySlug(params.tournamentSlug);
@@ -14,8 +15,8 @@ export const load = async ({ params }) => {
 		player1,
 		player2,
 		post: {
-			title: `${player1.psUser} vs. ${player2.psUser} - Full Restore`,
-			content: `Tournament set ${player1.psUser} vs. ${player2.psUser} in ${tournament.name} Round ${round.roundNumber}`,
+			title: `${primaryUsername(player1)} vs. ${primaryUsername(player2)} - Full Restore`,
+			content: `Tournament set ${primaryUsername(player1)} vs. ${primaryUsername(player2)} in ${tournament.name} Round ${round.roundNumber}`,
 		}
 	};
 }

@@ -8,9 +8,9 @@ export const load = async ({ params }) => {
 	const pairingsData = await pairingRepo.getByRoundId(round.id);
 	const pairings = pairingsData.map((pairing) => ({
 		id: pairing.id,
-		player1: pairing.entrant1.player.psUser,
-		player2: pairing.entrant2.player.psUser,
-		winner: pairing.winner?.player.psUser,
+		player1: pairing.entrant1.player,
+		player2: pairing.entrant2.player,
+		winner: pairing.winner?.player,
 		replays: pairing.replays,
 	}));
 	const allRounds = await loadRounds(tournament);

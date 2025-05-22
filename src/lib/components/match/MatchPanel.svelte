@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import ReplayPanel from '$components/replay/ReplayPanel.svelte';
+  import { primaryUsername } from '../../../api/playerApi';
 
   interface Props {
 		tournament: TournamentEntity,
@@ -70,7 +71,7 @@
 
 <div class="card md:card-side bg-base-100 transition-shadow">
 	<h1 class="text-4xl font-bold mb-2 px-4">
-		{player1.psUser} vs. {player2.psUser} — {tournament.name} Round {round.roundNumber}
+		{primaryUsername(player1)} vs. {primaryUsername(player2)} — {tournament.name} Round {round.roundNumber}
 	</h1>
 </div>
 <div class="card mb-4">

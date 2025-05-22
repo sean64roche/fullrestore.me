@@ -1,6 +1,7 @@
 <script lang="ts">
 		import MatchPanel from '$components/match/MatchPanel.svelte';
 		import { ChevronsLeftRight } from 'lucide-svelte';
+	import { primaryUsername } from '../../../../../../api/playerApi';
 		const { data } = $props();
 </script>
 <svelte:head>
@@ -16,9 +17,9 @@
 			<li><a href="/tournament/{data.tournament.slug}">{data.tournament.name}</a></li>
 			<li><a href="/tournament/{data.tournament.slug}/r{data.round.roundNumber}">Round {data.round.roundNumber}</a></li>
 			<li>
-				<span><a href="/player/{data.player1.psUser}">{data.player1.psUser}</a></span>
+				<span><a href="/player/{data.player1.psUser}">{primaryUsername(data.player1)}</a></span>
 				&nbsp; <span><ChevronsLeftRight color="#999999"/></span> &nbsp;
-				<span><a href="/player/{data.player2.psUser}">{data.player2.psUser}</a></span>
+				<span><a href="/player/{data.player2.psUser}">{primaryUsername(data.player2)}</a></span>
 			</li>
 		</ul>
 	</div>

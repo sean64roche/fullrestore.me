@@ -30,8 +30,8 @@ function requireScript(url) {
 }
 
 linkStyle('https://play.pokemonshowdown.com/style/font-awesome.css?');
-linkStyle('/src/lib/external/battle.css?a7');
-linkStyle('/src/lib/external/replay.css');
+linkStyle('https://replay-embed.pages.dev/battle.css');
+linkStyle('https://replay-embed.pages.dev/replay.css');
 linkStyle('https://play.pokemonshowdown.com/style/utilichart.css?a7');
 
 requireScript('https://play.pokemonshowdown.com/js/lib/ps-polyfill.js');

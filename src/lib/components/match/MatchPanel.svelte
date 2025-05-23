@@ -129,18 +129,15 @@
 				{#if replays.length > 0}
 					<div>
 						<div class="w-full grid-flow-row {replays.length > 5 ? 'mb-4' : ''}">
-							<div class="list grid w-full {gridList}">
+							<div class="tabs tabs-box list grid w-full {gridList}">
 								{#each replays as replay}
-									<button
-										class="btn btn-style btn-md link-hover {activeReplay === replay.matchNumber ? 'btn-active' : ''}"
+									<input
+										type="radio" name="my_tabs_1" aria-label="Game {replay.matchNumber}" class="tab link-hover {activeReplay === replay.matchNumber ? 'btn-active' : ''}"
 										onclick={() => {
                                             activeReplay = replay.matchNumber;
                                             updateURL('replay', replay.matchNumber);
                                         }}
-										aria-label="Toggle to replay number {replay.matchNumber}"
-									>
-										Game {replay.matchNumber}
-									</button>
+									/>
 								{/each}
 							</div>
 						</div>

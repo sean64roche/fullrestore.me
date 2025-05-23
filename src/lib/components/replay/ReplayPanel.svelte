@@ -24,7 +24,7 @@
 		try {
 			const iframe = document.createElement('iframe');
 			iframe.style.width = '100%';
-			iframe.style.height = '600px';
+			iframe.style.height = '768px';
 			iframe.style.border = 'none';
 			iframe.title = 'Pokemon Showdown Replay';
 
@@ -114,6 +114,7 @@
     .replay-container {
         position: relative;
         width: 100%;
+        contain: layout;
     }
 
     .loading, .error {

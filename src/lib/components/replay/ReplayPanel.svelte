@@ -53,7 +53,7 @@
 						`<meta charset="utf-8">` +
 						`<title>Pokemon Showdown Replay</title>` +
 						`<meta name="viewport" content="width=device-width, initial-scale=1">` +
-						// `<base href="https://play.pokemonshowdown.com/">` +
+						`<base href="https://play.pokemonshowdown.com/">` +
 						`<style>` +
 						`body { background-color: white; color: black; margin: 0; min-height: 640px; overflow: hidden; }` +
 						`.wrapper { margin: 0 auto; max-width: 1180px; }` +
@@ -83,7 +83,7 @@
 								`<div class="replay-controls-2"></div>` +
 							`</div>` +
 							`<script type="text/plain" class="battle-log-data">${data.log}</` + `script>` +
-							`<script src="/src/lib/external/replay-embed.js"></` + `script>` +
+							`<script src="https://replay-embed.pages.dev/replay-embed.js"></` + `script>` +
 					`</body>` +
 					`</html>`
 			);

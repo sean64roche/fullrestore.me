@@ -2,11 +2,11 @@
 	import type { TournamentEntity, PlayerEntity, RoundEntity, ReplayEntity } from '@fullrestore/service';
 	import type { ContentQParams } from '../../../api/pairingsApi';
 	import { goto } from '$app/navigation';
-  import { page } from '$app/state';
-  import ReplayPanel from '$components/replay/ReplayPanel.svelte';
-  import { primaryUsername } from '../../../api/playerApi';
+	import { page } from '$app/state';
+	import ReplayPanel from '$components/replay/ReplayPanel.svelte';
+	import { primaryUsername } from '../../../api/playerApi';
 
-  interface Props {
+	interface Props {
 		tournament: TournamentEntity,
 		round: RoundEntity,
 		player1: PlayerEntity,
@@ -16,14 +16,14 @@
 	}
 
 	let { tournament, round, player1, player2, replays = [], content }: Props = $props();
-  let activeTab = $state('replay');
+	let activeTab = $state('replay');
 	let activeReplay: number = $state(1);
 	let gridList = !!replays ? getGridClass(replays.length) : 0;
 	content = {
 		id: 'test-id',
 		url: 'https://www.youtube.com/embed/UGcCU6vR1OQ',
-		type: 'youtube',
-	}
+		type: 'youtube'
+	};
 
 	function getGridClass(count: number) {
 		if (count === 1) return 'grid-cols-1';
@@ -35,37 +35,41 @@
 	}
 
 	function updateURL(newTab: string, gameNumber?: number) {
-	  const url = page.url;
-	  if (newTab === 'replay' && gameNumber) {
+		const url = page.url;
+		if (newTab === 'replay' && gameNumber) {
 			url.hash = `game${gameNumber}`;
 		} else {
 			url.hash = '';
 		}
 
-		goto(url.pathname + url.hash, { replaceState: true });
+		goto(url.pathname + url.hash, {
+			replaceState: true,
+			keepFocus: true,
+			noScroll: true
+		});
 	}
 
-  const initializeFromURL = () => {
+	const initializeFromURL = () => {
 		const url = page.url;
-	  const gameHash = url.hash.replace('#', '');
+		const gameHash = url.hash.replace('#', '');
 
-	  if (gameHash && gameHash.startsWith('game')) {
-		  const gameNumber = +gameHash.replace('game', '');
-		  const gameExists = replays?.some(replay => replay.matchNumber === +gameNumber);
+		if (gameHash && gameHash.startsWith('game')) {
+			const gameNumber = +gameHash.replace('game', '');
+			const gameExists = replays?.some(replay => replay.matchNumber === +gameNumber);
 
-		  if (gameExists) {
-			  activeTab = 'replay';
-			  activeReplay = gameNumber;
-		  }
-	  } else {
-		  activeTab = content ? 'content' : (replays.length > 0 ? 'replay' : 'content');
-		  if (replays.length > 0) {
-			  activeReplay = replays[0].matchNumber;
-		  }
-	  }
-  };
+			if (gameExists) {
+				activeTab = 'replay';
+				activeReplay = gameNumber;
+			}
+		} else {
+			activeTab = content ? 'content' : (replays.length > 0 ? 'replay' : 'content');
+			if (replays.length > 0) {
+				activeReplay = replays[0].matchNumber;
+			}
+		}
+	};
 
-  initializeFromURL();
+	initializeFromURL();
 
 </script>
 
@@ -132,7 +136,8 @@
 							<div class="tabs tabs-box list grid w-full {gridList}">
 								{#each replays as replay}
 									<input
-										type="radio" name="my_tabs_1" aria-label="Game {replay.matchNumber}" class="tab link-hover {activeReplay === replay.matchNumber ? 'tab-active' : ''}"
+										type="radio" name="my_tabs_1" aria-label="Game {replay.matchNumber}"
+										class="tab link-hover {activeReplay === replay.matchNumber ? 'tab-active' : ''}"
 										onclick={() => {
                                             activeReplay = replay.matchNumber;
                                             updateURL('replay', replay.matchNumber);

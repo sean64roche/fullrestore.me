@@ -143,9 +143,9 @@
 						</div>
 
 						{#each replays as replay}
-							{#if +activeReplay === +replay.matchNumber}
+							<div class="replay-panel" style="display: {+activeReplay === +replay.matchNumber ? 'block' : 'none'}">
 								<ReplayPanel replay={replay} />
-							{/if}
+							</div>
 						{/each}
 					</div>
 				{:else}

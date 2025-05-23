@@ -53,10 +53,10 @@
 						`<meta charset="utf-8">` +
 						`<title>Pokemon Showdown Replay</title>` +
 						`<meta name="viewport" content="width=device-width, initial-scale=1">` +
-						`<base href="https://play.pokemonshowdown.com/">` +
+						// `<base href="https://play.pokemonshowdown.com/">` +
 						`<style>` +
-						`body { background-color: white; color: black; margin: 0 }` +
-						`.wrapper { margin: 0 auto; max-width: 1180px; height: 720px; }` +
+						`body { background-color: white; color: black; margin: 0; min-height: 640px; overflow: hidden; }` +
+						`.wrapper { margin: 0 auto; max-width: 1180px; }` +
 						`.battle-log {
 							position: relative;
 							text-align: left;
@@ -83,7 +83,7 @@
 								`<div class="replay-controls-2"></div>` +
 							`</div>` +
 							`<script type="text/plain" class="battle-log-data">${data.log}</` + `script>` +
-							`<script src="https://replay-embed.pages.dev/replay-embed.js"></` + `script>` +
+							`<script src="/src/lib/external/replay-embed.js"></` + `script>` +
 					`</body>` +
 					`</html>`
 			);
@@ -91,23 +91,6 @@
 
 			iframe.onload = () => {
 				isLoading = false;
-
-				const adjustIframeHeight = () => {
-					try {
-						if (iframe.contentDocument && iframe.contentDocument.body) {
-							const height = iframe.contentDocument.body.scrollHeight;
-							iframe.style.height = `${height + 20}px`;
-						}
-					} catch (e) {
-						console.warn('Could not adjust iframe height:', e);
-					}
-				};
-
-				adjustIframeHeight();
-
-				const intervalId = setInterval(adjustIframeHeight, 1000);
-
-				return () => clearInterval(intervalId);
 			};
 
 		} catch (err: any) {

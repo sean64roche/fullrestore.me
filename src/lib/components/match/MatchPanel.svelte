@@ -82,7 +82,7 @@
 			</h3>
 			<div class="tabs w-48">
 				<div class="tabs-list grid w-full grid-cols-2">
-					<button class="btn btn-style btn-md link-hover"
+					<button class="btn btn-style btn-md link-hover {activeTab === 'content' ? 'btn-active' : ''}"
 									tabindex="0"
 									disabled={!content}
 									aria-label="Toggle to Content section"
@@ -92,7 +92,7 @@
                   }}>
 						Content
 					</button>
-					<button class="btn btn-style btn-md link-hover"
+					<button class="btn btn-style btn-md link-hover {activeTab === 'replay' ? 'btn-active' : ''}"
 									tabindex="0"
 									disabled={replays.length < 1}
 									aria-label="Toggle to Replay section"
@@ -111,7 +111,7 @@
 
 	<div class="card-content pt-4">
 		{#if activeTab === 'content'}
-			<div>
+			<div class="{activeTab === 'content' ? 'tab-active' : ''}">
 				{#if content?.type === 'youtube' && content.url}
 					<iframe
 						src={'https://www.youtube.com/embed/UGcCU6vR1OQ'}
@@ -125,14 +125,14 @@
 				{/if}
 			</div>
 		{:else if activeTab === 'replay'}
-			<div>
+			<div class="tab-active">
 				{#if replays.length > 0}
 					<div>
 						<div class="w-full grid-flow-row {replays.length > 5 ? 'mb-4' : ''}">
 							<div class="tabs tabs-box list grid w-full {gridList}">
 								{#each replays as replay}
 									<input
-										type="radio" name="my_tabs_1" aria-label="Game {replay.matchNumber}" class="tab link-hover {activeReplay === replay.matchNumber ? 'btn-active' : ''}"
+										type="radio" name="my_tabs_1" aria-label="Game {replay.matchNumber}" class="tab link-hover {activeReplay === replay.matchNumber ? 'tab-active' : ''}"
 										onclick={() => {
                                             activeReplay = replay.matchNumber;
                                             updateURL('replay', replay.matchNumber);

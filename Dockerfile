@@ -10,13 +10,6 @@ RUN echo "@fullrestore:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_P
 
 WORKDIR /
 
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci
-
-WORKDIR /usr/src/
-
 COPY package*.json ./
 RUN npm install -y
 

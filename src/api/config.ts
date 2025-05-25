@@ -32,7 +32,7 @@ import {
 // });
 
 axios.defaults.baseURL = API_BASEURL || 'http://localhost:3000';
-axios.defaults.headers.common['x-api-key'] = API_KEY;
+axios.defaults.headers.common['x-api-key'] = `${API_KEY}`;
 
 export const apiConfig: ApiConfig = createConfig({
 	baseUrl: axios.defaults.baseURL,

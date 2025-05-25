@@ -24,7 +24,7 @@ docker-build:
   script:
     - |
       docker build --pull \
-        --build-arg NPM_TOKEN="${NPM_TOKEN}" \
+        --build-arg NPM_TOKEN="${CI_JOB_TOKEN}" \
         --build-arg CI_SERVER_HOST="${CI_SERVER_HOST}" \
         -t "$DOCKER_IMAGE_NAME" .
     - docker push "$DOCKER_IMAGE_NAME"

@@ -14,7 +14,7 @@ import {
 	API_ENTRANT_PLAYERS_ENDPOINT,
 	API_PAIRINGS_ENDPOINT,
 	API_REPLAYS_ENDPOINT,
-	API_TOKEN,
+	API_KEY,
 } from '$env/static/private';
 
 // const date = new Date();
@@ -32,11 +32,11 @@ import {
 // });
 
 axios.defaults.baseURL = API_BASEURL || 'http://localhost:3000';
-axios.defaults.headers.common['Authorization'] = `Bearer ${API_TOKEN}`;
+axios.defaults.headers.common['x-api-key'] = API_KEY;
 
 export const apiConfig: ApiConfig = createConfig({
 	baseUrl: axios.defaults.baseURL,
-	token: API_TOKEN,
+	apiKey: API_KEY,
 	formatsEndpoint: API_FORMATS_ENDPOINT,
 	playersEndpoint: API_PLAYERS_ENDPOINT,
 	playerAliasesEndpoint: API_PLAYER_ALIASES_ENDPOINT,

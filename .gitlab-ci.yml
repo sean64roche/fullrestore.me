@@ -26,7 +26,6 @@ docker-build:
       docker build --pull \
         --build-arg NPM_TOKEN="${NPM_TOKEN}" \
         --build-arg CI_SERVER_HOST="${CI_SERVER_HOST}" \
-        --build-arg CI_PROJECT_ID="69690868" \
         -t "$DOCKER_IMAGE_NAME" .
     - docker push "$DOCKER_IMAGE_NAME"
     - |

@@ -8,13 +8,13 @@ FROM node:${NODE_VERSION}-alpine
 
 WORKDIR /usr/src/
 
-RUN npm config set -- //gitlab.com/api/v4/projects/69690868/packages/npm/:_authToken="${NPM_TOKEN}"
+RUN npm config set -- //gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken="${NPM_TOKEN}"
 RUN echo "@fullrestore:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
 
 COPY package*.json ./
 RUN npm install -y
 
-RUN npm config delete //gitlab.com/api/v4/projects/69690868/packages/npm/:_authToken
+RUN npm config delete //gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken
 RUN rm -f .npmrc
 
 EXPOSE 5173

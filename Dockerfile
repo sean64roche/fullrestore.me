@@ -13,6 +13,7 @@ COPY package*.json ./
 COPY svelte.config.js ./
 COPY vite.config.ts ./
 COPY tsconfig.json ./
+COPY src ./
 
 RUN npm ci
 

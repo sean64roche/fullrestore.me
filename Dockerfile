@@ -13,15 +13,13 @@ COPY package*.json ./
 COPY svelte.config.js ./
 COPY vite.config.ts ./
 COPY tsconfig.json ./
-COPY src ./
+COPY . .
 
 RUN npm ci
 
 RUN npm config delete //gitlab.com/api/v4/projects/69690868/packages/npm/:_authToken
 RUN rm -f .npmrc
 RUN npm run build
-
-COPY . .
 
 EXPOSE 5173
 

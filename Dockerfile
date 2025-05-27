@@ -24,6 +24,7 @@ COPY ci.env .env
 
 RUN npm run build
 
+ENV PORT=5173
 EXPOSE 5173
 
-CMD ["PORT=5173", "node", "build"]
+CMD ["node", "build"]

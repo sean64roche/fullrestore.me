@@ -14,7 +14,7 @@ COPY svelte.config.js ./
 COPY vite.config.ts ./
 COPY tsconfig.json ./
 
-RUN npm npm ci
+RUN npm ci
 
 RUN npm config delete //gitlab.com/api/v4/projects/69690868/packages/npm/:_authToken
 RUN rm -f .npmrc

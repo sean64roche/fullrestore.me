@@ -2,7 +2,7 @@ import { createConfig } from "@fullrestore/service";
 import type { ApiConfig } from "@fullrestore/service";
 import { TournamentRepository, RoundRepository, PlayerRepository, PairingRepository } from "@fullrestore/service";
 import axios from "axios";
-import log4js from 'log4js';
+
 import {
 	API_BASEURL,
 	API_FORMATS_ENDPOINT,
@@ -47,7 +47,6 @@ export const apiConfig: ApiConfig = createConfig({
 	pairingsEndpoint: API_PAIRINGS_ENDPOINT,
 	replaysEndpoint: API_REPLAYS_ENDPOINT,
 	timeout: 10000,
-	logger: log4js.getLogger(),
 });
 
 export const tournamentRepo: TournamentRepository = new TournamentRepository(apiConfig);

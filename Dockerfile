@@ -11,7 +11,7 @@ RUN echo "@fullrestore:registry=https://${CI_SERVER_HOST}/api/v4/projects/696908
 
 COPY package*.json ./
 COPY svelte.config.js ./
-COPY vite.config.js ./
+COPY vite.config.ts ./
 COPY tsconfig.json ./
 
 RUN npm npm ci

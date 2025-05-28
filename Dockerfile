@@ -28,3 +28,5 @@ ENV PORT=5173
 EXPOSE 5173
 
 CMD ["node", "build"]
+
+RUN rm -f .env

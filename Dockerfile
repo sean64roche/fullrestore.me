@@ -20,13 +20,9 @@ RUN npm ci
 RUN npm config delete //gitlab.com/api/v4/projects/69690868/packages/npm/:_authToken
 RUN rm -f .npmrc
 
-COPY ci.env .env
-
 RUN npm run build
 
 ENV PORT=5173
 EXPOSE 5173
 
 CMD ["node", "build"]
-
-RUN rm -f .env

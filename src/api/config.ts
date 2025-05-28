@@ -3,19 +3,7 @@ import type { ApiConfig } from "@fullrestore/service";
 import { TournamentRepository, RoundRepository, PlayerRepository, PairingRepository } from "@fullrestore/service";
 import axios from "axios";
 
-import {
-	API_BASEURL,
-	API_FORMATS_ENDPOINT,
-	API_PLAYERS_ENDPOINT,
-	API_PLAYER_ALIASES_ENDPOINT,
-	API_TOURNAMENTS_ENDPOINT,
-	API_ROUNDS_ENDPOINT,
-	API_ROUND_BYES_ENDPOINT,
-	API_ENTRANT_PLAYERS_ENDPOINT,
-	API_PAIRINGS_ENDPOINT,
-	API_REPLAYS_ENDPOINT,
-	API_KEY,
-} from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 // const date = new Date();
 // log4js.configure({
@@ -31,21 +19,21 @@ import {
 // 	}
 // });
 
-axios.defaults.baseURL = API_BASEURL || 'http://localhost:3000';
-axios.defaults.headers.common['x-api-key'] = `${API_KEY}`;
+axios.defaults.baseURL = env.API_BASEURL || 'http://localhost:3000';
+axios.defaults.headers.common['x-api-key'] = `${env.API_KEY}`;
 
 export const apiConfig: ApiConfig = createConfig({
 	baseUrl: axios.defaults.baseURL,
-	apiKey: API_KEY,
-	formatsEndpoint: API_FORMATS_ENDPOINT,
-	playersEndpoint: API_PLAYERS_ENDPOINT,
-	playerAliasesEndpoint: API_PLAYER_ALIASES_ENDPOINT,
-	tournamentsEndpoint: API_TOURNAMENTS_ENDPOINT,
-	roundsEndpoint: API_ROUNDS_ENDPOINT,
-	roundByesEndpoint: API_ROUND_BYES_ENDPOINT,
-	entrantPlayersEndpoint: API_ENTRANT_PLAYERS_ENDPOINT,
-	pairingsEndpoint: API_PAIRINGS_ENDPOINT,
-	replaysEndpoint: API_REPLAYS_ENDPOINT,
+	apiKey: env.API_KEY,
+	formatsEndpoint: env.API_FORMATS_ENDPOINT,
+	playersEndpoint: env.API_PLAYERS_ENDPOINT,
+	playerAliasesEndpoint: env.API_PLAYER_ALIASES_ENDPOINT,
+	tournamentsEndpoint: env.API_TOURNAMENTS_ENDPOINT,
+	roundsEndpoint: env.API_ROUNDS_ENDPOINT,
+	roundByesEndpoint: env.API_ROUND_BYES_ENDPOINT,
+	entrantPlayersEndpoint: env.API_ENTRANT_PLAYERS_ENDPOINT,
+	pairingsEndpoint: env.API_PAIRINGS_ENDPOINT,
+	replaysEndpoint: env.API_REPLAYS_ENDPOINT,
 	timeout: 10000,
 });
 

@@ -3,7 +3,7 @@ import { loadRounds } from '../../../../api/roundsApi';
 
 export const load = async ({ params }) => {
 	const tournament = await tournamentRepo.getBySlug(params.slug);
-	const roundNumber = +params.rNumber.charAt(params.rNumber.length - 1);
+	const roundNumber = +params.rNumber.substring(1);
 	const round = await roundRepo.get(tournament, roundNumber);
 	const pairingsData = await pairingRepo.getByRoundId(round.id);
 	const pairings = pairingsData.map((pairing) => ({

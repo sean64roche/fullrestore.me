@@ -3,7 +3,7 @@ import { primaryUsername } from '../../../../../../api/playerApi';
 
 export const load = async ({ params }) => {
 	const tournament = await tournamentRepo.getBySlug(params.tournamentSlug);
-	const roundNumber = +params.rNumber.charAt(params.rNumber.length - 1);
+	const roundNumber = +params.rNumber.substring(1);
 	const round = await roundRepo.get(tournament, roundNumber);
 	const player1 = await playerRepo.fetchPlayer(params.player1Slug);
 	const pairing = await pairingRepo.fetchPairing(round.id, player1.psUser);

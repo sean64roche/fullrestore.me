@@ -35,7 +35,7 @@
 				throw new Error(`HTTP error: ${response.status}`);
 			}
 
-			const data = await response.json();
+			const data = replay.json;
 			if (!data || !data.log) {
 				throw new Error('Invalid replay data format');
 			}

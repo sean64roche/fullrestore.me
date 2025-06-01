@@ -3,6 +3,7 @@
 		import { ChevronsLeftRight } from 'lucide-svelte';
 	import { primaryUsername } from '../../../../../../api/playerApi';
 		const { data } = $props();
+		console.log(data.pairing);
 </script>
 <svelte:head>
 	<title>{data.post.title}</title>

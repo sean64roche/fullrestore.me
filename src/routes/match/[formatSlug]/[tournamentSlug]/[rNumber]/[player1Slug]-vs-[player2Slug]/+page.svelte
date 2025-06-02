@@ -3,7 +3,6 @@
 		import { ChevronsLeftRight } from 'lucide-svelte';
 	import { primaryUsername } from '../../../../../../api/playerApi';
 		const { data } = $props();
-		console.log(data.pairing);
 </script>
 <svelte:head>
 	<title>{data.post.title}</title>
@@ -33,5 +32,6 @@
 			player1={data.player1}
 			player2={data.player2}
 			replays={data.pairing.replays}
+			content={data.pairing.content}
 		/>
 </div>

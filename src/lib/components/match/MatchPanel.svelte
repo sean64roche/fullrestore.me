@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { TournamentEntity, PlayerEntity, RoundEntity, ReplayEntity } from '@fullrestore/service';
-	import type { ContentQParams } from '../../../api/pairingsApi';
+	import type { TournamentEntity, PlayerEntity, RoundEntity, ReplayEntity, ContentEntity } from '@fullrestore/service';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import ReplayPanel from '$components/replay/ReplayPanel.svelte';
@@ -12,18 +11,14 @@
 		player1: PlayerEntity,
 		player2: PlayerEntity,
 		replays?: ReplayEntity[],
-		content?: ContentQParams,
+		content?: ContentEntity[],
 	}
 
 	let { tournament, round, player1, player2, replays = [], content }: Props = $props();
 	let activeTab = $state('replay');
 	let activeReplay: number = $state(1);
 	let gridList = !!replays ? getGridClass(replays.length) : 0;
-	content = {
-		id: 'test-id',
-		url: 'https://www.youtube.com/embed/UGcCU6vR1OQ',
-		type: 'youtube'
-	};
+	replays = replays.sort((a, b) => a.matchNumber - b.matchNumber);
 
 	function getGridClass(count: number) {
 		if (count === 1) return 'grid-cols-1';
@@ -116,9 +111,9 @@
 	<div class="card-content pt-4">
 		{#if activeTab === 'content'}
 			<div class="{activeTab === 'content' ? 'tab-active' : ''}">
-				{#if content?.type === 'youtube' && content.url}
+				{#if !!content && content[0].content}
 					<iframe
-						src={'https://www.youtube.com/embed/UGcCU6vR1OQ'}
+						src={content[0].content}
 						title="Match Content"
 						class="w-full aspect-video"
 						allowFullScreen

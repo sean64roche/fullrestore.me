@@ -32,7 +32,7 @@
 <div class="card md:card-side bg-base-100 shadow-sm hover:shadow-lg transition-shadow">
 	<figure class="md:w-auto h-auto md:min-w-[200px] flex items-center justify-center">
 		<img
-			src="revival2.webp"
+			src="Jimvitational_Bubble.png"
 			alt="Image of {tournament.name} Logo"
 			class="h-auto md:h-[200px] object-contain w-auto max-w-full"
 		/>

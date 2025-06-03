@@ -204,10 +204,6 @@
         z-index: 15;
     }
 
-    .error div:first-child {
-        margin-bottom: 10px;
-    }
-
     .iframe-wrapper {
         width: 100%;
         position: relative;

@@ -20,7 +20,6 @@ export const load = async ({ url }) => {
 			winner = await playerRepo.findPlayerByAlias(tournament.individualWinner.psUser) || undefined;
 		}
 		return {
-			id: tournament.id,
 			name: tournament.name,
 			season: tournament.season,
 			slug: toSlug(tournament.name, tournament.season),

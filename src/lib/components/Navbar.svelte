@@ -20,7 +20,7 @@
 				<li><a href="{tournament}/completed">Completed</a></li>
 			</ul>
 		</div>
-		<div class="dropdown dropdown-center dropdown-hover hidden lg:block">
+		<div class="dropdown dropdown-center hidden lg:block">
 			<a href={tournament} tabindex="0" class="inline-flex items-center gap-1">
 				Tournaments <ChevronDown class="w-4 h-4" />
 			</a>

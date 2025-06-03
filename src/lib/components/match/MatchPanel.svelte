@@ -1,9 +1,17 @@
 <script lang="ts">
-	import type { TournamentEntity, PlayerEntity, RoundEntity, ReplayEntity, ContentEntity } from '@fullrestore/service';
+	import type {
+		TournamentEntity,
+		PlayerEntity,
+		RoundEntity,
+		ReplayEntity,
+		ContentEntity
+	} from '@fullrestore/service';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import ReplayPanel from '$components/replay/ReplayPanel.svelte';
 	import { primaryUsername } from '../../../api/playerApi';
+	import { Share2, Braces } from 'lucide-svelte';
+	import { toast, Toaster } from 'svelte-sonner';
 
 	interface Props {
 		tournament: TournamentEntity,
@@ -76,11 +84,10 @@
 <div class="card mb-4">
 	<div class="card-header px-4">
 		<div class="flex justify-between items-center">
-			<h3 class="card-title text-lg">
-				Hello World
-			</h3>
-			<div class="tabs w-48">
-				<div class="tabs-list grid w-full grid-cols-2">
+<!--			<h3 class="card-title text-lg">-->
+<!--			</h3>-->
+			<div class="tabs w-70">
+				<div class="tabs-list grid w-full grid-cols-[1fr_1fr_0.5fr_0.5fr]">
 					<button class="btn btn-style btn-md link-hover {activeTab === 'content' ? 'btn-active' : ''}"
 									tabindex="0"
 									disabled={!content}
@@ -102,6 +109,25 @@
                                 }
                   }}>
 						Replay
+					</button>
+					<button class="btn btn-style btn-md"
+									aria-label="Copy link to clipboard and share"
+									onclick={() => {
+									navigator.clipboard.writeText(page.url.toString());
+									toast.success('Link successfully copied to clipboard');
+								}}>
+						<Share2 />
+					</button>
+					<button class="btn btn-style btn-md"
+									aria-label="Copy source replay link to clipboard and share"
+									disabled={!replays[activeReplay].url}
+									onclick={async () => {
+										// @ts-ignore
+										await navigator.clipboard.writeText(replays[activeReplay].url);
+										toast.success('Raw replay URL successfully copied to clipboard');
+									}}
+					>
+						<Braces />
 					</button>
 				</div>
 			</div>
@@ -134,9 +160,9 @@
 										type="radio" name="my_tabs_1" aria-label="Game {replay.matchNumber}"
 										class="tab link-hover {activeReplay === replay.matchNumber ? 'tab-active' : ''}"
 										onclick={() => {
-                                            activeReplay = replay.matchNumber;
-                                            updateURL('replay', replay.matchNumber);
-                                        }}
+                      activeReplay = replay.matchNumber;
+                      updateURL('replay', replay.matchNumber);
+                    }}
 									/>
 								{/each}
 							</div>
@@ -155,3 +181,5 @@
 		{/if}
 	</div>
 </div>
+
+<Toaster position="top-right" expand={true} richColors />

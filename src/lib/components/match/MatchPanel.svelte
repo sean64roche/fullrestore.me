@@ -76,16 +76,15 @@
 
 </script>
 
-<div class="card md:card-side bg-base-100 transition-shadow">
-	<h1 class="text-4xl font-bold mb-2 px-4">
-		{primaryUsername(player1)} vs. {primaryUsername(player2)} — {tournament.name} Round {round.roundNumber}
-	</h1>
-</div>
+
 <div class="card mb-4">
 	<div class="card-header px-4">
 		<div class="flex justify-between items-center">
-<!--			<h3 class="card-title text-lg">-->
-<!--			</h3>-->
+			<div class="card md:card-side bg-base-100 transition-shadow">
+				<h1 class="text-4xl font-bold mb-2 px-4">
+					{primaryUsername(player1)} vs. {primaryUsername(player2)} — {tournament.name} Round {round.roundNumber}
+				</h1>
+			</div>
 			<div class="tabs w-70">
 				<div class="tabs-list grid w-full grid-cols-[1fr_1fr_0.5fr_0.5fr]">
 					<button class="btn btn-style btn-md link-hover {activeTab === 'content' ? 'btn-active' : ''}"
@@ -120,10 +119,10 @@
 					</button>
 					<button class="btn btn-style btn-md"
 									aria-label="Copy source replay link to clipboard and share"
-									disabled={!replays[activeReplay].url}
+									disabled={!replays[activeReplay - 1].url}
 									onclick={async () => {
 										// @ts-ignore
-										await navigator.clipboard.writeText(replays[activeReplay].url);
+										await navigator.clipboard.writeText(replays[activeReplay - 1].url);
 										toast.success('Raw replay URL successfully copied to clipboard');
 									}}
 					>

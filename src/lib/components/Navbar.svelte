@@ -64,7 +64,7 @@
 	<div class="navbar-end hidden md:flex lg:flex">
 		<label class="input">
 			<Search class="w-4 h-4" />
-			<input type="search" class="grow" placeholder="Search" />
+			<input type="search" class="grow" placeholder="Search" disabled={true} />
 		</label>
 	</div>
 </div>

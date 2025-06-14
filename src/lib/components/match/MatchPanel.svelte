@@ -76,7 +76,6 @@
 
 </script>
 
-
 <div class="card mb-4">
 	<div class="card-header px-4">
 		<div class="flex justify-between items-center">
@@ -85,9 +84,9 @@
 					{primaryUsername(player1)} vs. {primaryUsername(player2)} — {tournament.name} Round {round.roundNumber}
 				</h1>
 			</div>
-			<div class="tabs w-70">
-				<div class="tabs-list grid w-full grid-cols-[1fr_1fr_0.5fr_0.5fr]">
-					<button class="btn btn-style btn-md link-hover {activeTab === 'content' ? 'btn-active' : ''}"
+			<div class="tabs w-80">
+				<div class="tabs-list w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+					<button class="btn btn-style link-hover {activeTab === 'content' ? 'btn-active' : ''}"
 									tabindex="0"
 									disabled={!content}
 									aria-label="Toggle to Content section"
@@ -97,7 +96,7 @@
                   }}>
 						Content
 					</button>
-					<button class="btn btn-style btn-md link-hover {activeTab === 'replay' ? 'btn-active' : ''}"
+					<button class="btn btn-style link-hover {activeTab === 'replay' ? 'btn-active' : ''}"
 									tabindex="0"
 									disabled={replays.length < 1}
 									aria-label="Toggle to Replay section"
@@ -109,15 +108,15 @@
                   }}>
 						Replay
 					</button>
-					<button class="btn btn-style btn-md"
+					<button class="btn btn-style"
 									aria-label="Copy link to clipboard and share"
 									onclick={() => {
 									navigator.clipboard.writeText(page.url.toString());
 									toast.success('Link successfully copied to clipboard');
 								}}>
-						<Share2 />
+						<Share2 class="min-w-6 max-w-6 min-h-6 max-h-6" viewBox="0 0 24 24" />
 					</button>
-					<button class="btn btn-style btn-md"
+					<button class="btn btn-style"
 									aria-label="Copy source replay link to clipboard and share"
 									disabled={!replays[activeReplay - 1].url}
 									onclick={async () => {
@@ -126,7 +125,7 @@
 										toast.success('Raw replay URL successfully copied to clipboard');
 									}}
 					>
-						<Braces />
+						<Braces class="min-w-6 max-w-6 min-h-6 max-h-6" viewBox="0 0 24 24" />
 					</button>
 				</div>
 			</div>

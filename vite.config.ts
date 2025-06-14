@@ -6,7 +6,7 @@ export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
 	server: {
 		fs: {
-			allow: [],
+			allow: ['images'],
 		},
 		allowedHosts: ['localhost', '127.0.0.1', 'v2202505274840342452.luckysrv.de', 'fullrestore.me'],
 	},

@@ -28,6 +28,11 @@
 	let gridList = !!replays ? getGridClass(replays.length) : 0;
 	replays = replays.sort((a, b) => a.matchNumber - b.matchNumber);
 
+  const getYouTubeId = (url: string) => {
+	  const match = url.match(/(?:^|\/|v=)([a-zA-Z0-9_-]{11})(?:[^a-zA-Z0-9_-]|$)/);
+	  return match ? match[1] : null;
+  };
+
 	function getGridClass(count: number) {
 		if (count === 1) return 'grid-cols-1';
 		if (count === 2) return 'grid-cols-2';
@@ -132,15 +137,19 @@
 		</div>
 	</div>
 
-	<div class="card-content pt-4">
+	<div class="card-content pt-4 px-4">
+
 		{#if activeTab === 'content'}
-			<div class="{activeTab === 'content' ? 'tab-active' : ''}">
+			<div class="{activeTab === 'content' ? 'tab-active' : ''} flex justify-center px-4">
 				{#if !!content && content[0].content}
 					<iframe
-						src={content[0].content}
+						width="560"
+						height="315"
+						src="https://www.youtube.com/embed/{getYouTubeId(content[0].content)}"
 						title="Match Content"
-						class="w-full aspect-video"
-						allowFullScreen
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						referrerpolicy="strict-origin-when-cross-origin"
+						allowfullscreen
 					>
 					</iframe>
 				{:else}

@@ -3,11 +3,13 @@
 	import type { TournamentQParams } from '../../../api/tournamentsApi';
 	import RoundList from '$components/round/RoundList.svelte';
 	import { getTournamentStatus } from '$lib/helpers';
+	import { Trophy } from 'lucide-svelte';
 
 	let { tournament }: { tournament: TournamentQParams } = $props();
 	let rounds: number[] = tournament.rounds.map(round => round.roundNumber);
 	let descExpanded = $state(false);
 	let canExpandDesc = $state(false);
+	let logoError = $state(false);
 	let textContainer: HTMLDivElement | undefined;
 
 	function toggleExpandedDesc() {
@@ -31,11 +33,16 @@
 
 <div class="card md:card-side bg-base-100 shadow-sm hover:shadow-lg transition-shadow">
 	<figure class="md:w-auto h-auto md:min-w-[200px] flex items-center justify-center">
-		<img
-			src="/images/tournament/{tournament.slug}.webp"
-			alt="Image of {tournament.name} Logo"
-			class="h-auto md:h-[200px] object-contain w-auto max-w-full"
-		/>
+		{#if !logoError}
+			<img
+				src="/images/tournament/{tournament.slug}.webp"
+				alt="Image of {tournament.name} Logo"
+				class="h-auto md:h-[200px] object-contain w-auto max-w-full"
+				onerror="{() => logoError = true}"
+			/>
+		{:else }
+			<Trophy class="text-gray-500 w-12 h-12" />
+		{/if}
 	</figure>
 	<div class="card-body flex flex-col justify-between">
 		<div class="flex justify-between items-start flex-wrap">

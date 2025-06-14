@@ -81,7 +81,7 @@
 
 </script>
 
-<div class="card mb-4">
+<div class="card">
 	<div class="card-header px-4">
 		<div class="flex justify-between items-center">
 			<div class="card md:card-side bg-base-100 transition-shadow">

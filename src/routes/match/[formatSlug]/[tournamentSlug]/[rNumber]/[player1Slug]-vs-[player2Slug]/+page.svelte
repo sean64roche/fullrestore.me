@@ -25,7 +25,7 @@
 	</div>
 	<div class="divider"></div>
 </div>
-<div class="mb-8">
+<div class="mb-4">
 		<MatchPanel
 			tournament={data.tournament}
 			round={data.round}

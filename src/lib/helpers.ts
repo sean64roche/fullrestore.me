@@ -6,8 +6,13 @@ export function getTournamentStatus(startDate: string, endDate?: string): {
 } {
 	switch (compareAsc(startDate, Date.now())) {
 		case 1:
+			return {
+				style: 'bg-secondary text-secondary-content',
+				status: 'upcoming'
+			};
 		case 0:
-			if (endDate && compareAsc(endDate, Date.now()) === 1) {
+		case -1:
+			if (endDate && compareAsc(endDate, Date.now()) === -1) {
 				return {
 					style: 'bg-neutral text-neutral-content',
 					status: 'completed'
@@ -18,11 +23,6 @@ export function getTournamentStatus(startDate: string, endDate?: string): {
 					status: 'ongoing'
 				};
 			}
-		case -1:
-			return {
-				style: 'bg-secondary text-secondary-content',
-				status: 'upcoming'
-			};
 		default:
 			return {
 				style: 'bg-secondary text-secondary-content',

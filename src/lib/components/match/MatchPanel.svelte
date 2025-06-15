@@ -137,8 +137,7 @@
 		</div>
 	</div>
 
-	<div class="card-content pt-4 px-4">
-
+	<div class="card-content pt-4 sm:px-0 md:px-4">
 		{#if activeTab === 'content'}
 			<div class="{activeTab === 'content' ? 'tab-active' : ''} flex justify-center px-4">
 				{#if !!content && content[0].content}

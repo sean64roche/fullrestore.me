@@ -123,7 +123,7 @@
 					</button>
 					<button class="btn btn-style"
 									aria-label="Copy source replay link to clipboard and share"
-									disabled={!replays[activeReplay - 1].url}
+									disabled={!replays[activeReplay - 1].url || activeTab === 'content'}
 									onclick={async () => {
 										// @ts-ignore
 										await navigator.clipboard.writeText(replays[activeReplay - 1].url);

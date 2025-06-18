@@ -17,5 +17,6 @@
     <orderEntry type="library" name="battle" level="application" />
     <orderEntry type="library" name="replay" level="application" />
     <orderEntry type="library" name="utilichart" level="application" />
+    <orderEntry type="library" name="script.hash.outbound-links" level="application" />
   </component>
 </module>

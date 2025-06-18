@@ -140,11 +140,11 @@
 	<div class="card-content pt-4 sm:px-0 md:px-4">
 		{#if activeTab === 'content'}
 			<div class="{activeTab === 'content' ? 'tab-active' : ''} flex justify-center px-4">
-				{#if !!content && content[0].content}
+				{#if !!content && content[0].url}
 					<iframe
 						width="560"
 						height="315"
-						src="https://www.youtube.com/embed/{getYouTubeId(content[0].content)}"
+						src="https://www.youtube.com/embed/{getYouTubeId(content[0].url)}"
 						title="Match Content"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						referrerpolicy="strict-origin-when-cross-origin"

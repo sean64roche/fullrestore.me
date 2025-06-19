@@ -16,7 +16,7 @@
 
 <div class="flex gap-2 ps-2 items-center whitespace-nowrap">
 	{#each visibleRounds as round}
-		<a href="/tournament/{tournament.slug}/r{round}" class="link text-sm">
+		<a href="/tournament/{tournament.slug}/r{round}" class="link text-sm" data-sveltekit-preload-data="tap">
 			{round === rounds[0] && status === 'completed' ? 'Finals' : `Round ${round}`}
 		</a>
 	{/each}
@@ -32,7 +32,9 @@
 				class="dropdown-content absolute right-0 top-6 bg-base-100 shadow-lg rounded-lg p-2 z-10 w-36 flex flex-col gap-1">
 				{#each hiddenRounds as round}
 					<li><a href="/tournament/{tournament.slug}/r{round.toString()}"
-								 class="link text-sm block p-1 hover:bg-base-200 rounded">
+								 class="link text-sm block p-1 hover:bg-base-200 rounded"
+								 data-sveltekit-preload-data="tap"
+					>
 						{`Round ${round}`}
 					</a></li>
 				{/each}

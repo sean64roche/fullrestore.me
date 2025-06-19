@@ -214,9 +214,9 @@
         transition: opacity 0.3s ease;
     }
 
-    .iframe-wrapper.hidden {
-        opacity: 0;
-        pointer-events: none;
-    }
+    /*.iframe-wrapper.hidden {*/
+    /*    opacity: 0;*/
+    /*    pointer-events: none;*/
+    /*}*/
 
 </style>

@@ -1,15 +1,19 @@
 <script lang="ts">
 	import { Search } from 'lucide-svelte';
-  import { onDestroy } from 'svelte';
-  import RoundList from '$components/round/RoundList.svelte';
-  import { getTournamentStatus } from '$lib/helpers';
-  import { createSearchStore, searchHandler } from '$stores/search';
-  import { primaryUsername } from '../../../../api/playerApi.js';
+	import { onDestroy } from 'svelte';
+	import RoundList from '$components/round/RoundList.svelte';
+	import { getTournamentStatus } from '$lib/helpers';
+	import { createSearchStore, searchHandler } from '$stores/search';
+	import { primaryUsername } from '../../../../api/playerApi';
+	import { getEliminationType, type PairingPage } from '$lib/roundCategory';
 
-  const { data } = $props();
-  const rounds = data.allRounds.map(r => r.roundNumber);
-
-  let searchPlayers = $derived(data.pairings.map((pairing) => ({
+	const { data } = $props();
+	const rounds = data.allRounds.map(r => r.roundNumber);
+	let brackets = $derived(getEliminationType(
+			(data.pairings.length <= 1 ? -1 : +data.tournament.elimination),
+			data.round.roundNumber
+	));
+	let searchPlayers = $derived(data.pairings.map((pairing) => ({
 		...pairing,
 		searchTerms: `
 		${pairing.player1.psUser}
@@ -33,6 +37,24 @@
 	<meta name="og:title" content={data.post.title}>
 	<meta name="og:description" content={data.post.content}>
 </svelte:head>
+
+{#snippet pairings(pairing: PairingPage)}
+	<h2 class="text-2xl mb-2 header">
+		<a href="
+							/match
+							/{data.tournament.format}
+							/{data.tournament.slug}
+							/r{data.round.roundNumber}
+							/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
+			 class="link"
+			 target="_blank"
+		>
+			{primaryUsername(pairing.player1)} vs. {primaryUsername(pairing.player2)}
+		</a>
+	</h2>
+	<div class="flex flex-col">
+	</div>
+{/snippet}
 
 <div class="container mx-auto py-8 px-4">
 	<div class="breadcrumbs text-sm">
@@ -59,28 +81,25 @@
 					status={getTournamentStatus(data.tournament.startDate, data.tournament.finishDate).style}
 				/>
 			</div>
-
 		</div>
-		<div class="divider"></div>
 	</div>
 	<div class="space pairing">
-		{#each $searchStore.filtered as pairing}
-			<h2 class="text-2xl mb-2 header">
-				<a href="
-				/match
-				/{data.tournament.format}
-				/{data.tournament.slug}
-				/r{data.round.roundNumber}
-				/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
-					 class="link"
-					 target="_blank"
-				>
-					{primaryUsername(pairing.player1)} vs. {primaryUsername(pairing.player2)}
-				</a>
-			</h2>
-			<div class="flex flex-col">
+		{#if brackets.groups[0]}
+			{#each brackets.groups as group}
+				{@const groupPairings = $searchStore.filtered.filter(pairing => brackets.groups.indexOf(group) === pairing.p1score)}
+				{#if groupPairings.length > 0}
+					<div class="divider divider-neutral font-medium">{group}</div>
+					{#each groupPairings as pairing}
+						{@render pairings(pairing)}
+						<div class="divider"></div>
+					{/each}
+				{/if}
+			{/each}
+		{:else}
+			{#each $searchStore.filtered as pairing}
+				{@render pairings(pairing)}
 				<div class="divider"></div>
-			</div>
-		{/each}
+			{/each}
+		{/if}
 	</div>
 </div>

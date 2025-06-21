@@ -9,32 +9,30 @@
 </script>
 
 {#snippet items()}
-	<li><a href={home}>Home</a></li>
-	<li>
 		<div class="block lg:hidden">
-			<a href={tournament} class="font-bold">Tournaments</a>
+			<div class="font-bold">Tournaments</div>
 			<ul class="pl-4 bg-base-100 p-2 list-disc">
-				<li><a href={tournament}>All Tournaments</a></li>
-				<li><a href="{tournament}/-/ongoing">Ongoing</a></li>
-				<li><a href="{tournament}/-/upcoming">Upcoming</a></li>
-				<li><a href="{tournament}/-/completed">Completed</a></li>
+				<li><a href={tournament} class="btn btn-ghost font-normal">All Tournaments</a></li>
+				<li><a href="{tournament}/-/ongoing" class=" font-normal">Ongoing</a></li>
+				<li><a href="{tournament}/-/upcoming" class="btn btn-ghost font-normal">Upcoming</a></li>
+				<li><a href="{tournament}/-/completed" class="btn btn-ghost font-normal">Completed</a></li>
 			</ul>
 		</div>
-		<div class="dropdown dropdown-center hidden lg:block">
-			<a href={tournament} tabindex="0" class="inline-flex items-center gap-1">
+		<li class="dropdown dropdown-center hidden lg:block">
+			<a href={tournament} tabindex="0" class="inline-flex items-center gap-1 btn btn-ghost font-normal">
 				Tournaments <ChevronDown class="w-4 h-4" />
 			</a>
 			<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc">
-				<li><a href={tournament}>All Tournaments</a></li>
-				<li><a href="{tournament}/-/ongoing">Ongoing</a></li>
-				<li><a href="{tournament}/-/upcoming">Upcoming</a></li>
-				<li><a href="{tournament}/-/completed">Completed</a></li>
+				<li><a href={tournament} class="btn btn-ghost font-normal">All Tournaments</a></li>
+				<li><a href="{tournament}/-/ongoing" class="btn btn-ghost font-normal">Ongoing</a></li>
+				<li><a href="{tournament}/-/upcoming" class="btn btn-ghost font-normal">Upcoming</a></li>
+				<li><a href="{tournament}/-/completed" class="btn btn-ghost font-normal">Completed</a></li>
 			</ul>
-		</div>
-	</li>
-	<li><a href={format}>Formats</a></li>
-	<li><a href={player}>Players</a></li>
-	<li><a href={media}>Media</a></li>
+		</li>
+
+	<li><a href={format} class="btn btn-ghost font-normal">Formats</a></li>
+	<li><a href={player} class="btn btn-ghost font-normal">Players</a></li>
+	<li><a href={media} class="btn btn-ghost font-normal">Media</a></li>
 {/snippet}
 
 <div class="navbar bg-base-100 shadow-sm">
@@ -57,9 +55,9 @@
 
 	</div>
 	<div class="navbar-center hidden lg:flex">
-		<ul class="dropdown-content menu menu-horizontal px-1">
+		<div class="dropdown-content menu menu-horizontal px-1">
 			{@render items()}
-		</ul>
+		</div>
 	</div>
 	<div class="navbar-end hidden md:flex lg:flex">
 		<label class="input">

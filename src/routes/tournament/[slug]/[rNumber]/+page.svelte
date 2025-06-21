@@ -4,7 +4,6 @@
 	import RoundList from '$components/round/RoundList.svelte';
 	import { getTournamentStatus } from '$lib/helpers';
 	import { createSearchStore, searchHandler } from '$stores/search';
-	import { primaryUsername } from '../../../../api/playerApi';
 	import { getEliminationType, type PairingPage } from '$lib/roundCategory';
 
 	const { data } = $props();
@@ -18,8 +17,8 @@
 		searchTerms: `
 		${pairing.player1.psUser}
 		${pairing.player2.psUser}
-		${primaryUsername(pairing.player1)}
-		${primaryUsername(pairing.player2)}
+		${pairing.player1.username}
+		${pairing.player2.username}
 		`,
 	})));
   let searchStore = $derived(createSearchStore(searchPlayers));
@@ -49,7 +48,7 @@
 			 class="link"
 			 target="_blank"
 		>
-			{primaryUsername(pairing.player1)} vs. {primaryUsername(pairing.player2)}
+			{pairing.player1.username} vs. {pairing.player2.username}
 		</a>
 	</h2>
 	<div class="flex flex-col">

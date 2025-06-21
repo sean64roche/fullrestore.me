@@ -2,25 +2,14 @@ import { createConfig } from "@fullrestore/service";
 import type { ApiConfig } from "@fullrestore/service";
 import { TournamentRepository, RoundRepository, PlayerRepository, PairingRepository } from "@fullrestore/service";
 import axios from "axios";
+import log4js from "log4js";
 
 import { env } from '$env/dynamic/private';
 
-// const date = new Date();
-// log4js.configure({
-// 	appenders: {
-// 		console: { type: 'console' },
-// 		app: { type: 'file', filename: `./logs/importer-${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.log`},
-// 	},
-// 	categories: {
-// 		default: {
-// 			appenders: ['console', 'app'],
-// 			level: process.env.LOG4JS_LEVEL || 'ERR'
-// 		}
-// 	}
-// });
-
 axios.defaults.baseURL = env.API_BASEURL || 'http://localhost:3000';
 axios.defaults.headers.common['x-api-key'] = `${env.API_KEY}`;
+
+export const logger = log4js.getLogger("client");
 
 export const apiConfig: ApiConfig = createConfig({
 	baseUrl: axios.defaults.baseURL,
@@ -35,6 +24,7 @@ export const apiConfig: ApiConfig = createConfig({
 	pairingsEndpoint: env.API_PAIRINGS_ENDPOINT,
 	replaysEndpoint: env.API_REPLAYS_ENDPOINT,
 	timeout: 10000,
+	logger: logger,
 });
 
 export const tournamentRepo: TournamentRepository = new TournamentRepository(apiConfig);

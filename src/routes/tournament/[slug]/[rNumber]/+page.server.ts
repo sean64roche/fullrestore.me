@@ -1,22 +1,14 @@
-import type { EntrantPlayerEntity, EntrantPlayerResultEntity } from '@fullrestore/service';
-import { pairingRepo, playerRepo, roundRepo, tournamentRepo } from '../../../../api/config';
-import { loadRounds } from '../../../../api/roundsApi';
+import { pairingRepo, roundRepo, tournamentRepo } from '$api/config.server';
+import { loadRounds } from '$api/roundsApi.server';
 import type { PairingPage } from '$lib/roundCategory';
+import { calcEntrantPlayerScores } from '$api/pairingsApi.server';
 
 export const load = async ({ params }) => {
 	const tournament = await tournamentRepo.getBySlug(params.slug);
 	const roundNumber = +params.rNumber.substring(1);
 	const round = await roundRepo.get(tournament, roundNumber);
 	const pairingsData = await pairingRepo.getByRoundId(round.id);
-	let entrantPlayerScores = new Map<string, EntrantPlayerResultEntity>();
-	for (const pairing of pairingsData) {
-		const { entrant1, entrant2 } = pairing;
-		const playerScore = async (entrantPlayer: EntrantPlayerEntity) => {
-			return await playerRepo.findEntrantWinsLosses(entrantPlayer, roundNumber - 1)
-		}
-		entrantPlayerScores.set(entrant1.player.psUser, await playerScore(entrant1));
-		entrantPlayerScores.set(entrant2.player.psUser, await playerScore(entrant2));
-	}
+	const entrantPlayerScores = await calcEntrantPlayerScores(pairingsData, roundNumber);
 	const pairings: PairingPage[] = pairingsData.map((pairing): PairingPage => ({
 		id: pairing.id,
 		player1: pairing.entrant1.player,

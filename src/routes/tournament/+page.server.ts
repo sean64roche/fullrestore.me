@@ -1,6 +1,6 @@
-import { loadTournaments, type TournamentQParams } from '../../api/tournamentsApi';
-import { loadRounds, type RoundQParams } from '../../api/roundsApi';
-import { playerRepo } from '../../api/config';
+import { loadTournaments, type TournamentQParams } from '$api/tournamentsApi.server';
+import { loadRounds, type RoundQParams } from '$api/roundsApi.server';
+import { playerRepo } from '$api/config.server';
 
 export const load = async ({ url }) => {
 	const page = Number(url.searchParams.get('page') ?? 1);

@@ -1,7 +1,7 @@
 import type { TournamentEntity } from '@fullrestore/service/';
-import { tournamentRepo } from './config';
-import type { PageApi } from './pageApi';
-import type { RoundQParams } from './roundsApi';
+import { tournamentRepo } from './config.server';
+import type { PageApi } from './pageApi.server';
+import type { RoundQParams } from './roundsApi.server';
 
 export type TournamentQParams = TournamentEntity & {
 	rounds: RoundQParams[],

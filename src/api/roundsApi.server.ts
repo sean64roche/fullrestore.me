@@ -1,6 +1,6 @@
 import type { RoundEntity, TournamentEntity } from '@fullrestore/service/';
-import { roundRepo } from './config';
-import type { PageApi } from './pageApi';
+import { roundRepo } from './config.server';
+import type { PageApi } from './pageApi.server';
 
 export type RoundQParams = Omit<RoundEntity, 'tournament'> & PageApi;
 

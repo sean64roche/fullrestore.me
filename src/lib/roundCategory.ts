@@ -54,6 +54,6 @@ export type PairingPage = {
 	player2: PlayerEntity;
 	winner?: PlayerEntity;
 	replays?: ReplayEntity[];
-	p1score: number;
-	p2score: number;
+	p1score?: number;
+	p2score?: number;
 }

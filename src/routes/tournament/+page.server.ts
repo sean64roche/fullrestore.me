@@ -7,7 +7,7 @@ export const load = async ({ url }) => {
 	const limit = Number(url.searchParams.get('limit') ?? 10);
 
 	const tournamentsResponse = await loadTournaments(page, limit);
-	const tournaments: TournamentQParams[] = await Promise.all(tournamentsResponse.map(async (tournament) => {
+	const tournaments = await Promise.all(tournamentsResponse.map(async (tournament) => {
 		const roundsData = await loadRounds(tournament);
 		const rounds: RoundQParams[] = roundsData.map((round) => ({
 			id: round.id,
@@ -15,25 +15,21 @@ export const load = async ({ url }) => {
 			deadline: round.deadline,
 			slug: `r${round}`,
 		}));
-		let winner = undefined;
+		let winner: string | undefined = undefined;
 		if (!!tournament.individualWinner) {
-			winner = await playerRepo.findPlayerByAlias(tournament.individualWinner.psUser) || undefined;
+			const response = await playerRepo.findPlayerByAlias(tournament.individualWinner.psUser) || undefined;
+			winner = response?.psUser;
 		}
 		return {
-			name: tournament.name,
-			season: tournament.season,
-			slug: toSlug(tournament.name, tournament.season),
-			format: tournament.format,
+			...tournament,
 			rounds,
-			startDate: tournament.startDate,
-			finishDate: tournament.finishDate || undefined,
-			currentRound: tournament.currentRound,
-			prizePool: tournament.prizePool,
-			individualWinner: winner,
-			info: tournament.info || undefined,
-			page: page,
-			limit: limit,
-		};
+			winner,
+			pageApi: {
+				slug: tournament.slug,
+				page,
+				limit,
+			}
+		} as TournamentQParams;
 	}));
 
 	return {
@@ -43,9 +39,4 @@ export const load = async ({ url }) => {
 			content: `Tournaments search`,
 		}
 	};
-}
-
-function toSlug(name: string, season: string | number): string {
-	return name.toLowerCase().replace(/ /g, '-') +
-			(+season === 1 ? '' : '-' + season.toString());
 }

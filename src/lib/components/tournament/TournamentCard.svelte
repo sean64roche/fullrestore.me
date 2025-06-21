@@ -47,7 +47,7 @@
 	<div class="card-body flex flex-col justify-between">
 		<div class="flex justify-between items-start flex-wrap">
 			<div>
-				<h2 class="card-title">{tournament.name}</h2>
+				<h2 class="card-title">{tournamentName}</h2>
 				<div class="flex items-center gap-2 text-sm text-gray-500 flex-wrap">
 					<Calendar class="w-4 h-4" />
 					{new Date(tournament.startDate).toLocaleDateString()} -

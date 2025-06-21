@@ -78,7 +78,7 @@
 				<RoundList
 					tournament={data.tournament}
 					rounds={rounds}
-					status={getTournamentStatus(data.tournament.startDate, data.tournament.finishDate).style}
+					status={getTournamentStatus(data.tournament.startDate, data.tournament.finishDate).status}
 				/>
 			</div>
 		</div>

@@ -15,9 +15,9 @@
 			<a href={tournament} class="font-bold">Tournaments</a>
 			<ul class="pl-4 bg-base-100 p-2 list-disc">
 				<li><a href={tournament}>All Tournaments</a></li>
-				<li><a href="{tournament}/ongoing">Ongoing</a></li>
-				<li><a href="{tournament}/upcoming">Upcoming</a></li>
-				<li><a href="{tournament}/completed">Completed</a></li>
+				<li><a href="{tournament}/-/ongoing">Ongoing</a></li>
+				<li><a href="{tournament}/-/upcoming">Upcoming</a></li>
+				<li><a href="{tournament}/-/completed">Completed</a></li>
 			</ul>
 		</div>
 		<div class="dropdown dropdown-center hidden lg:block">
@@ -26,9 +26,9 @@
 			</a>
 			<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc">
 				<li><a href={tournament}>All Tournaments</a></li>
-				<li><a href="{tournament}/ongoing">Ongoing</a></li>
-				<li><a href="{tournament}/upcoming">Upcoming</a></li>
-				<li><a href="{tournament}/completed">Completed</a></li>
+				<li><a href="{tournament}/-/ongoing">Ongoing</a></li>
+				<li><a href="{tournament}/-/upcoming">Upcoming</a></li>
+				<li><a href="{tournament}/-/completed">Completed</a></li>
 			</ul>
 		</div>
 	</li>

@@ -29,9 +29,9 @@
 
   $effect(() => {
 	  let visibleCount = 4;
-	  if (screenSize === 'sm') visibleCount = 2;
-	  if (screenSize === 'md') visibleCount = 4;
-	  if (screenSize === 'lg') visibleCount = rounds.length; // or 6 if you want to limit it
+	  if (screenSize === 'sm') visibleCount = 3;
+	  if (screenSize === 'md') visibleCount = 6;
+	  if (screenSize === 'lg') visibleCount = 12;
 
 	  visibleRounds = rounds.slice(0, visibleCount);
 	  hiddenRounds = rounds.slice(visibleCount);

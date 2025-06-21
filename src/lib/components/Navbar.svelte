@@ -13,7 +13,7 @@
 			<div class="font-bold">Tournaments</div>
 			<ul class="pl-4 bg-base-100 p-2 list-disc">
 				<li><a href={tournament} class="btn btn-ghost font-normal">All Tournaments</a></li>
-				<li><a href="{tournament}/-/ongoing" class=" font-normal">Ongoing</a></li>
+				<li><a href="{tournament}/-/ongoing" class="btn btn-ghost font-normal align">Ongoing</a></li>
 				<li><a href="{tournament}/-/upcoming" class="btn btn-ghost font-normal">Upcoming</a></li>
 				<li><a href="{tournament}/-/completed" class="btn btn-ghost font-normal">Completed</a></li>
 			</ul>
@@ -29,9 +29,8 @@
 				<li><a href="{tournament}/-/completed" class="btn btn-ghost font-normal">Completed</a></li>
 			</ul>
 		</li>
-
-	<li><a href={format} class="btn btn-ghost font-normal">Formats</a></li>
 	<li><a href={player} class="btn btn-ghost font-normal">Players</a></li>
+	<li><a href={format} class="btn btn-ghost font-normal">Formats</a></li>
 	<li><a href={media} class="btn btn-ghost font-normal">Media</a></li>
 {/snippet}
 

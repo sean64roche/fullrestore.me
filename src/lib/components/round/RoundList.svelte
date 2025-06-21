@@ -9,8 +9,8 @@
 		status: string
 	} = $props();
 	rounds = rounds.toSorted((a, b) => b - a);
-	let visibleRounds = $state((rounds?.slice(0, 4)));
-	let hiddenRounds = $state((rounds?.length > 4 ? rounds.slice(4) : []));
+	let visibleRounds = $state((rounds?.slice(0, 0)));
+	let hiddenRounds = $state<number[]>([]);
 
   let screenSize = $state<'sm' | 'md' | 'lg'>('md');
 

@@ -4,7 +4,7 @@
 	import { getTournamentStatus } from '$lib/helpers';
 	import { createSearchStore, searchHandler } from '$stores/search';
 	import { getEliminationType, type PairingPage } from '$lib/roundCategory';
-  import ItemSearch from '$components/ItemSearch.svelte';
+	import { Search } from 'lucide-svelte';
 
 	const { data } = $props();
 	const rounds = data.allRounds.map(r => r.roundNumber);
@@ -70,7 +70,10 @@
 		</p>
 		<div class="player-cards">
 			<div class="search-wrapper inline-flex">
-				<ItemSearch search={$searchStore.search} subject="Search player..."/>
+				<label class="input">
+					<Search class="w-4 h-4" />
+					<input type="search" class="grow" placeholder="Search player..." bind:value={$searchStore.search} />
+				</label>
 				<RoundList
 					tournament={data.tournament}
 					rounds={rounds}
@@ -78,6 +81,7 @@
 				/>
 			</div>
 		</div>
+
 	</div>
 	<div class="space pairing">
 		{#if brackets.groups[0]}

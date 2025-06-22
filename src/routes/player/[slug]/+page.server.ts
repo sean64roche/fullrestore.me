@@ -1,7 +1,8 @@
 import { playerRepo } from '$api/config.server';
 import { fetchPairingsByUsername, type PlayerQParams } from '$api/playerApi.server';
 import type { PlayerPairing, PlayerPairingPage } from '$api/pairingsApi.server';
-import { transformPlayerResponse } from '@fullrestore/service';
+import { transformPlayerResponse, transformTournamentResponse } from '@fullrestore/service';
+import type { TournamentQParams } from '$api/tournamentsApi.server';
 
 export const load = async ({ params }) => {
 
@@ -12,6 +13,7 @@ export const load = async ({ params }) => {
 		player1: transformPlayerResponse(pairing.Entrant1.Player) as PlayerQParams,
 		player2: transformPlayerResponse(pairing.Entrant2.Player) as PlayerQParams,
 		winner: pairing.Winner?.Player && transformPlayerResponse(pairing.Winner.Player) as PlayerQParams,
+		tournament: transformTournamentResponse(pairing.Round.Tournament) as TournamentQParams,
 	}));
 	return {
 		player: {

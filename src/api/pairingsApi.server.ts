@@ -1,6 +1,6 @@
 import { playerRepo, type Post } from './config.server';
 import type { PairingEntity, EntrantPlayerEntity, EntrantPlayerResultEntity } from '@fullrestore/service';
-import type { PlayerQParams } from '$api/playerApi.server';
+import type { Accolade, PlayerQParams } from '$api/playerApi.server';
 import type { TournamentQParams } from '$api/tournamentsApi.server';
 
 export interface Pairing {
@@ -20,9 +20,10 @@ export type ContentQParams = {
 	type: string,
 }
 
-export type PlayerPairingPage = {
+export type PlayerPage = {
 	player: PlayerQParams,
 	pairings: PlayerPairing[],
+	accolades: Accolade[],
 	post: Post
 }
 

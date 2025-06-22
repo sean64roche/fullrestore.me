@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { Search } from 'lucide-svelte';
 	import { onDestroy } from 'svelte';
 	import RoundList from '$components/round/RoundList.svelte';
 	import { getTournamentStatus } from '$lib/helpers';
 	import { createSearchStore, searchHandler } from '$stores/search';
 	import { getEliminationType, type PairingPage } from '$lib/roundCategory';
+  import ItemSearch from '$components/ItemSearch.svelte';
 
 	const { data } = $props();
 	const rounds = data.allRounds.map(r => r.roundNumber);
@@ -70,10 +70,7 @@
 		</p>
 		<div class="player-cards">
 			<div class="search-wrapper inline-flex">
-				<label class="input">
-					<Search class="w-4 h-4" />
-					<input type="search" class="grow" placeholder="Search Player..." bind:value={$searchStore.search} />
-				</label>
+				<ItemSearch search={$searchStore.search} subject="Search player..."/>
 				<RoundList
 					tournament={data.tournament}
 					rounds={rounds}

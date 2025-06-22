@@ -1,5 +1,6 @@
-import { playerRepo } from './config.server';
+import { playerRepo, type Post } from './config.server';
 import type { PairingEntity, EntrantPlayerEntity, EntrantPlayerResultEntity } from '@fullrestore/service';
+import type { PlayerQParams } from '$api/playerApi.server';
 
 export interface Pairing {
 	id: string,
@@ -9,13 +10,26 @@ export type ReplayQParams = {
 	id: string,
 	url: string,
 	matchNumber: number,
-	datePlayed: string,
+	datePlayed?: string,
 }
 
 export type ContentQParams = {
 	id: string,
 	url: string,
 	type: string,
+}
+
+export type PlayerPairingPage = {
+	player: PlayerQParams,
+	pairings: PlayerPairing[],
+	post: Post
+}
+
+export type PlayerPairing = {
+	round: number,
+	player1: PlayerQParams,
+	player2: PlayerQParams,
+	winner?: PlayerQParams,
 }
 
 export async function calcEntrantPlayerScores(pairings: PairingEntity[], roundNumber: number): Promise<Map<string, EntrantPlayerResultEntity>> {

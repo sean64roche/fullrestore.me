@@ -1,25 +1,28 @@
-// import { playerRepo } from '$api/config';
-// import type { PairingPage } from '$lib/roundCategory';
-// import type { PairingEntity } from '@fullrestore/service';
-// import { fetchPairingsByUsername } from '$api/playerApi';
-//
-// export const load = async ({ params }) => {
-//
-// 	const player = await playerRepo.fetchPlayer(params.slug);
-// 	const pairingsData = await fetchPairingsByUsername(player.psUser);
-// 	const pairings: PairingPage[] = pairingsData.map((pairing: PairingEntity): PairingPage => ({
-// 		id: pairing.id,
-// 		player1: pairing.entrant1.player,
-// 		player2: pairing.entrant2.player,
-// 		winner: pairing.winner?.player,
-// 		replays: pairing.replays,
-// 	}));
-// 	return {
-// 		player,
-// 		pairings,
-// 		post: {
-// 			title: `Player: ${player.username} - Full Restore`,
-// 			content: `Player: ${player.username}`,
-// 		}
-// 	};
-// }
+import { playerRepo } from '$api/config.server';
+import { fetchPairingsByUsername, type PlayerQParams } from '$api/playerApi.server';
+import type { PlayerPairing, PlayerPairingPage } from '$api/pairingsApi.server';
+import { transformPlayerResponse } from '@fullrestore/service';
+
+export const load = async ({ params }) => {
+
+	const player = await playerRepo.fetchPlayer(params.slug);
+	const pairingsData = await fetchPairingsByUsername(player.psUser);
+	const pairings: PlayerPairing[] = pairingsData.map((pairing): PlayerPairing => ({
+		round: pairing.Round.round,
+		player1: transformPlayerResponse(pairing.Entrant1.Player) as PlayerQParams,
+		player2: transformPlayerResponse(pairing.Entrant2.Player) as PlayerQParams,
+		winner: pairing.Winner?.Player && transformPlayerResponse(pairing.Winner.Player) as PlayerQParams,
+	}));
+	return {
+		player: {
+			psUser: player.psUser,
+			username: player.username,
+			Aliases: player.Aliases,
+		},
+		pairings,
+		post: {
+			title: `Player: ${player.username} - Full Restore`,
+			content: `Player: ${player.username}`,
+		},
+	} as PlayerPairingPage;
+}

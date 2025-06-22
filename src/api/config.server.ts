@@ -31,3 +31,8 @@ export const tournamentRepo: TournamentRepository = new TournamentRepository(api
 export const roundRepo: RoundRepository = new RoundRepository(apiConfig);
 export const playerRepo: PlayerRepository = new PlayerRepository(apiConfig);
 export const pairingRepo: PairingRepository = new PairingRepository(apiConfig);
+
+export type Post = {
+	title: string,
+	content: string,
+}

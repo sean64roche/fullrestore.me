@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Calendar } from 'lucide-svelte';
-	import type { TournamentQParams } from '../../../api/tournamentsApi';
+	import type { TournamentQParams } from '$api/tournamentsApi.server';
 	import RoundList from '$components/round/RoundList.svelte';
 	import { getTournamentStatus } from '$lib/helpers';
 	import { Trophy } from 'lucide-svelte';

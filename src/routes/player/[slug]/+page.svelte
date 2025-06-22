@@ -23,6 +23,9 @@
 	});
 	onDestroy(() => unsubscribe?.());
 
+	function isAlt (psUser: string, username: string): boolean {
+	  return (psUser !== (username.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()));
+  }
 </script>
 
 <svelte:head>
@@ -30,30 +33,35 @@
 	<meta name="og:title" content={data.post.title}>
 	<meta name="og:description" content={data.post.content}>
 </svelte:head>
-
-<h1 class="text-4xl text-center align-middle">Player</h1>
-
-<div class="divider">Recent Matches</div>
-<div class="search-wrapper inline-flex">
-	<label class="input">
-		<Search class="w-4 h-4" />
-		<input type="search" class="grow" placeholder="Search match..." bind:value={$searchStore.search} />
-	</label></div>
-{#each $searchStore.filtered as pairing}
-	<h2 class="text-2xl mb-2 header">
-		<a href="
+<div class="container mx-auto py-8 px-4">
+	<h1 class="text-4xl font-bold mb-2">{data.player.username}</h1>
+	{#if isAlt(data.player.psUser, data.player.username)}
+		<h2 class="">Also known as: {data.player.psUser}</h2>
+	{/if}
+	<div class="divider ">Recent Matches</div>
+	<div class="search-wrapper inline-flex">
+		<label class="input">
+			<Search class="w-4 h-4" />
+			<input type="search" class="grow" placeholder="Search match..." bind:value={$searchStore.search} />
+		</label></div>
+	<div class="divider"></div>
+	{#each $searchStore.filtered as pairing}
+		<h2 class="text-2xl mb-2 header">
+			<a href="
 							/match
 							/{pairing.tournament.format}
 							/{pairing.tournament.slug}
 							/r{pairing.round}
 							/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
-			 class="link"
-			 target="_blank"
-		>
-			{pairing.player1.username} vs. {pairing.player2.username}	<div class="text-sm">{pairing.tournament.format} | {pairing.tournament.name} | Round {pairing.round}</div>
-		</a>
-	</h2>
-	<div class="flex flex-col">
-	</div>
-	<div class="divider"></div>
-{/each}
+				 class="link"
+				 target="_blank"
+			>
+				{pairing.player1.username} vs. {pairing.player2.username}
+			</a>
+		</h2>
+		<div class="text-sm">{pairing.tournament.format} <span>|</span> {pairing.tournament.name} | Round {pairing.round}</div>
+		<div class="flex flex-col">
+		</div>
+		<div class="divider"></div>
+	{/each}
+</div>

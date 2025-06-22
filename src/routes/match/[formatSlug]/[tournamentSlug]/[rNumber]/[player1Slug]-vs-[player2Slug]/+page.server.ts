@@ -16,6 +16,6 @@ export const load = async ({ params }) => {
 		post: {
 			title: `${player1.username} vs. ${player2.username} - Full Restore`,
 			content: `Tournament set ${player1.username} vs. ${player2.username} in ${tournament.name} Round ${round.roundNumber}`,
-		}
+		},
 	};
 }

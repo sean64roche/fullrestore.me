@@ -3,7 +3,7 @@
 	import '../app.postcss';
 	import Navbar from '$components/Navbar.svelte';
 	import Footer from '$components/Footer.svelte';
-	let { children } = $props();
+	let { data, children } = $props();
 </script>
 
 <Navbar />

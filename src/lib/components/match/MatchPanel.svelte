@@ -11,6 +11,7 @@
 	import ReplayPanel from '$components/replay/ReplayPanel.svelte';
 	import { Share2, Braces } from 'lucide-svelte';
 	import { toast, Toaster } from 'svelte-sonner';
+	import { browser } from '$app/environment';
 
 	interface Props {
 		tournament: TournamentEntity,
@@ -19,18 +20,19 @@
 		player2: PlayerEntity,
 		replays?: ReplayEntity[],
 		content?: ContentEntity[],
+		defaultView: string,
 	}
 
-	let { tournament, round, player1, player2, replays = [], content }: Props = $props();
+	let { tournament, round, player1, player2, replays = [], content, defaultView }: Props = $props();
 	let activeTab = $state('replay');
 	let activeReplay: number = $state(1);
 	let gridList = !!replays ? getGridClass(replays.length) : 0;
 	replays = replays.sort((a, b) => a.matchNumber - b.matchNumber);
 
-  const getYouTubeId = (url: string) => {
-	  const match = url.match(/(?:^|\/|v=)([a-zA-Z0-9_-]{11})(?:[^a-zA-Z0-9_-]|$)/);
-	  return match ? match[1] : null;
-  };
+	const getYouTubeId = (url: string) => {
+		const match = url.match(/(?:^|\/|v=)([a-zA-Z0-9_-]{11})(?:[^a-zA-Z0-9_-]|$)/);
+		return match ? match[1] : null;
+	};
 
 	function getGridClass(count: number) {
 		if (count === 1) return 'grid-cols-1';
@@ -46,7 +48,7 @@
 		if (newTab === 'replay' && gameNumber) {
 			url.hash = `game${gameNumber}`;
 		} else {
-			url.hash = '';
+			url.hash = 'content';
 		}
 
 		goto(url.pathname + url.hash, {
@@ -57,25 +59,39 @@
 	}
 
 	const initializeFromURL = () => {
-		const url = page.url;
-		const gameHash = url.hash.replace('#', '');
+		if (!browser) return;
+	  const url = page.url;
+	  const gameHash = url.hash.replace('#', '');
+	  const isGameHash = gameHash.startsWith('game');
+	  const isContentHash = gameHash.startsWith('content');
+	  const defaultIsContent = defaultView === 'content';
+	  const defaultIsReplay = defaultView === 'replay';
 
-		if (gameHash && gameHash.startsWith('game')) {
-			const gameNumber = +gameHash.replace('game', '');
-			const gameExists = replays?.some(replay => replay.matchNumber === +gameNumber);
+	  const setTabWithFallback = (tab: 'replay' | 'content', gameNumber = 1) => {
+		  const exists = replays?.some(replay => replay.matchNumber === gameNumber);
+		  if (tab === 'replay' && exists) {
+			  activeTab = 'replay';
+			  activeReplay = gameNumber;
+			  updateURL('replay', gameNumber);
+		  } else {
+			  activeTab = 'content';
+			  updateURL('content');
+		  }
+	  };
 
-			if (gameExists) {
-				activeTab = 'replay';
-				activeReplay = gameNumber;
-			}
-		} else {
-			activeTab = content ? 'content' : (replays.length > 0 ? 'replay' : 'content');
-			if (replays.length > 0) {
-				activeReplay = replays[0].matchNumber;
-			}
-		}
+	  if (isGameHash) {
+		  const gameNumber = +gameHash.replace('game', '');
+		  setTabWithFallback('replay', gameNumber);
+	  } else if (isContentHash || defaultIsContent) {
+		  activeTab = 'content';
+		  updateURL('content');
+	  } else if (defaultIsReplay) {
+		  setTabWithFallback('replay', 1);
+	  } else {
+		  activeTab = 'content';
+		  updateURL('content');
+	  }
 	};
-
 	initializeFromURL();
 
 </script>

@@ -1,37 +1,100 @@
 <script lang="ts">
-	import { ChevronDown, Menu, Search } from 'lucide-svelte';
+	import { ChevronDown, Menu, Search, Settings } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 
 	const home = '/';
 	const tournament = '/tournament';
 	const format = '/format';
 	const player = '/player';
 	const media = '/media';
+	const userSettings = '/user-settings';
+
+	let currentTheme = $state('acid');
+	let defaultMatchView = $state('content');
+
+	onMount(() => {
+		const storedTheme = localStorage.getItem('theme');
+		const storedView = localStorage.getItem('defaultView');
+		if (storedView) defaultMatchView = storedView;
+		if (storedTheme) {
+			currentTheme = storedTheme;
+			document.documentElement.setAttribute('data-theme', currentTheme);
+		} else {
+			document.documentElement.setAttribute('data-theme', currentTheme);
+			localStorage.setItem('theme', currentTheme);
+		}
+
+	});
+
+	function toggleTheme() {
+		currentTheme = currentTheme === 'acid' ? 'dracula' : 'acid';
+		document.documentElement.setAttribute('data-theme', currentTheme);
+		localStorage.setItem('theme', currentTheme);
+	}
+
+	function toggleDefaultMatchView() {
+		defaultMatchView = defaultMatchView === 'replay' ? 'content' : 'replay';
+		localStorage.setItem('defaultView', defaultMatchView);
+	}
 </script>
 
 {#snippet items()}
-		<div class="block lg:hidden">
-			<div class="font-bold">Tournaments</div>
-			<ul class="pl-4 bg-base-100 p-2 list-disc">
-				<li><a href={tournament} class="btn btn-ghost font-normal">All Tournaments</a></li>
-				<li><a href="{tournament}/-/ongoing" class="btn btn-ghost font-normal align">Ongoing</a></li>
-				<li><a href="{tournament}/-/upcoming" class="btn btn-ghost font-normal">Upcoming</a></li>
-				<li><a href="{tournament}/-/completed" class="btn btn-ghost font-normal">Completed</a></li>
-			</ul>
-		</div>
-		<li class="dropdown dropdown-center hidden lg:block">
-			<a href={tournament} tabindex="0" class="inline-flex items-center gap-1 btn btn-ghost font-normal">
-				Tournaments <ChevronDown class="w-4 h-4" />
-			</a>
-			<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc">
-				<li><a href={tournament} class="btn btn-ghost font-normal">All Tournaments</a></li>
-				<li><a href="{tournament}/-/ongoing" class="btn btn-ghost font-normal">Ongoing</a></li>
-				<li><a href="{tournament}/-/upcoming" class="btn btn-ghost font-normal">Upcoming</a></li>
-				<li><a href="{tournament}/-/completed" class="btn btn-ghost font-normal">Completed</a></li>
-			</ul>
-		</li>
+	<div class="block lg:hidden">
+		<div class="font-bold">Tournaments</div>
+		<ul class="pl-4 bg-base-100 p-2 list-disc">
+			<li><a href={tournament} class="btn btn-ghost font-normal">All Tournaments</a></li>
+			<li><a href="{tournament}/-/ongoing" class="btn btn-ghost font-normal align">Ongoing</a></li>
+			<li><a href="{tournament}/-/upcoming" class="btn btn-ghost font-normal">Upcoming</a></li>
+			<li><a href="{tournament}/-/completed" class="btn btn-ghost font-normal">Completed</a></li>
+		</ul>
+	</div>
+	<li class="dropdown dropdown-center hidden lg:block">
+		<button tabindex="0" class="inline-flex items-center gap-1 btn btn-ghost font-normal">
+			Tournaments
+			<ChevronDown class="w-4 h-4" />
+		</button>
+		<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc">
+			<li><a href={tournament} class="btn btn-ghost font-normal">All Tournaments</a></li>
+			<li><a href="{tournament}/-/ongoing" class="btn btn-ghost font-normal">Ongoing</a></li>
+			<li><a href="{tournament}/-/upcoming" class="btn btn-ghost font-normal">Upcoming</a></li>
+			<li><a href="{tournament}/-/completed" class="btn btn-ghost font-normal">Completed</a></li>
+		</ul>
+	</li>
 	<li><a href={player} class="btn btn-ghost font-normal">Players</a></li>
 	<li><a href={format} class="btn btn-ghost font-normal">Formats</a></li>
 	<li><a href={media} class="btn btn-ghost font-normal">Media</a></li>
+	<li class="dropdown dropdown-center hidden lg:block">
+		<button tabindex="0" class="inline-flex items-center gap-1 btn btn-ghost font-normal">
+			Settings
+			<Settings class="w-4 h-4" />
+		</button>
+		<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc font-normal">
+			<li>
+				<label class="flex cursor-pointer gap-2">
+					<span class="label-text">Light</span>
+					<input
+						type="checkbox"
+						onchange={toggleTheme}
+						checked={currentTheme === 'dracula'}
+						class="toggle theme-controller"
+					/>
+					<span class="label-text">Dark</span>
+				</label>
+			</li>
+			<li>
+				<label class="flex cursor-pointer gap-2">
+					<span class="label-text">Default to Replay</span>
+					<input
+						type="checkbox"
+						onchange={toggleDefaultMatchView}
+						checked={defaultMatchView === 'content'}
+						class="toggle"
+					/>
+					<span class="label-text">Default to Content</span>
+				</label>
+			</li>
+		</ul>
+	</li>
 {/snippet}
 
 <div class="navbar bg-base-100 shadow-sm">

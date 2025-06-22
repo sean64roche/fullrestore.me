@@ -1,7 +1,12 @@
 <script lang="ts">
-		import MatchPanel from '$components/match/MatchPanel.svelte';
-		import { ChevronsLeftRight } from 'lucide-svelte';
-		const { data } = $props();
+	import MatchPanel from '$components/match/MatchPanel.svelte';
+	import { ChevronsLeftRight } from 'lucide-svelte';
+  import { browser } from '$app/environment';
+
+	const { data } = $props();
+
+	let currentView = $state(browser ? (localStorage.getItem('defaultView') ?? 'content') : 'content');
+
 </script>
 <svelte:head>
 	<title>{data.post.title}</title>
@@ -32,5 +37,6 @@
 			player2={data.player2}
 			replays={data.pairing.replays}
 			content={data.pairing.content}
+			defaultView={currentView}
 		/>
 </div>

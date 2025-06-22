@@ -21,7 +21,7 @@
 	  else screenSize = 'lg';
   }
 
-  onMount(() => {
+  onMount(() => {!
 	  updateScreenSize();
 	  window.addEventListener('resize', updateScreenSize);
 	  return () => window.removeEventListener('resize', updateScreenSize);

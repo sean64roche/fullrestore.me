@@ -38,7 +38,7 @@
 </svelte:head>
 
 {#snippet pairings(pairing: PairingPage)}
-	<h2 class="text-2xl mb-2 header">
+	<h2 class="border border-base-content rounded p-4 shadow-sm bg-base-200 text-2xl mb-2 header">
 		<a href="
 							/match
 							/{data.tournament.format}
@@ -51,8 +51,6 @@
 			{pairing.player1.username} vs. {pairing.player2.username}
 		</a>
 	</h2>
-	<div class="flex flex-col">
-	</div>
 {/snippet}
 
 <div class="container mx-auto py-8 px-4">
@@ -88,17 +86,15 @@
 			{#each brackets.groups as group}
 				{@const groupPairings = $searchStore.filtered.filter(pairing => brackets.groups.indexOf(group) === pairing.p1score)}
 				{#if groupPairings.length > 0}
-					<div class="divider divider-neutral font-medium">{group}</div>
+					<div class="divider font-medium">{group}</div>
 					{#each groupPairings as pairing}
 						{@render pairings(pairing)}
-						<div class="divider"></div>
 					{/each}
 				{/if}
 			{/each}
 		{:else}
 			{#each $searchStore.filtered as pairing}
 				{@render pairings(pairing)}
-				<div class="divider"></div>
 			{/each}
 		{/if}
 	</div>

@@ -40,31 +40,31 @@
 	<div class="space">
 		<PlayerCard player={data.player} accolades={data.accolades}/>
 	</div>
-	<div class="divider ">Recent Matches</div>
-	<div class="search-wrapper inline-flex">
+	<div class="divider">Recent Matches</div>
+	<div class="search-wrapper inline-flex pb-4">
 		<label class="input">
 			<Search class="w-4 h-4" />
 			<input type="search" class="grow" placeholder="Search match..." bind:value={$searchStore.search} />
 		</label></div>
-	<div class="divider"></div>
 	{#each $searchStore.filtered as pairing}
-		<h2 class="text-2xl mb-2 header">
-			<a href="
+		<div class="border border-base-content rounded p-4 shadow-sm bg-base-200 text-2xl mb-2">
+			<h2 class="text-2xl mb-2 header">
+				<a href="
 							/match
 							/{pairing.tournament.format}
 							/{pairing.tournament.slug}
 							/r{pairing.round}
 							/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
-				 class="link"
-				 target="_blank"
-			>
-				{pairing.player1.username} vs. {pairing.player2.username}
-			</a>
-		</h2>
-		<div class="text-sm">{pairing.tournament.format} <span>|</span> {pairing.tournament.name} | Round {pairing.round}
+					 class="link"
+					 target="_blank"
+				>
+					{pairing.player1.username} vs. {pairing.player2.username}
+				</a>
+			</h2>
+			<div class="text-sm">{pairing.tournament.format} <span>·</span> {pairing.tournament.name} · Round {pairing.round}
+			</div>
+			<div class="flex flex-col">
+			</div>
 		</div>
-		<div class="flex flex-col">
-		</div>
-		<div class="divider"></div>
 	{/each}
 </div>

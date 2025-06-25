@@ -68,21 +68,21 @@
 			Settings
 			<Settings class="w-4 h-4" />
 		</button>
-		<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc font-normal">
+		<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc font-normal min-w-max">
 			<li>
-				<label class="flex cursor-pointer gap-2">
-					<span class="label-text">Light</span>
+				<label class="outline-1 outline-base-300 cursor-pointer gap-2 mb-2 grid grid-cols-[1fr_auto_1fr] items-center whitespace-nowrap">
+					<span class="label-text text-right">Light</span>
 					<input
 						type="checkbox"
 						onchange={toggleTheme}
 						checked={currentTheme === 'dracula'}
 						class="toggle theme-controller"
 					/>
-					<span class="label-text">Dark</span>
+					<span class="label-text text-left">Dark</span>
 				</label>
 			</li>
 			<li>
-				<label class="flex cursor-pointer gap-2">
+				<label class="outline-1 outline-base-300 cursor-pointer gap-2 mb-2 grid grid-cols-[1fr_auto_1fr] items-center whitespace-nowrap">
 					<span class="label-text">Default to Replay</span>
 					<input
 						type="checkbox"

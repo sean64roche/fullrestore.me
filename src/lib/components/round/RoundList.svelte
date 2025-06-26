@@ -31,7 +31,7 @@
 	  let visibleCount = 4;
 	  if (screenSize === 'sm') visibleCount = 3;
 	  if (screenSize === 'md') visibleCount = 6;
-	  if (screenSize === 'lg') visibleCount = 12;
+	  if (screenSize === 'lg') visibleCount = 9;
 
 	  visibleRounds = rounds.slice(0, visibleCount);
 	  hiddenRounds = rounds.slice(visibleCount);

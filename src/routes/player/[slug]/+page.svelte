@@ -3,6 +3,7 @@
 	import { onDestroy } from 'svelte';
 	import { Search } from 'lucide-svelte';
 	import PlayerCard from '$components/player/PlayerCard.svelte';
+  import RecentGames from '$components/home/RecentGames.svelte';
 
 	const { data } = $props();
 	let searchPlayers = $derived(data.pairings.map((pairing) => ({
@@ -33,7 +34,7 @@
 	<meta name="og:description" content={data.post.content}>
 </svelte:head>
 
-<div class="container mx-auto py-8 px-4">
+<main class="max-w-4xl mx-auto px-4 space-y-12 py-8">
 	<div class="mb-8">
 		<h1 class="text-4xl font-bold mb-2">Players</h1>
 	</div>
@@ -45,31 +46,13 @@
 		<label class="input">
 			<Search class="w-4 h-4" />
 			<input type="search" class="grow" placeholder="Search match..." bind:value={$searchStore.search} />
-		</label></div>
-	{#each $searchStore.filtered as pairing}
-		<div class="border border-base-content rounded p-4 shadow-sm bg-base-200 text-2xl mb-2">
-			<h2 class="text-2xl mb-2 header">
-				<a href="
-							/match
-							/{pairing.tournament.format}
-							/{pairing.tournament.slug}
-							/r{pairing.round}
-							/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
-					 class="link"
-					 target="_blank"
-				>
-					{pairing.player1.username} vs. {pairing.player2.username}
-				</a>
-			</h2>
-			<div class="text-sm">
-				{pairing.tournament.format}
-				<span>·</span>
-				<a href="/tournament/{pairing.tournament.slug}" class="link-hover">{pairing.tournament.name}</a>
-				<span>·</span>
-				<a href="/tournament/{pairing.tournament.slug}/r{pairing.round}" class="link-hover">Round {pairing.round}</a>
-			</div>
-			<div class="flex flex-col">
-			</div>
-		</div>
-	{/each}
-</div>
+		</label>
+	</div>
+	<ul class="space-y-2">
+		{#each $searchStore.filtered as pairing}
+			<li class="border rounded p-4 shadow-sm bg-base-200">
+				<RecentGames pairing={pairing}/>
+			</li>
+		{/each}
+	</ul>
+</main>

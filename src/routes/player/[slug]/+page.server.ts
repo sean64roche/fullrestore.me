@@ -1,5 +1,5 @@
 import { playerRepo } from '$api/config.server';
-import { type Accolade, fetchAccolades, fetchPairingsByUsername, type PlayerQParams } from '$api/playerApi.server';
+import { type Accolade, fetchAccolades, fetchRecentPlayerMatches, type PlayerQParams } from '$api/playerApi.server';
 import type { PlayerPairing, PlayerPage } from '$api/pairingsApi.server';
 import { transformPlayerResponse, transformTournamentResponse } from '@fullrestore/service';
 import type { TournamentQParams } from '$api/tournamentsApi.server';
@@ -7,7 +7,7 @@ import type { TournamentQParams } from '$api/tournamentsApi.server';
 export const load = async ({ params }) => {
 
 	const player = await playerRepo.fetchPlayer(params.slug);
-	const pairingsData = await fetchPairingsByUsername(player.psUser);
+	const pairingsData = await fetchRecentPlayerMatches(player.psUser);
 	const pairings: PlayerPairing[] = pairingsData.map((pairing): PlayerPairing => ({
 		round: pairing.Round.round,
 		player1: transformPlayerResponse(pairing.Entrant1.Player) as PlayerQParams,

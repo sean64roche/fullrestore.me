@@ -1,6 +1,7 @@
 <script lang="ts">
 	import "../app.css";
 	import { CalendarClock, Rss, Swords, TvMinimalPlay } from "lucide-svelte";
+  import RecentGames from '$components/home/RecentGames.svelte';
 
   const { data } = $props();
 
@@ -37,14 +38,11 @@
 	<section>
 		<h2 class="text-2xl font-semibold mb-2 inline-flex gap-2"><Swords/>Recent Games</h2>
 		<ul class="space-y-2">
-			<li class="border rounded p-4 shadow-sm bg-base-200">
-				<strong>ABR vs BIHI</strong> – Finals<br>
-				<small>The Jimvitational</small>
-			</li>
-			<li class="border rounded p-4 shadow-sm bg-base-200">
-				<strong>Ban Manaphy vs BIHI</strong> – Bottom (Loser's) Finals<br>
-				<small>The Jimvitational</small>
-			</li>
+			{#each data.pairings as pairing}
+				<li class="border rounded p-4 shadow-sm bg-base-200">
+					<RecentGames pairing={pairing}/>
+				</li>
+			{/each}
 		</ul>
 	</section>
 

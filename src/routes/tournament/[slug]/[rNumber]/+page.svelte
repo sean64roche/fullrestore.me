@@ -38,30 +38,31 @@
 </svelte:head>
 
 {#snippet pairings(pairing: PairingPage)}
-	<h2 class="border border-base-content rounded p-4 shadow-sm bg-base-200 text-2xl mb-2 header">
-		<a href="
+	<h2 class="border rounded p-4 shadow-sm bg-base-200 mb-2 header">
+		<strong><a href="
 							/match
 							/{data.tournament.format}
 							/{data.tournament.slug}
 							/r{data.round.roundNumber}
 							/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
-			 class="link"
+			 class="link-hover"
 			 target="_blank"
 		>
 			{pairing.player1.username} vs. {pairing.player2.username}
-		</a>
+		</a></strong>
 	</h2>
 {/snippet}
 
-<div class="container mx-auto py-8 px-4">
-	<div class="breadcrumbs text-sm">
+<main class="max-w-4xl mx-auto px-4 space-y-12 py-8">
+	<section class="breadcrumbs text-sm">
 		<ul>
 			<li><a href="/tournament">Tournaments</a></li>
 			<li><a href="/tournament/{data.tournament.slug}">{data.tournament.name}</a></li>
 			<li><a href="/tournament/{data.tournament.slug}/r{data.round.roundNumber}">Round {data.round.roundNumber}</a></li>
 		</ul>
-	</div>
-	<div class="mb-8">
+	</section>
+
+	<section class="mb-8">
 		<h1 class="text-4xl font-bold mb-2">{data.tournament.name} Round {data.round.roundNumber}</h1>
 		<p class="text-gray-500">
 			{data.tournament.info}
@@ -79,9 +80,9 @@
 				/>
 			</div>
 		</div>
+	</section>
 
-	</div>
-	<div class="space pairing">
+	<section class="space pairing">
 		{#if brackets.groups[0]}
 			{#each brackets.groups as group}
 				{@const groupPairings = $searchStore.filtered.filter(pairing => brackets.groups.indexOf(group) === pairing.p1score)}
@@ -97,5 +98,5 @@
 				{@render pairings(pairing)}
 			{/each}
 		{/if}
-	</div>
-</div>
+	</section>
+</main>

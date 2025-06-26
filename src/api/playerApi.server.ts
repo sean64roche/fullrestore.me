@@ -7,14 +7,27 @@ export type Accolade = {
 	tournamentName: string;
 	position: number;
 }
-export async function fetchPairingsByUsername(psUser: string, page: number = 1, limit: number = 10): Promise<PairingResponse[]> {
+export async function fetchRecentPlayerMatches(psUser: string, page: number = 1, limit: number = 10): Promise<PairingResponse[]> {
 	try {
-		const response: AxiosResponse = await axios.get(`${pairingRepo.pairingsUrl}/playerSearch?player=${psUser}&page=${page}&limit=${limit}`);
+		const response: AxiosResponse = await axios.get(`${pairingRepo.pairingsUrl}/recent?player=${psUser}&page=${page}&limit=${limit}`);
 		return response.data;
 	} catch (error: any) {
 		logger.error(
-				`FATAL on fetchPairingsByUsername: ${JSON.stringify(error.response?.data || error.message)} ` +
+				`FATAL on fetchRecentPlayerMatches: ${JSON.stringify(error.response?.data || error.message)} ` +
 				`| Request: ${pairingRepo.pairingsUrl}/playerSearch?player=${psUser}&page=${page}&limit=${limit}`
+		);
+		throw new Error(JSON.stringify(error.response?.data) || error.message);
+	}
+}
+
+export async function fetchRecentMatches(page: number = 1, limit: number = 10): Promise<PairingResponse[]> {
+	try {
+		const response: AxiosResponse = await axios.get(`${pairingRepo.pairingsUrl}/recent?page=${page}&limit=${limit}`);
+		return response.data;
+	} catch (error: any) {
+		logger.error(
+				`FATAL on fetchRecentMatches: ${JSON.stringify(error.response?.data || error.message)} ` +
+				`| Request: ${pairingRepo.pairingsUrl}/playerSearch?page=${page}&limit=${limit}`
 		);
 		throw new Error(JSON.stringify(error.response?.data) || error.message);
 	}

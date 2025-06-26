@@ -61,7 +61,12 @@
 					{pairing.player1.username} vs. {pairing.player2.username}
 				</a>
 			</h2>
-			<div class="text-sm">{pairing.tournament.format} <span>·</span> {pairing.tournament.name} · Round {pairing.round}
+			<div class="text-sm">
+				{pairing.tournament.format}
+				<span>·</span>
+				<a href="/tournament/{pairing.tournament.slug}" class="link-hover">{pairing.tournament.name}</a>
+				<span>·</span>
+				<a href="/tournament/{pairing.tournament.slug}/r{pairing.round}" class="link-hover">Round {pairing.round}</a>
 			</div>
 			<div class="flex flex-col">
 			</div>

@@ -20,9 +20,9 @@
 	</a></strong>
 </h2>
 <small>
-	{pairing.tournament.format}
-	<span>·</span>
 	<a href="/tournament/{pairing.tournament.slug}" class="link-hover">{pairing.tournament.name}</a>
 	<span>·</span>
 	<a href="/tournament/{pairing.tournament.slug}/r{pairing.round}" class="link-hover">Round {pairing.round}</a>
+	<span>·</span>
+	{pairing.tournament.format}
 </small>

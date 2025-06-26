@@ -39,7 +39,7 @@
 		<h2 class="text-2xl font-semibold mb-2 inline-flex gap-2"><Swords/>Recent Games</h2>
 		<ul class="space-y-2">
 			{#each data.pairings as pairing}
-				<li class="border rounded p-4 shadow-sm bg-base-200">
+				<li class="border border-black rounded p-4 shadow-sm bg-base-200">
 					<RecentGames pairing={pairing}/>
 				</li>
 			{/each}

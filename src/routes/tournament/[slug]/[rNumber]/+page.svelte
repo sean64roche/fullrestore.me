@@ -38,7 +38,7 @@
 </svelte:head>
 
 {#snippet pairings(pairing: PairingPage)}
-	<h2 class="border rounded p-4 shadow-sm bg-base-200 mb-2 header">
+	<h2 class="border border-black rounded p-4 shadow-sm bg-base-200 mb-2 header">
 		<strong><a href="
 							/match
 							/{data.tournament.format}
@@ -63,8 +63,8 @@
 	</section>
 
 	<section class="mb-8">
-		<h1 class="text-4xl font-bold mb-2">{data.tournament.name} Round {data.round.roundNumber}</h1>
-		<p class="text-gray-500">
+		<h1 class="text-2xl font-bold mb-2">{data.tournament.name} Round {data.round.roundNumber}</h1>
+		<p class="text-gray-500 gap-2 mb-2">
 			{data.tournament.info}
 		</p>
 		<div class="player-cards">

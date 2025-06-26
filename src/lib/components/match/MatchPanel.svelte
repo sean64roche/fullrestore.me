@@ -100,7 +100,7 @@
 	<div class="card-header px-4">
 		<div class="flex justify-between items-center">
 			<div class="card md:card-side bg-base-100 transition-shadow">
-				<h1 class="text-4xl font-bold mb-2 px-4">
+				<h1 class="text-2xl font-bold mb-2 px-4">
 					{player1.username} vs. {player2.username} — {tournament.name} Round {round.roundNumber}
 				</h1>
 			</div>

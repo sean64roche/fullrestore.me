@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ChevronDown, Menu, Settings } from 'lucide-svelte';
+	import { ChevronDown, Menu, Search, Settings } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 
 	const home = '/';
@@ -53,25 +53,41 @@
 			Tournaments
 			<ChevronDown class="w-4 h-4" />
 		</button>
-		<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc">
-			<li><a href={tournament} class="btn btn-ghost font-normal">All Tournaments</a></li>
-			<li><a href="{tournament}/-/ongoing" class="btn btn-ghost font-normal">Ongoing</a></li>
-			<li><a href="{tournament}/-/upcoming" class="btn btn-ghost font-normal">Upcoming</a></li>
-			<li><a href="{tournament}/-/completed" class="btn btn-ghost font-normal">Completed</a></li>
+		<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 gap-2 mb-2 list-disc min-w-max">
+			<li><a href={tournament} class="btn btn-ghost font-normal">Recent Tournaments</a></li>
+			<li class="inline-flex items-center">
+				<label class="input">
+					<Search class="w-4 h-4" />
+					<input type="search" class="grow" placeholder="Search tournaments..." />
+				</label>
+			</li>
 		</ul>
 	</li>
-	<li><a href={player} class="btn btn-ghost font-normal text-left">Players</a></li>
-	<li class="tooltip tooltip-bottom" data-tip="Coming Soon">
+	<li class="dropdown dropdown-center hidden lg:block">
+		<button tabindex="0" class="btn btn-ghost font-normal text-left">
+			Players
+			<ChevronDown class="w-4 h-4" />
+		</button>
+		<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 gap-2 mb-2 list-disc min-w-max">
+			<li class="inline-flex items-center">
+				<label class="input">
+					<Search class="w-4 h-4" />
+					<input type="search" class="grow" placeholder="Search players..." />
+				</label>
+			</li>
+		</ul>
+	</li>
+	<li class="tooltip lg:tooltip-bottom tooltip-right" data-tip="Coming Soon">
 		<button class="btn btn-ghost font-normal text-left pointer-events-none" disabled={true}>
 			Teams
 		</button>
 	</li>
-	<li class="tooltip tooltip-bottom" data-tip="Coming Soon">
+	<li class="tooltip lg:tooltip-bottom tooltip-right" data-tip="Coming Soon">
 		<button class="btn btn-ghost font-normal text-left pointer-events-none" disabled={true}>
 			Formats
 		</button>
 	</li>
-	<li class="tooltip tooltip-bottom" data-tip="Coming Soon">
+	<li class="tooltip lg:tooltip-bottom tooltip-right" data-tip="Coming Soon">
 		<button class="btn btn-ghost font-normal text-left pointer-events-none" disabled={true}>
 			Media
 		</button>

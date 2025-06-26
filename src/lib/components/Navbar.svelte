@@ -61,8 +61,21 @@
 		</ul>
 	</li>
 	<li><a href={player} class="btn btn-ghost font-normal text-left">Players</a></li>
-	<li><a href={format} class="btn btn-ghost font-normal text-left">Formats</a></li>
-	<li><a href={media} class="btn btn-ghost font-normal text-left">Media</a></li>
+	<li class="tooltip tooltip-bottom" data-tip="Coming Soon">
+		<button class="btn btn-ghost font-normal text-left pointer-events-none" disabled={true}>
+			Teams
+		</button>
+	</li>
+	<li class="tooltip tooltip-bottom" data-tip="Coming Soon">
+		<button class="btn btn-ghost font-normal text-left pointer-events-none" disabled={true}>
+			Formats
+		</button>
+	</li>
+	<li class="tooltip tooltip-bottom" data-tip="Coming Soon">
+		<button class="btn btn-ghost font-normal text-left pointer-events-none" disabled={true}>
+			Media
+		</button>
+	</li>
 	<li class="dropdown dropdown-center hidden lg:block">
 		{@render settings()}
 	</li>

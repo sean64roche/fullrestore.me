@@ -18,11 +18,11 @@
 	<section>
 		<h2 class="text-2xl font-semibold mb-2 inline-flex gap-2"><CalendarClock />Upcoming Tournaments</h2>
 		<ul class="space-y-2">
-			<li class="border rounded p-4 shadow-sm bg-base-200">
+			<li class="border border-black rounded p-4 shadow-sm bg-base-200">
 				<strong>Old Money Open 2</strong><br>
 				<small>Starts: Monday 23 June, 2025 · Format: Gen 3 OU</small>
 			</li>
-			<li class="border rounded p-4 shadow-sm bg-base-200">
+			<li class="border border-black rounded p-4 shadow-sm bg-base-200">
 				<strong>ADV Revival Draft</strong><br>
 				<small>Starts: Monday 30 June, 2025 · Format: Gen 3 Draft</small><br>
 				<small><a href="https://forms.gle/aXktx7esZnJHDFoU8" class="link-hover">Click here to sign up</a></small>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ChevronDown, Menu, Search, Settings } from 'lucide-svelte';
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 
 	const home = '/';
 	const tournament = '/tournament';
@@ -8,6 +8,12 @@
 	const player = '/player';
 	const media = '/media';
 	const userSettings = '/user-settings';
+
+	let playerDropdownOpen = $state(false);
+	let tournamentDropdownOpen = $state(false);
+
+	let playerSearchInput: HTMLInputElement | null = $state(null);
+	let tournamentSearchInput: HTMLInputElement | null = $state(null);
 
 	let currentTheme = $state('acid');
 	let defaultMatchView = $state('content');
@@ -23,7 +29,16 @@
 			document.documentElement.setAttribute('data-theme', currentTheme);
 			localStorage.setItem('theme', currentTheme);
 		}
-
+		const close = (e: MouseEvent) => {
+			if (!(e.target as HTMLElement)?.closest('.player-dropdown')) {
+				playerDropdownOpen = false;
+			}
+			if (!(e.target as HTMLElement)?.closest('.tournament-dropdown')) {
+				tournamentDropdownOpen = false;
+			}
+		};
+		document.addEventListener('click', close);
+		return () => document.removeEventListener('click', close);
 	});
 
 	function toggleTheme() {
@@ -48,35 +63,83 @@
 			<li><a href="{tournament}/-/completed" class="btn btn-ghost font-normal">Completed</a></li>
 		</ul>
 	</div>
-	<li class="dropdown dropdown-center hidden lg:block">
-		<button tabindex="0" class="inline-flex items-center gap-1 btn btn-ghost font-normal">
+	<li class="relative hidden lg:block tournament-dropdown">
+		<button
+			class="btn btn-ghost font-normal text-left flex items-center gap-1"
+			onclick={async () => {
+			tournamentDropdownOpen = !tournamentDropdownOpen;
+			if (tournamentDropdownOpen) {
+				await tick();
+				requestAnimationFrame(() => {
+					tournamentSearchInput?.focus();
+				});
+			}
+		}}
+		>
 			Tournaments
 			<ChevronDown class="w-4 h-4" />
 		</button>
-		<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 gap-2 mb-2 list-disc min-w-max">
-			<li><a href={tournament} class="btn btn-ghost font-normal">Recent Tournaments</a></li>
-			<li class="inline-flex items-center">
-				<label class="input">
-					<Search class="w-4 h-4" />
-					<input type="search" class="grow" placeholder="Search tournaments..." />
-				</label>
-			</li>
-		</ul>
+
+		{#if tournamentDropdownOpen}
+			<div class="absolute z-50 mt-2 flex flex-col gap-2 bg-base-100 p-2 min-w-max rounded-box shadow">
+				<a
+					href={tournament}
+					class="btn btn-ghost font-normal justify-start w-full"
+				>
+					Recent Tournaments
+				</a>
+
+				<div>
+					<label class="input flex items-center gap-2">
+						<Search class="w-4 h-4" />
+						<input
+							bind:this={tournamentSearchInput}
+							type="search"
+							class="grow"
+							id="searchTournaments"
+							placeholder="Search tournaments..."
+						/>
+					</label>
+				</div>
+			</div>
+		{/if}
 	</li>
-	<li class="dropdown dropdown-center hidden lg:block">
-		<button tabindex="0" class="btn btn-ghost font-normal text-left">
+
+	<li class="relative hidden lg:block player-dropdown">
+		<button
+			class="btn btn-ghost font-normal text-left flex items-center gap-1"
+			onclick={async () => {
+			playerDropdownOpen = !playerDropdownOpen;
+			if (playerDropdownOpen) {
+				await tick();
+				requestAnimationFrame(() => {
+					playerSearchInput?.focus();
+				});
+			}
+		}}
+		>
 			Players
 			<ChevronDown class="w-4 h-4" />
 		</button>
-		<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 gap-2 mb-2 list-disc min-w-max">
-			<li class="inline-flex items-center">
-				<label class="input">
-					<Search class="w-4 h-4" />
-					<input type="search" class="grow" placeholder="Search players..." />
-				</label>
-			</li>
-		</ul>
+		{#if playerDropdownOpen}
+			<div
+				class="absolute z-50 mt-2 bg-base-100 p-2 list-disc min-w-max rounded-box shadow">
+				<div class="inline-flex items-center">
+					<label class="input">
+						<Search class="w-4 h-4" />
+						<input
+							bind:this={playerSearchInput}
+							type="search"
+							class="grow"
+							id="searchPlayers"
+							placeholder="Search players..."
+						/>
+					</label>
+				</div>
+			</div>
+		{/if}
 	</li>
+
 	<li class="tooltip lg:tooltip-bottom tooltip-right" data-tip="Coming Soon">
 		<button class="btn btn-ghost font-normal text-left pointer-events-none" disabled={true}>
 			Teams
@@ -104,7 +167,8 @@
 	</button>
 	<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc font-normal min-w-max float-end">
 		<li>
-			<label class="outline-1 outline-base-300 cursor-pointer gap-2 mb-2 grid grid-cols-[1fr_auto_1fr]  whitespace-nowrap">
+			<label
+				class="outline-1 outline-base-300 cursor-pointer gap-2 mb-2 grid grid-cols-[1fr_auto_1fr]  whitespace-nowrap">
 				<span class="label-text text-right">Light</span>
 				<input
 					type="checkbox"
@@ -116,7 +180,8 @@
 			</label>
 		</li>
 		<li>
-			<label class="outline-1 outline-base-300 cursor-pointer gap-2 mb-2 grid grid-cols-[1fr_auto_1fr] items-center whitespace-nowrap">
+			<label
+				class="outline-1 outline-base-300 cursor-pointer gap-2 mb-2 grid grid-cols-[1fr_auto_1fr] items-center whitespace-nowrap">
 				<span class="label-text">Default to Replay</span>
 				<input
 					type="checkbox"
@@ -138,7 +203,7 @@
 					<summary class="btn btn-ghost btn-circle lg:hidden m-1">
 						<Menu />
 					</summary>
-					<ul class="dropdown-content menu bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+					<ul class="dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
 						{@render items()}
 					</ul>
 				</details>
@@ -150,12 +215,12 @@
 
 	</div>
 	<div class="navbar-center hidden lg:flex">
-		<div class="dropdown-content menu menu-horizontal px-1">
+		<div class="dropdown-content menu-horizontal px-1">
 			{@render items()}
 		</div>
 	</div>
 	<div class="navbar-end md:flex lg:flex">
-		<div class="dropdown lg:dropdown-center lg:hidden block dropdown-end">
+		<div class="dropdown menu lg:dropdown-center lg:hidden block dropdown-end">
 			{@render settings()}
 		</div>
 	</div>

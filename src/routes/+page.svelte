@@ -38,7 +38,7 @@
 
 	<section>
 		<h2 class="text-2xl font-semibold mb-2 inline-flex gap-2"><TvMinimalPlay/>Upcoming Matches</h2>
-		<p class="text-gray-500 italic">No upcoming matches for now. Check back again soon</p>
+		<p class="text-gray-500 italic">Coming soon</p>
 	</section>
 
 	<section>

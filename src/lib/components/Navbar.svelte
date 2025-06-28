@@ -16,7 +16,7 @@
 
 	let currentTheme = $state('acid');
 	let defaultMatchView = $state('content');
-	let defaultMatchNewTab = $state(true);
+	let defaultMatchTab = $state('current');
 
 	onMount(() => {
 		const storedTheme = localStorage.getItem('theme');
@@ -50,6 +50,11 @@
 	function toggleDefaultMatchView() {
 		defaultMatchView = defaultMatchView === 'replay' ? 'content' : 'replay';
 		localStorage.setItem('defaultView', defaultMatchView);
+	}
+
+	function toggleDefaultMatchTab() {
+		defaultMatchTab = defaultMatchTab === 'current' ? 'new' : 'current';
+		localStorage.setItem('defaultMatchNewTab', defaultMatchTab);
 	}
 </script>
 
@@ -173,7 +178,7 @@
 		<span class="lg:block hidden">Settings</span>
 		<Settings class="w-4 h-4" />
 	</button>
-	<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc font-normal min-w-max float-end">
+	<ul tabindex="-1" class="dropdown-content menu bg-base-100 p-2 list-disc font-normal min-w-max rounded-box float-end">
 		<li>
 			<label
 				class="outline-1 outline-base-300 cursor-pointer gap-2 mb-2 grid grid-cols-[1fr_auto_1fr]  whitespace-nowrap">
@@ -190,14 +195,40 @@
 		<li>
 			<label
 				class="outline-1 outline-base-300 cursor-pointer gap-2 mb-2 grid grid-cols-[1fr_auto_1fr] items-center whitespace-nowrap">
-				<span class="label-text">Default to Replay</span>
+				<span class="label-text text-right">Default to Replay</span>
 				<input
 					type="checkbox"
 					onchange={toggleDefaultMatchView}
 					checked={defaultMatchView === 'content'}
 					class="toggle"
 				/>
-				<span class="label-text">Default to Content</span>
+				<span class="label-text text-left">Default to Content</span>
+			</label>
+		</li>
+		<li>
+			<label
+				class="outline-1 outline-base-300 cursor-pointer gap-2 mb-2 grid grid-cols-[1fr_auto_1fr] items-center whitespace-nowrap">
+				<span class="label-text text-right">Open match in<br>current tab</span>
+				<input
+					type="checkbox"
+					onchange={toggleDefaultMatchTab}
+					checked={defaultMatchView === 'content'}
+					class="toggle"
+				/>
+				<span class="label-text text-left">Open match in<br>new tab</span>
+			</label>
+		</li>
+		<li>
+			<label
+				class="outline-1 outline-base-300 cursor-pointer gap-2 mb-2 grid grid-cols-[1fr_auto_1fr] items-center whitespace-nowrap">
+				<span class="label-text text-right">Hide winner</span>
+				<input
+					type="checkbox"
+					onchange={toggleDefaultMatchTab}
+					checked={defaultMatchView === 'content'}
+					class="toggle"
+				/>
+				<span class="label-text text-left">Show winner</span>
 			</label>
 		</li>
 	</ul>
@@ -205,7 +236,7 @@
 
 <div class="navbar bg-base-100 shadow-sm items-center">
 	<div class="navbar-start flex items-center gap-2 w-full grow">
-		<div class="bg-base-200 border border-black shadow-sm w-auto p-2 flex items-center gap-2">
+		<div class="bg-base-200 border border-black shadow-lg w-auto p-2 flex items-center gap-2">
 				<details class="dropdown">
 					<summary class="btn btn-ghost btn-circle lg:hidden">
 						<Menu />

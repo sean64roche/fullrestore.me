@@ -31,7 +31,7 @@
 	</div>
 {/snippet}
 
-<div class="card md:card-side bg-base-100 shadow-sm hover:shadow-lg transition-shadow">
+<div class="card md:card-side bg-base-100 shadow-lg">
 	<figure class="md:w-auto h-auto md:min-w-[200px] flex items-center justify-center">
 		{#if !logoError}
 			<img

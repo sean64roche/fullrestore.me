@@ -17,7 +17,7 @@ export const load = async ()=> {
 		pairings,
 		post: {
 			title: `Home - Full Restore`,
-			content: `Full Restore Tournaments Homepage`,
+			content: `Explore Pokémon Showdown matches through tournaments, formats, stats, players and teams`,
 		},
 	}
 }

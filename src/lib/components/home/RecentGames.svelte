@@ -1,9 +1,12 @@
 <script lang="ts">
-
   import type { PlayerPairing } from '$api/pairingsApi.server';
+  import { onMount } from 'svelte';
 
   let { pairing }: { pairing: PlayerPairing } = $props();
 
+  onMount(() => {
+
+	});
 </script>
 
 <h2 class=" mb-2 header">

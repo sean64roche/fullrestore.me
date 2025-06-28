@@ -16,13 +16,8 @@
 <main class="max-w-4xl mx-auto px-4 space-y-12 py-8">
 
 	<section class="hero-gradient hero-pattern rounded-2xl shadow-xl overflow-hidden relative">
-		<h1 class="text-4xl font-bold mb-2 flex items-center justify-center gap-2 p-2">
-			<Medal class="" />
-			Full Restore Tournaments
-			<Medal class="" />
-		</h1>
-		<p class="text-lg text-center text-gray-700 max-w-xl mx-auto p-2">
-			Explore Pokémon Showdown matches through tournaments, formats, players and teams.
+		<p class="text-lg text-center text-gray-700 max-w-xl mx-auto flex items-center justify-center p-2">
+			<Medal class="shrink-0 p-0" />Explore Pokémon Showdown matches through tournaments, formats, stats, players and teams.<Medal class="shrink-0 p-0" />
 		</p>
 	</section>
 

@@ -32,7 +32,7 @@
 
 	<section>
 		<h2 class="text-2xl font-semibold mb-2 inline-flex gap-2"><TvMinimalPlay/>Upcoming Matches</h2>
-		<p class="text-gray-500 italic">No upcoming matches for now. Check back again soon!</p>
+		<p class="text-gray-500 italic">No upcoming matches for now. Check back again soon</p>
 	</section>
 
 	<section>
@@ -49,7 +49,7 @@
 	<section>
 		<h2 class="text-2xl font-semibold mb-2 inline-flex gap-2"><Rss/>Site Updates</h2>
 		<ul class="list-disc list-inside space-y-1">
-			<li><strong>Monday 2 June, 2025:</strong> Full Restore site soft launch complete</li>
+			<li><strong>Monday 2 June, 2025:</strong> We're online!</li>
 		</ul>
 	</section>
 

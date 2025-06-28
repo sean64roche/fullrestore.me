@@ -12,6 +12,7 @@
 	import { Share2, Braces } from 'lucide-svelte';
 	import { toast, Toaster } from 'svelte-sonner';
 	import { browser } from '$app/environment';
+  import { fade } from 'svelte/transition';
 
 	interface Props {
 		tournament: TournamentEntity,
@@ -156,16 +157,17 @@
 		{#if activeTab === 'content'}
 			<div class="{activeTab === 'content' ? 'tab-active' : ''} flex justify-center px-4">
 				{#if !!content && content[0].url}
-					<iframe
-						width="560"
-						height="315"
-						src="https://www.youtube.com/embed/{getYouTubeId(content[0].url)}"
-						title="Match Content"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-						referrerpolicy="strict-origin-when-cross-origin"
-						allowfullscreen
-					>
-					</iframe>
+					<div in:fade out:fade class="aspect-video w-full max-w-4xl mx-auto ">
+						<iframe
+							class="w-full h-full"
+							src="https://www.youtube.com/embed/{getYouTubeId(content[0].url)}"
+							title="Match Content"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							referrerpolicy="strict-origin-when-cross-origin"
+							allowfullscreen
+						>
+						</iframe>
+					</div>
 				{:else}
 					<p class="text-gray-500">Failed to load content!</p>
 				{/if}

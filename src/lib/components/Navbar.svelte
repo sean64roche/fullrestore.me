@@ -7,7 +7,6 @@
 	const format = '/format';
 	const player = '/player';
 	const media = '/media';
-	const userSettings = '/user-settings';
 
 	let playerDropdownOpen = $state(false);
 	let tournamentDropdownOpen = $state(false);
@@ -17,6 +16,7 @@
 
 	let currentTheme = $state('acid');
 	let defaultMatchView = $state('content');
+	let defaultMatchNewTab = $state(true);
 
 	onMount(() => {
 		const storedTheme = localStorage.getItem('theme');
@@ -53,14 +53,52 @@
 	}
 </script>
 
+{#snippet tournamentMenu()}
+	<a
+		href={tournament}
+		class="btn btn-ghost font-normal link-hover justify-start w-full"
+	>
+		Recent Tournaments
+	</a>
+
+	<div>
+		<label class="input flex items-center gap-2">
+			<Search class="w-4 h-4" />
+			<input
+				bind:this={tournamentSearchInput}
+				type="search"
+				class="grow"
+				id="searchTournaments"
+				placeholder="Search tournaments..."
+			/>
+		</label>
+	</div>
+{/snippet}
+
+{#snippet playerMenu()}
+	<div class="inline-flex items-center">
+		<label class="input">
+			<Search class="w-4 h-4" />
+			<input
+				bind:this={playerSearchInput}
+				type="search"
+				class="grow"
+				id="searchPlayers"
+				placeholder="Search players..."
+			/>
+		</label>
+	</div>
+{/snippet}
+
 {#snippet items()}
 	<div class="block lg:hidden">
 		<div class="font-bold">Tournaments</div>
 		<ul class="pl-4 bg-base-100 p-2 list-disc">
-			<li><a href={tournament} class="btn btn-ghost font-normal">All Tournaments</a></li>
-			<li><a href="{tournament}/-/ongoing" class="btn btn-ghost font-normal">Ongoing</a></li>
-			<li><a href="{tournament}/-/upcoming" class="btn btn-ghost font-normal">Upcoming</a></li>
-			<li><a href="{tournament}/-/completed" class="btn btn-ghost font-normal">Completed</a></li>
+			{@render tournamentMenu()}
+		</ul>
+		<div class="font-bold">Players</div>
+		<ul class="pl-4 bg-base-100 p-2 list-disc">
+			{@render playerMenu()}
 		</ul>
 	</div>
 	<li class="relative hidden lg:block tournament-dropdown">
@@ -79,28 +117,9 @@
 			Tournaments
 			<ChevronDown class="w-4 h-4" />
 		</button>
-
 		{#if tournamentDropdownOpen}
 			<div class="absolute z-50 mt-2 flex flex-col gap-2 bg-base-100 p-2 min-w-max rounded-box shadow">
-				<a
-					href={tournament}
-					class="btn btn-ghost font-normal justify-start w-full"
-				>
-					Recent Tournaments
-				</a>
-
-				<div>
-					<label class="input flex items-center gap-2">
-						<Search class="w-4 h-4" />
-						<input
-							bind:this={tournamentSearchInput}
-							type="search"
-							class="grow"
-							id="searchTournaments"
-							placeholder="Search tournaments..."
-						/>
-					</label>
-				</div>
+				{@render tournamentMenu()}
 			</div>
 		{/if}
 	</li>
@@ -122,20 +141,8 @@
 			<ChevronDown class="w-4 h-4" />
 		</button>
 		{#if playerDropdownOpen}
-			<div
-				class="absolute z-50 mt-2 bg-base-100 p-2 list-disc min-w-max rounded-box shadow">
-				<div class="inline-flex items-center">
-					<label class="input">
-						<Search class="w-4 h-4" />
-						<input
-							bind:this={playerSearchInput}
-							type="search"
-							class="grow"
-							id="searchPlayers"
-							placeholder="Search players..."
-						/>
-					</label>
-				</div>
+			<div class="absolute z-50 mt-2 bg-base-100 p-2 list-disc min-w-max rounded-box shadow">
+				{@render playerMenu()}
 			</div>
 		{/if}
 	</li>
@@ -145,10 +152,11 @@
 			Teams
 		</button>
 	</li>
-	<li class="tooltip lg:tooltip-bottom tooltip-right" data-tip="Coming Soon">
-		<button class="btn btn-ghost font-normal text-left pointer-events-none" disabled={true}>
+	<li class="tooltip lg:tooltip-bottom tooltip-right">
+		<a href={format}
+			 class="btn btn-ghost font-normal link-hover justify-start w-full">
 			Formats
-		</button>
+		</a>
 	</li>
 	<li class="tooltip lg:tooltip-bottom tooltip-right" data-tip="Coming Soon">
 		<button class="btn btn-ghost font-normal text-left pointer-events-none" disabled={true}>
@@ -195,31 +203,40 @@
 	</ul>
 {/snippet}
 
-<div class="navbar bg-base-100 shadow-sm">
-	<div class="navbar-start">
-		<div class="dropdown">
-			<div class="navbar bg-base-100 shadow-sm">
+<div class="navbar bg-base-100 shadow-sm items-center">
+	<div class="navbar-start flex items-center gap-2 w-full grow">
+		<div class="bg-base-200 border border-black shadow-sm w-auto p-2 flex items-center gap-2">
 				<details class="dropdown">
-					<summary class="btn btn-ghost btn-circle lg:hidden m-1">
+					<summary class="btn btn-ghost btn-circle lg:hidden">
 						<Menu />
 					</summary>
 					<ul class="dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
 						{@render items()}
 					</ul>
 				</details>
-				<a href="/" class="text-xl link-hover">Full Restore Tournaments</a>
+				<figure class="shrink-0 p-0">
+					<img
+						src="favicon.png"
+						alt="Full Restore tournaments Logo"
+						class="h-10 w-auto object-contain"
+					>
+				</figure>
+				<a href="/" class="text-xl link-hover pl-2 pr-2">
+					Full Restore Tournaments
+				</a>
 			</div>
-		</div>
+
 	</div>
 	<div class="dropdown">
 
 	</div>
-	<div class="navbar-center hidden lg:flex">
+	<div class="navbar-center hidden lg:flex flex-1 justify-center">
 		<div class="dropdown-content menu-horizontal px-1">
 			{@render items()}
 		</div>
 	</div>
-	<div class="navbar-end md:flex lg:flex">
+	<span class="navbar-center lg:hidden w-1/4"></span>
+	<div class="navbar-end flex items-center gap-2 w-1/4 lg:w-full">
 		<div class="dropdown menu lg:dropdown-center lg:hidden block dropdown-end">
 			{@render settings()}
 		</div>

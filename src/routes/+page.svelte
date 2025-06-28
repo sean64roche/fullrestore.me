@@ -1,6 +1,6 @@
 <script lang="ts">
 	import "../app.css";
-	import { CalendarClock, Rss, Swords, TvMinimalPlay } from "lucide-svelte";
+	import { CalendarClock, Medal, Rss, Swords, TvMinimalPlay } from "lucide-svelte";
   import RecentGames from '$components/home/RecentGames.svelte';
 
   const { data } = $props();
@@ -14,6 +14,17 @@
 </svelte:head>
 
 <main class="max-w-4xl mx-auto px-4 space-y-12 py-8">
+
+	<section class="hero-gradient hero-pattern rounded-2xl shadow-xl overflow-hidden relative">
+		<h1 class="text-4xl font-bold mb-2 flex items-center justify-center gap-2 p-2">
+			<Medal class="" />
+			Full Restore Tournaments
+			<Medal class="" />
+		</h1>
+		<p class="text-lg text-center text-gray-700 max-w-xl mx-auto p-2">
+			Explore Pokémon Showdown matches through tournaments, formats, players and teams.
+		</p>
+	</section>
 
 	<section>
 		<h2 class="text-2xl font-semibold mb-2 inline-flex gap-2"><CalendarClock />Upcoming Tournaments</h2>
@@ -54,3 +65,10 @@
 	</section>
 
 </main>
+
+<style>
+    .hero-gradient {
+        background: linear-gradient(135deg, #35ba32 0%, #ebe9ac 100%);
+    }
+
+</style>

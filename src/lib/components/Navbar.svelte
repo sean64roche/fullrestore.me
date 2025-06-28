@@ -216,7 +216,7 @@
 				</details>
 				<figure class="shrink-0 p-0">
 					<img
-						src="favicon.png"
+						src="/favicon.png"
 						alt="Full Restore tournaments Logo"
 						class="h-10 w-auto object-contain"
 					>

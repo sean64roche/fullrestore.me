@@ -235,7 +235,6 @@
 			{@render items()}
 		</div>
 	</div>
-	<span class="navbar-center lg:hidden w-1/4"></span>
 	<div class="navbar-end flex items-center gap-2 w-1/4 lg:w-full">
 		<div class="dropdown menu lg:dropdown-center lg:hidden block dropdown-end">
 			{@render settings()}

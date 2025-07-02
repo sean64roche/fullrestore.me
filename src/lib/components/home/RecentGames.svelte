@@ -3,10 +3,15 @@
   import { onMount } from 'svelte';
 
   let { pairing }: { pairing: PlayerPairing } = $props();
+  let target = $state("_self");
 
   onMount(() => {
-
+		const storedTarget = localStorage.getItem('defaultMatchNewTab');
+		if (storedTarget) {
+			target = storedTarget;
+		}
 	});
+
 </script>
 
 <h2 class=" mb-2 header">
@@ -17,7 +22,7 @@
 						/r{pairing.round}
 						/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
 						 class="link-hover"
-						 target="_blank"
+						 target={target}
 	>
 		{pairing.player1.username} vs. {pairing.player2.username}
 	</a></strong>

@@ -15,8 +15,9 @@
 	let tournamentSearchInput: HTMLInputElement | null = $state(null);
 
 	let currentTheme = $state('acid');
-	let defaultMatchView = $state('content');
-	let defaultMatchTab = $state('current');
+	let defaultMatchView = $state('replay');
+	let defaultMatchTab = $state("_self");
+	let displayWinner = $state('true');
 
 	onMount(() => {
 		const storedTheme = localStorage.getItem('theme');
@@ -53,8 +54,13 @@
 	}
 
 	function toggleDefaultMatchTab() {
-		defaultMatchTab = defaultMatchTab === 'current' ? 'new' : 'current';
+		defaultMatchTab = defaultMatchTab === "_self" ? "_blank" : "_self";
 		localStorage.setItem('defaultMatchNewTab', defaultMatchTab);
+	}
+
+	function toggleDisplayWinner() {
+		displayWinner = displayWinner === 'true' ? 'false' : 'true';
+		localStorage.setItem('displayWinner', displayWinner);
 	}
 </script>
 
@@ -212,7 +218,7 @@
 				<input
 					type="checkbox"
 					onchange={toggleDefaultMatchTab}
-					checked={defaultMatchView === 'content'}
+					checked={defaultMatchTab === "_blank"}
 					class="toggle"
 				/>
 				<span class="label-text text-left">Open match in<br>new tab</span>
@@ -221,14 +227,14 @@
 		<li>
 			<label
 				class="outline-1 outline-base-300 cursor-pointer gap-2 mb-2 grid grid-cols-[1fr_auto_1fr] items-center whitespace-nowrap">
-				<span class="label-text text-right">Hide winner</span>
+				<span class="label-text text-right">Hide winners</span>
 				<input
 					type="checkbox"
-					onchange={toggleDefaultMatchTab}
-					checked={defaultMatchView === 'content'}
+					onchange={toggleDisplayWinner}
+					checked={displayWinner === 'true'}
 					class="toggle"
 				/>
-				<span class="label-text text-left">Show winner</span>
+				<span class="label-text text-left">Reveal winners</span>
 			</label>
 		</li>
 	</ul>

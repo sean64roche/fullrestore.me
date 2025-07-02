@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import RoundList from '$components/round/RoundList.svelte';
 	import { getTournamentStatus } from '$lib/helpers';
 	import { createSearchStore, searchHandler } from '$stores/search';
@@ -7,7 +7,8 @@
 	import { Search } from 'lucide-svelte';
 
 	const { data } = $props();
-	const rounds = data.allRounds.map(r => r.roundNumber);
+  let target = $state("_self");
+  const rounds = data.allRounds.map(r => r.roundNumber);
 	let brackets = $derived(getEliminationType(
 			(data.pairings.length <= 1 ? -1 : +data.tournament.elimination),
 			data.round.roundNumber
@@ -29,6 +30,13 @@
   });
   onDestroy(() => unsubscribe?.());
 
+  onMount(() => {
+	  const storedTarget = localStorage.getItem('defaultMatchNewTab');
+	  if (storedTarget) {
+		  target = storedTarget;
+	  }
+  });
+
 </script>
 
 <svelte:head>
@@ -46,7 +54,7 @@
 							/r{data.round.roundNumber}
 							/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
 			 class="link-hover"
-			 target="_blank"
+			 target={target}
 		>
 			{pairing.player1.username} vs. {pairing.player2.username}
 		</a></strong>

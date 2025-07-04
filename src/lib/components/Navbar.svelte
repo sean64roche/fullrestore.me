@@ -8,6 +8,7 @@
 	const player = '/player';
 	const media = '/media';
 
+	let menuDropdownOpen = $state(false);
 	let playerDropdownOpen = $state(false);
 	let tournamentDropdownOpen = $state(false);
 
@@ -17,12 +18,17 @@
 	let currentTheme = $state('acid');
 	let defaultMatchView = $state('replay');
 	let defaultMatchTab = $state("_self");
-	let displayWinner = $state('true');
+	let defaultShowWinners = $state('false');
 
 	onMount(() => {
 		const storedTheme = localStorage.getItem('theme');
 		const storedView = localStorage.getItem('defaultView');
+		const storedMatchNewTab = localStorage.getItem('defaultMatchNewTab');
+		const storedShowWinners = localStorage.getItem('showWinners');
+
 		if (storedView) defaultMatchView = storedView;
+		if (storedMatchNewTab) defaultMatchTab = storedMatchNewTab;
+		if (storedShowWinners) defaultShowWinners = storedShowWinners;
 		if (storedTheme) {
 			currentTheme = storedTheme;
 			document.documentElement.setAttribute('data-theme', currentTheme);
@@ -31,6 +37,9 @@
 			localStorage.setItem('theme', currentTheme);
 		}
 		const close = (e: MouseEvent) => {
+			if (!(e.target as HTMLElement)?.closest('.menu-dropdown')) {
+				menuDropdownOpen = false;
+			}
 			if (!(e.target as HTMLElement)?.closest('.player-dropdown')) {
 				playerDropdownOpen = false;
 			}
@@ -51,17 +60,20 @@
 	function toggleDefaultMatchView() {
 		defaultMatchView = defaultMatchView === 'replay' ? 'content' : 'replay';
 		localStorage.setItem('defaultView', defaultMatchView);
-	}
+	  document.documentElement.setAttribute('defaultView', defaultMatchView);
+  }
 
 	function toggleDefaultMatchTab() {
 		defaultMatchTab = defaultMatchTab === "_self" ? "_blank" : "_self";
 		localStorage.setItem('defaultMatchNewTab', defaultMatchTab);
-	}
+		location.reload();
+  }
 
 	function toggleDisplayWinner() {
-		displayWinner = displayWinner === 'true' ? 'false' : 'true';
-		localStorage.setItem('displayWinner', displayWinner);
-	}
+		defaultShowWinners = defaultShowWinners === 'true' ? 'false' : 'true';
+		localStorage.setItem('showWinners', defaultShowWinners);
+	  location.reload();
+  }
 </script>
 
 {#snippet tournamentMenu()}
@@ -159,18 +171,18 @@
 	</li>
 
 	<li class="tooltip lg:tooltip-bottom tooltip-right" data-tip="Coming Soon">
-		<button class="btn btn-ghost font-normal text-left pointer-events-none" disabled={true}>
+		<button class="btn btn-ghost font-bold lg:font-normal text-left pointer-events-none" disabled={true}>
 			Teams
 		</button>
 	</li>
 	<li class="tooltip lg:tooltip-bottom tooltip-right">
 		<a href={format}
-			 class="btn btn-ghost font-normal link-hover justify-start w-full">
+			 class="btn btn-ghost font-bold lg:font-normal link-hover justify-start w-full">
 			Formats
 		</a>
 	</li>
 	<li class="tooltip lg:tooltip-bottom tooltip-right" data-tip="Coming Soon">
-		<button class="btn btn-ghost font-normal text-left pointer-events-none" disabled={true}>
+		<button class="btn btn-ghost font-bold lg:font-normal text-left pointer-events-none" disabled={true}>
 			Media
 		</button>
 	</li>
@@ -231,7 +243,7 @@
 				<input
 					type="checkbox"
 					onchange={toggleDisplayWinner}
-					checked={displayWinner === 'true'}
+					checked={defaultShowWinners === 'true'}
 					class="toggle"
 				/>
 				<span class="label-text text-left">Reveal winners</span>
@@ -242,26 +254,29 @@
 
 <div class="navbar bg-base-100 shadow-sm items-center">
 	<div class="navbar-start flex items-center gap-2 w-full grow">
-		<div class="bg-base-200 border border-black shadow-lg w-auto p-2 flex items-center gap-2">
-				<details class="dropdown">
-					<summary class="btn btn-ghost btn-circle lg:hidden">
+		<ul class="bg-base-200 border border-black shadow-lg w-auto p-2 flex items-center gap-2 ">
+				<li class="dropdown menu-dropdown">
+					<button class="btn btn-ghost btn-circle lg:hidden" onclick={() => {menuDropdownOpen = !menuDropdownOpen}}>
 						<Menu />
-					</summary>
-					<ul class="dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-						{@render items()}
-					</ul>
-				</details>
-				<figure class="shrink-0 p-0">
+					</button>
+					{#if menuDropdownOpen}
+						<ul class="dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+							{@render items()}
+						</ul>
+					{/if}
+
+				</li>
+				<li class="shrink-0 p-0">
 					<img
 						src="/favicon.png"
 						alt="Full Restore tournaments Logo"
 						class="h-10 w-auto object-contain"
 					>
-				</figure>
-				<a href="/" class="text-xl link-hover pl-2 pr-2">
+				</li>
+				<li><a href="/" class="text-xl link-hover pl-2 pr-2">
 					Full Restore Tournaments
-				</a>
-			</div>
+				</a></li>
+			</ul>
 
 	</div>
 	<div class="dropdown">

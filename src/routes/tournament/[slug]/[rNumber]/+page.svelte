@@ -4,10 +4,11 @@
 	import { getTournamentStatus } from '$lib/helpers';
 	import { createSearchStore, searchHandler } from '$stores/search';
 	import { getEliminationType, type PairingPage } from '$lib/roundCategory';
-	import { Search } from 'lucide-svelte';
+	import { Crown, Search } from 'lucide-svelte';
 
 	const { data } = $props();
   let target = $state("_self");
+  let showWinners = $state("false");
   const rounds = data.allRounds.map(r => r.roundNumber);
 	let brackets = $derived(getEliminationType(
 			(data.pairings.length <= 1 ? -1 : +data.tournament.elimination),
@@ -35,6 +36,10 @@
 	  if (storedTarget) {
 		  target = storedTarget;
 	  }
+	  const storedShowWinners = localStorage.getItem('showWinners');
+	  if (storedShowWinners) {
+		  showWinners = storedShowWinners;
+		}
   });
 
 </script>
@@ -46,7 +51,7 @@
 </svelte:head>
 
 {#snippet pairings(pairing: PairingPage)}
-	<h2 class="border border-black rounded p-4 shadow-sm bg-base-200 mb-2 header">
+	<h2 class="border border-black rounded p-4 shadow-sm bg-base-200 mb-2 header flex justify-between items-center">
 		<strong><a href="
 							/match
 							/{data.tournament.format}
@@ -58,6 +63,13 @@
 		>
 			{pairing.player1.username} vs. {pairing.player2.username}
 		</a></strong>
+		{#if showWinners === 'true' && !!pairing.winner}
+			<span class="text-xs text-right sm:text-sm inline-flex items-center">
+				<a href="/player/{pairing.winner.psUser}" class="italic link-hover inline-flex gap-1">
+					{pairing.winner.username} <Crown class="w-4 h-4"/>
+				</a>
+			</span>
+		{/if}
 	</h2>
 {/snippet}
 

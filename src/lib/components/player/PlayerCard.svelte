@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { Trophy } from 'lucide-svelte';
   import type { Accolade, PlayerQParams } from '$api/playerApi.server';
+  import { isAlt } from '$lib/helpers';
 
 	let { player, accolades }: { player: PlayerQParams, accolades: Accolade[] } = $props();
-  function isAlt(psUser: string, username: string): boolean {
-	  return (psUser !== (username.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()));
-  }
+
 
   let randomPlaceholder = (Math.random() * 10 < 5);
 </script>

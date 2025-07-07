@@ -1,18 +1,20 @@
 <script lang="ts">
 	import { ChevronDown, Menu, Search, Settings } from 'lucide-svelte';
 	import { onMount, tick } from 'svelte';
+  import { goto } from '$app/navigation';
 
-	const home = '/';
-	const tournament = '/tournament';
-	const format = '/format';
-	const player = '/player';
-	const media = '/media';
+	const tournamentPath = '/tournament';
+	const formatPath = '/format';
+	const playerPath = '/player';
+	const mediaPath = '/media';
 
 	let menuDropdownOpen = $state(false);
 	let playerDropdownOpen = $state(false);
+	let playerDropDownValue = $state('');
 	let tournamentDropdownOpen = $state(false);
+  let tournamentDropDownValue = $state('');
 
-	let playerSearchInput: HTMLInputElement | null = $state(null);
+  let playerSearchInput: HTMLInputElement | null = $state(null);
 	let tournamentSearchInput: HTMLInputElement | null = $state(null);
 
 	let currentTheme = $state('acid');
@@ -74,11 +76,16 @@
 		localStorage.setItem('showWinners', defaultShowWinners);
 	  location.reload();
   }
+
+  function acceptSearch(path: string, param: string) {
+		goto(`${path}/search=${param}`);
+	}
+
 </script>
 
 {#snippet tournamentMenu()}
 	<a
-		href={tournament}
+		href={tournamentPath}
 		class="btn btn-ghost font-normal link-hover justify-start w-full"
 	>
 		Recent Tournaments
@@ -89,10 +96,17 @@
 			<Search class="w-4 h-4" />
 			<input
 				bind:this={tournamentSearchInput}
+				bind:value={tournamentDropDownValue}
 				type="search"
 				class="grow"
 				id="searchTournaments"
 				placeholder="Search tournaments..."
+				onkeydown={(e) => {
+					if (e.key === "Enter") {
+						acceptSearch(tournamentPath, tournamentDropDownValue);
+						tournamentDropdownOpen = false;
+						tournamentDropDownValue = '';
+				}}}
 			/>
 		</label>
 	</div>
@@ -104,10 +118,17 @@
 			<Search class="w-4 h-4" />
 			<input
 				bind:this={playerSearchInput}
+				bind:value={playerDropDownValue}
 				type="search"
 				class="grow"
 				id="searchPlayers"
 				placeholder="Search players..."
+				onkeydown={(e) => {
+					if (e.key === "Enter") {
+						acceptSearch(playerPath, playerDropDownValue);
+						playerDropdownOpen = false;
+						playerDropDownValue = '';
+				}}}
 			/>
 		</label>
 	</div>
@@ -176,7 +197,7 @@
 		</button>
 	</li>
 	<li class="tooltip lg:tooltip-bottom tooltip-right">
-		<a href={format}
+		<a href={formatPath}
 			 class="btn btn-ghost font-bold lg:font-normal link-hover justify-start w-full">
 			Formats
 		</a>

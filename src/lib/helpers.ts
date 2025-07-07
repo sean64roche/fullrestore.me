@@ -30,3 +30,7 @@ export function getTournamentStatus(startDate: string, endDate?: string): {
 			};
 	}
 }
+
+export function isAlt(psUser: string, username: string): boolean {
+	return (psUser !== (username.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()));
+}

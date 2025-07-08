@@ -15,8 +15,8 @@ export const load = async ({ params }) => {
 		player2: pairing.entrant2.player,
 		winner: pairing.winner?.player,
 		replays: pairing.replays,
-		p1score: entrantPlayerScores.get(pairing.entrant1.player.psUser)!.losses,
-		p2score: entrantPlayerScores.get(pairing.entrant2.player.psUser)!.losses,
+		p1score: entrantPlayerScores.get(pairing.entrant1.player.psUser)!.losses - entrantPlayerScores.get(pairing.entrant1.player.psUser)!.byes,
+		p2score: entrantPlayerScores.get(pairing.entrant2.player.psUser)!.losses - entrantPlayerScores.get(pairing.entrant2.player.psUser)!.byes
 	}));
 	const allRounds = await loadRounds(tournament);
 

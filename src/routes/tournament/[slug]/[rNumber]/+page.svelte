@@ -73,13 +73,13 @@
 		>
 			{pairing.player1.username} vs. {pairing.player2.username}
 		</a></strong>
-		{/if}
-		{#if showWinners === 'true' && !!pairing.winner}
-			<span class="text-xs text-right sm:text-sm inline-flex items-center">
-				<a href="/player/{pairing.winner.psUser}" class="italic link-hover inline-flex gap-1">
-					{pairing.winner.username} <Crown class="w-4 h-4"/>
-				</a>
-			</span>
+			{#if showWinners === 'true' && !!pairing.winner}
+				<span class="text-xs text-right sm:text-sm inline-flex items-center">
+					<a href="/player/{pairing.winner.psUser}" class="italic link-hover inline-flex gap-1">
+						{pairing.winner.username} <Crown class="w-4 h-4"/>
+					</a>
+				</span>
+			{/if}
 		{/if}
 	</h2>
 {/snippet}

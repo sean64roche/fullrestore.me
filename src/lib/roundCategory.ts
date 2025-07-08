@@ -34,17 +34,23 @@ export function getEliminationType(elim: number, round: number): EliminationCate
 			}
 		case 0:
 		default:
-			let groupValues: string[] = [];
-			let wins = round - 1;
-			for (let losses: number = 0; losses <= elim; losses++) {
-				groupValues.push(`${wins} - ${losses}`);
-				wins--;
+			if (round === 1) {
+				return {
+					elim: elim,
+					groups: []
+				};
+			} else {
+				let groupValues: string[] = [];
+				let wins = round - 1;
+				for (let losses: number = 0; losses <= elim; losses++) {
+					groupValues.push(`${wins} - ${losses}`);
+					wins--;
+				}
+				return {
+					elim: elim,
+					groups: groupValues
+				};
 			}
-			return {
-				elim: elim,
-				groups: groupValues
-			};
-
 	}
 }
 

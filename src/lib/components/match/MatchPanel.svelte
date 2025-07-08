@@ -112,7 +112,7 @@
 				<div class="tabs-list w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
 					<button class="btn btn-style link-hover {activeTab === 'content' ? 'btn-active' : ''}"
 									tabindex="0"
-									disabled={!content}
+									disabled={!content || content.length < 1}
 									aria-label="Toggle to Content section"
 									onclick={() => {
                                 activeTab = 'content';

@@ -2,7 +2,6 @@
   import TournamentCard from '$components/tournament/TournamentCard.svelte';
 
   const { data } = $props();
-  console.log(JSON.stringify(data.foundTournaments));
 
 </script>
 

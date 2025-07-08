@@ -20,7 +20,6 @@ export const load = async ({ params }) => {
 		tournamentName: tournament.name,
 		position: 1,
 	}));
-	console.log(JSON.stringify(pairings, null, 2));
 	return {
 		player: {
 			psUser: player.psUser,

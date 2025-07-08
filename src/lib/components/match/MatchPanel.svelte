@@ -102,7 +102,7 @@
 		<div class="flex justify-between items-center">
 			<div class="card md:card-side bg-base-100 transition-shadow">
 				<h1 class="text-2xl font-bold mb-2 px-4">
-					{player1.username} vs. {player2.username} — {tournament.name} Round {round.roundNumber}
+					{player1.username} vs. {player2.username} — {tournament.name}, Round {round.roundNumber}
 				</h1>
 			</div>
 			<div class="tabs w-80">
@@ -139,7 +139,7 @@
 					</button>
 					<button class="btn btn-style"
 									aria-label="Copy source replay link to clipboard and share"
-									disabled={!replays[activeReplay - 1].url || activeTab === 'content'}
+									disabled={!replays[activeReplay - 1] || activeTab === 'content'}
 									onclick={async () => {
 										// @ts-ignore
 										await navigator.clipboard.writeText(replays[activeReplay - 1].url);

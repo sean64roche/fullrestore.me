@@ -52,6 +52,16 @@
 
 {#snippet pairings(pairing: PairingPage)}
 	<h2 class="border border-black rounded p-4 shadow-sm bg-base-200 mb-2 header flex justify-between items-center">
+		{#if !pairing.replays || pairing.replays.length < 1}
+			<strong><span class="text-gray-500">{pairing.player1.username} vs. {pairing.player2.username}</span></strong>
+			{#if !!pairing.winner}
+			<span class="text-gray-500 text-xs text-right sm:text-sm inline-flex items-center">
+				<a href="/player/{pairing.winner.psUser}" class="italic link-hover inline-flex gap-1">
+					{pairing.winner.username} <Crown class="w-4 h-4"/>
+				</a>
+			</span>
+			{/if}
+		{:else}
 		<strong><a href="
 							/match
 							/{data.tournament.format}
@@ -63,6 +73,7 @@
 		>
 			{pairing.player1.username} vs. {pairing.player2.username}
 		</a></strong>
+		{/if}
 		{#if showWinners === 'true' && !!pairing.winner}
 			<span class="text-xs text-right sm:text-sm inline-flex items-center">
 				<a href="/player/{pairing.winner.psUser}" class="italic link-hover inline-flex gap-1">
@@ -83,7 +94,7 @@
 	</section>
 
 	<section class="mb-8">
-		<h1 class="text-2xl font-bold mb-2">{data.tournament.name} Round {data.round.roundNumber}</h1>
+		<h1 class="text-2xl font-bold mb-2">{data.tournament.name}, Round {data.round.roundNumber}</h1>
 		<p class="text-gray-500 gap-2 mb-2">
 			{data.tournament.info}
 		</p>

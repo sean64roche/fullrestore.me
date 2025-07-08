@@ -100,10 +100,13 @@
 <div class="card">
 	<div class="card-header px-4">
 		<div class="flex justify-between items-center">
-			<div class="card md:card-side bg-base-100 transition-shadow">
-				<h1 class="text-2xl font-bold mb-2 px-4">
-					{player1.username} vs. {player2.username} — {tournament.name}, Round {round.roundNumber}
+			<div class="align-text-bottom text-center">
+				<h1 class="text-2xl font-bold px-4">
+					{player1.username} vs. {player2.username}
 				</h1>
+				<small class="text-gray-500 px-4">
+					{tournament.name}, Round {round.roundNumber}
+				</small>
 			</div>
 			<div class="tabs w-80">
 				<div class="tabs-list w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">

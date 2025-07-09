@@ -19,7 +19,7 @@
 		<div class="breadcrumbs text-sm">
 			<ul>
 				<li><a href="/tournament">Tournaments</a></li>
-				<li><a href="/tournament/{data.tournament.slug}">{data.tournament.name}</a></li>
+				<li><a href="/tournament/{data.tournament.slug}" class="text-gray-500 pointer-events-none">{data.tournament.name}</a></li>
 				<li><a href="/tournament/{data.tournament.slug}/r{data.round.roundNumber}">Round {data.round.roundNumber}</a></li>
 				<li>
 					<span><a href="/player/{data.player1.psUser}">{data.player1.username}</a></span>

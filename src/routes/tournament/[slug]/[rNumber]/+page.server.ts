@@ -5,12 +5,11 @@ import { calcEntrantPlayerScores } from '$api/pairingsApi.server';
 import type { TournamentEntity, RoundEntity } from '@fullrestore/service';
 
 class RoundCache {
-	private cache = new Map<string, { data: any; expires: number }>();
-	private ttl = 5 * 60 * 1000; // 5 minutes
+	private cache = new Map<string, { data: any; }>();
 
 	get(key: string) {
 		const item = this.cache.get(key);
-		if (!item || Date.now() > item.expires) {
+		if (!item) {
 			this.cache.delete(key);
 			return null;
 		}
@@ -20,7 +19,6 @@ class RoundCache {
 	set(key: string, data: any) {
 		this.cache.set(key, {
 			data,
-			expires: Date.now() + this.ttl
 		});
 	}
 
@@ -33,14 +31,12 @@ class RoundCache {
 	}
 }
 
-const cache = new RoundCache();
-
 export const load = async ({ params, setHeaders }): Promise<RoundsResult> => {
 	const cacheKey = `tournament:${params.slug}:round:${params.rNumber}`;
-	const cached = cache.get(cacheKey);
+	const cached = _roundCache.get(cacheKey);
 	if (cached) {
 		setHeaders({
-			'cache-control': 'public, max-age=300' // 5 minutes
+			'cache-control': 'public'
 		});
 		return cached;
 	}
@@ -74,10 +70,10 @@ export const load = async ({ params, setHeaders }): Promise<RoundsResult> => {
 		}
 	};
 
-	cache.set(cacheKey, result);
+	_roundCache.set(cacheKey, result);
 
 	setHeaders({
-		'cache-control': 'public, max-age=300'
+		'cache-control': 'public'
 	});
 
 	return result;
@@ -93,3 +89,5 @@ type RoundsResult = {
 		content: string;
 	}
 }
+
+export const _roundCache = new RoundCache();

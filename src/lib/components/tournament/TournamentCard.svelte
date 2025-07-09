@@ -35,7 +35,7 @@
 	<figure class="md:w-auto h-auto md:min-w-[200px] flex items-center justify-center">
 		{#if !logoError}
 			<img
-				src="/images/tournament/{tournament.slug}.webp"
+				src="https://fullrestore.b-cdn.net/{tournament.slug}.webp"
 				alt="Image of {tournament.name} Logo"
 				class="h-auto md:h-[200px] object-contain w-auto max-w-full"
 				onerror="{() => logoError = true}"

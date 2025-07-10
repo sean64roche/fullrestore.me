@@ -5,11 +5,12 @@
 	import { createSearchStore, searchHandler } from '$stores/search';
 	import { getEliminationType, type PairingPage } from '$lib/roundCategory';
 	import { Crown, Search } from 'lucide-svelte';
+	import { navigating } from '$app/state';
 
 	const { data } = $props();
-  let target = $state("_self");
-  let showWinners = $state("false");
-  const rounds = data.allRounds.map(r => r.roundNumber);
+	let target = $state('_self');
+	let showWinners = $state('false');
+	const rounds = data.allRounds.map(r => r.roundNumber);
 	let brackets = $derived(getEliminationType(
 			(data.pairings.length <= 1 ? -1 : +data.tournament.elimination),
 			data.round.roundNumber
@@ -21,26 +22,26 @@
 		${pairing.player2.psUser}
 		${pairing.player1.username}
 		${pairing.player2.username}
-		`,
+		`
 	})));
-  let searchStore = $derived(createSearchStore(searchPlayers));
-  let unsubscribe: (() => void) | undefined;
-  $effect(() => {
-	  unsubscribe?.();
-	  unsubscribe = searchStore.subscribe((model) => searchHandler(model));
-  });
-  onDestroy(() => unsubscribe?.());
+	let searchStore = $derived(createSearchStore(searchPlayers));
+	let unsubscribe: (() => void) | undefined;
+	$effect(() => {
+		unsubscribe?.();
+		unsubscribe = searchStore.subscribe((model) => searchHandler(model));
+	});
+	onDestroy(() => unsubscribe?.());
 
-  onMount(() => {
-	  const storedTarget = localStorage.getItem('defaultMatchNewTab');
-	  if (storedTarget) {
-		  target = storedTarget;
-	  }
-	  const storedShowWinners = localStorage.getItem('showWinners');
-	  if (storedShowWinners) {
-		  showWinners = storedShowWinners;
+	onMount(() => {
+		const storedTarget = localStorage.getItem('defaultMatchNewTab');
+		if (storedTarget) {
+			target = storedTarget;
 		}
-  });
+		const storedShowWinners = localStorage.getItem('showWinners');
+		if (storedShowWinners) {
+			showWinners = storedShowWinners;
+		}
+	});
 
 </script>
 
@@ -57,26 +58,28 @@
 			{#if !!pairing.winner}
 			<span class="text-gray-500 text-xs text-right sm:text-sm inline-flex items-center">
 				<a href="/player/{pairing.winner.psUser}" class="italic link-hover inline-flex gap-1">
-					{pairing.winner.username} <Crown class="w-4 h-4"/>
+					{pairing.winner.username}
+					<Crown class="w-4 h-4" />
 				</a>
 			</span>
 			{/if}
 		{:else}
-		<strong><a href="
+			<strong><a href="
 							/match
 							/{data.tournament.format}
 							/{data.tournament.slug}
 							/r{data.round.roundNumber}
 							/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
-			 class="link-hover"
-			 target={target}
-		>
-			{pairing.player1.username} vs. {pairing.player2.username}
-		</a></strong>
+								 class="link-hover"
+								 target={target}
+			>
+				{pairing.player1.username} vs. {pairing.player2.username}
+			</a></strong>
 			{#if showWinners === 'true' && !!pairing.winner}
 				<span class="text-xs text-right sm:text-sm inline-flex items-center">
 					<a href="/player/{pairing.winner.psUser}" class="italic link-hover inline-flex gap-1">
-						{pairing.winner.username} <Crown class="w-4 h-4"/>
+						{pairing.winner.username}
+						<Crown class="w-4 h-4" />
 					</a>
 				</span>
 			{/if}
@@ -88,7 +91,8 @@
 	<section class="breadcrumbs text-sm">
 		<ul>
 			<li><a href="/tournament">Tournaments</a></li>
-			<li><a href="/tournament/{data.tournament.slug}" class="text-gray-500 pointer-events-none">{data.tournament.name}</a></li>
+			<li><a href="/tournament/{data.tournament.slug}"
+						 class="text-gray-500 pointer-events-none">{data.tournament.name}</a></li>
 			<li><a href="/tournament/{data.tournament.slug}/r{data.round.roundNumber}">Round {data.round.roundNumber}</a></li>
 		</ul>
 	</section>
@@ -113,21 +117,28 @@
 		</div>
 	</section>
 
-	<section class="space pairing">
-		{#if brackets.groups[0]}
-			{#each brackets.groups as group}
-				{@const groupPairings = $searchStore.filtered.filter(pairing => brackets.groups.indexOf(group) === pairing.p1score)}
-				{#if groupPairings.length > 0}
-					<div class="divider font-medium">{group}</div>
-					{#each groupPairings as pairing}
-						{@render pairings(pairing)}
-					{/each}
-				{/if}
-			{/each}
-		{:else}
-			{#each $searchStore.filtered as pairing}
-				{@render pairings(pairing)}
-			{/each}
-		{/if}
-	</section>
+	{#if navigating.to}
+		<div class="flex justify-center items-center w-full mt-4">
+			<span class="loading loading-bars loading-xl"></span>
+		</div>
+	{:else}
+		<section class="space pairing">
+			{#if brackets.groups[0]}
+				{#each brackets.groups as group}
+					{@const
+						groupPairings = $searchStore.filtered.filter(pairing => brackets.groups.indexOf(group) === pairing.p1score)}
+					{#if groupPairings.length > 0}
+						<div class="divider font-medium">{group}</div>
+						{#each groupPairings as pairing}
+							{@render pairings(pairing)}
+						{/each}
+					{/if}
+				{/each}
+			{:else}
+				{#each $searchStore.filtered as pairing}
+					{@render pairings(pairing)}
+				{/each}
+			{/if}
+		</section>
+	{/if}
 </main>

@@ -42,7 +42,7 @@ requireScript('https://play.pokemonshowdown.com/js/battle-sound.js');
 requireScript('https://play.pokemonshowdown.com/js/battledata.js?a7');
 requireScript('https://play.pokemonshowdown.com/data/pokedex-mini.js?a7');
 requireScript('https://play.pokemonshowdown.com/data/pokedex-mini-bw.js?a7');
-requireScript('https://play.pokemonshowdown.com/data/graphics.js?a7');
+requireScript('https://replay-embed.pages.dev/graphics.js');
 requireScript('https://play.pokemonshowdown.com/data/pokedex.js?a7');
 requireScript('https://play.pokemonshowdown.com/data/moves.js?a7');
 requireScript('https://play.pokemonshowdown.com/data/abilities.js?a7');

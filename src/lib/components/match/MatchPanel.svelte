@@ -13,6 +13,7 @@
 	import { toast, Toaster } from 'svelte-sonner';
 	import { browser } from '$app/environment';
   import { fade } from 'svelte/transition';
+  import { error } from '@sveltejs/kit';
 
 	interface Props {
 		tournament: TournamentEntity,
@@ -24,7 +25,7 @@
 		defaultView: string,
 	}
 
-	let { tournament, round, player1, player2, replays = [], content, defaultView }: Props = $props();
+	let { tournament, round, player1, player2, replays = [], content = [], defaultView }: Props = $props();
 	let activeTab = $state('replay');
 	let activeReplay: number = $state(1);
 	let gridList = !!replays ? getGridClass(replays.length) : 0;
@@ -60,39 +61,63 @@
 	}
 
 	const initializeFromURL = () => {
-		if (!browser) return;
+	  if (!browser) return;
+
 	  const url = page.url;
 	  const gameHash = url.hash.replace('#', '');
 	  const isGameHash = gameHash.startsWith('game');
 	  const isContentHash = gameHash.startsWith('content');
 	  const defaultIsContent = defaultView === 'content';
-	  const defaultIsReplay = defaultView === 'replay';
-
-	  const setTabWithFallback = (tab: 'replay' | 'content', gameNumber = 1) => {
-		  const exists = replays?.some(replay => replay.matchNumber === gameNumber);
-		  if (tab === 'replay' && exists) {
-			  activeTab = 'replay';
-			  activeReplay = gameNumber;
-			  updateURL('replay', gameNumber);
-		  } else {
-			  activeTab = 'content';
-			  updateURL('content');
-		  }
-	  };
-
 	  if (isGameHash) {
 		  const gameNumber = +gameHash.replace('game', '');
 		  setTabWithFallback('replay', gameNumber);
-	  } else if (isContentHash || defaultIsContent) {
-		  activeTab = 'content';
-		  updateURL('content');
-	  } else if (defaultIsReplay) {
+	  } else if (isContentHash || (defaultIsContent && !!content[0])) {
+			setTabWithFallback('content');
+	  } else { // default is replay, link is available, send them to g1
 		  setTabWithFallback('replay', 1);
-	  } else {
-		  activeTab = 'content';
-		  updateURL('content');
 	  }
 	};
+
+  const setTabWithFallback = (tab: 'replay' | 'content', gameNumber = 1) => {
+	  const replayExists = replays?.some(replay => replay.matchNumber === gameNumber);
+	  const contentExists = content[0];
+	  if (tab === 'replay') {
+		  if (replayExists) {
+			  activeTab = 'replay';
+			  activeReplay = gameNumber;
+			  updateURL('replay', gameNumber);
+		  } else if (replays?.some(replay => replay.matchNumber === 1)) {
+			  activeTab = 'replay';
+			  activeReplay = 1;
+			  updateURL('replay', 1);
+		  } else if (contentExists) {
+			  activeTab = 'content';
+			  updateURL('content');
+		  } else {
+			  error(404, 'Not found');
+		  }
+	  } else {
+		  if (contentExists) {
+			  activeTab = 'content';
+			  updateURL('content');
+		  } else if (replays?.some(replay => replay.matchNumber === 1)) {
+			  activeTab = 'replay';
+			  activeReplay = 1;
+			  updateURL('replay', 1);
+		  } else {
+			  error(404, 'Not found');
+		  }
+	  }
+
+	  if (tab === 'replay' && replayExists) {
+	  } else if (contentExists) {
+		  activeTab = 'content';
+		  updateURL('content');
+	  } else {
+		  error(404, 'Not found');
+	  }
+  };
+
 	initializeFromURL();
 
 </script>
@@ -159,7 +184,7 @@
 	<div class="card-content pt-4 sm:px-0 md:px-4">
 		{#if activeTab === 'content'}
 			<div class="{activeTab === 'content' ? 'tab-active' : ''} flex justify-center px-4">
-				{#if !!content && content[0].url}
+				{#if content[0]}
 					<div in:fade out:fade class="aspect-video w-full max-w-4xl mx-auto ">
 						<iframe
 							class="w-full h-full"

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import TournamentCard from '$components/tournament/TournamentCard.svelte';
+  import { navigating } from '$app/state';
 
 	const { data } = $props();
 
@@ -23,12 +24,18 @@
 <!--		</p>-->
 	</div>
 	<div class="space">
-		{#each data.tournaments as tournament}
-			<div class="flex flex-col">
-				<TournamentCard tournament={tournament}/>
-				<div class="divider"></div>
+		{#if navigating.to}
+			<div class="flex justify-center items-center w-full mt-4">
+				<span class="loading loading-bars loading-xl"></span>
 			</div>
-		{/each}
+		{:else}
+			{#each data.tournaments as tournament}
+				<div class="flex flex-col">
+					<TournamentCard tournament={tournament}/>
+					<div class="divider"></div>
+				</div>
+			{/each}
+		{/if}
 	</div>
 </main>
 

@@ -1,6 +1,7 @@
 import { loadTournaments, type TournamentQParams } from '$api/tournamentsApi.server';
 import { loadRounds, type RoundQParams } from '$api/roundsApi.server';
 import { playerRepo } from '$api/config.server';
+import { compareDesc } from 'date-fns';
 
 export const load = async ({ url }) => {
 	const page = Number(url.searchParams.get('page') ?? 1);
@@ -31,6 +32,7 @@ export const load = async ({ url }) => {
 			}
 		} as TournamentQParams;
 	}));
+	tournaments.sort((a, b) => compareDesc(a.startDate, b.startDate));
 
 	return {
 		tournaments,

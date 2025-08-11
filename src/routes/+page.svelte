@@ -1,18 +1,10 @@
 <script lang="ts">
 	import "../app.css";
-  import { onMount } from 'svelte';
   import { CalendarClock, Medal, Rss, Swords, TvMinimalPlay } from "lucide-svelte";
   import RecentGames from '$components/home/RecentGames.svelte';
 
   const { data } = $props();
   let target = $state('_self');
-
-  onMount(() => {
-	  const storedTarget = localStorage.getItem('defaultMatchNewTab');
-	  if (storedTarget) {
-		  target = storedTarget;
-	  }
-	});
 </script>
 
 <svelte:head>
@@ -54,17 +46,7 @@
 		<ul class="space-y-2">
 			{#each data.pairings as pairing}
 				<li>
-					<a href="
-						/match
-						/{pairing.tournament.format}
-						/{pairing.tournament.slug}
-						/r{pairing.round}
-						/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
-						 class="block border border-black rounded p-4 shadow-sm bg-base-200 hover:bg-base-300"
-						 target={target}
-					>
-						<RecentGames pairing={pairing}/>
-					</a>
+					<RecentGames pairing={pairing}/>
 				</li>
 			{/each}
 		</ul>

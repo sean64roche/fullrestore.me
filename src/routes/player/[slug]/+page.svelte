@@ -50,7 +50,7 @@
 	</div>
 	<ul class="space-y-2">
 		{#each $searchStore.filtered as pairing}
-			<li class="border border-black rounded p-4 shadow-sm bg-base-200">
+			<li>
 				<RecentGames pairing={pairing}/>
 			</li>
 		{/each}

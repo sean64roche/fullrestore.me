@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ChevronDown, Menu, Search, Settings } from 'lucide-svelte';
 	import { onMount, tick } from 'svelte';
-  import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation';
 
 	const tournamentPath = '/tournament';
 	const formatPath = '/format';
@@ -12,14 +12,14 @@
 	let playerDropdownOpen = $state(false);
 	let playerDropDownValue = $state('');
 	let tournamentDropdownOpen = $state(false);
-  let tournamentDropDownValue = $state('');
+	let tournamentDropDownValue = $state('');
 
-  let playerSearchInput: HTMLInputElement | null = $state(null);
+	let playerSearchInput: HTMLInputElement | null = $state(null);
 	let tournamentSearchInput: HTMLInputElement | null = $state(null);
 
 	let currentTheme = $state('acid');
 	let defaultMatchView = $state('replay');
-	let defaultMatchTab = $state("_self");
+	let defaultMatchTab = $state('_self');
 	let defaultShowWinners = $state('false');
 
 	onMount(() => {
@@ -62,22 +62,22 @@
 	function toggleDefaultMatchView() {
 		defaultMatchView = defaultMatchView === 'replay' ? 'content' : 'replay';
 		localStorage.setItem('defaultView', defaultMatchView);
-	  document.documentElement.setAttribute('defaultView', defaultMatchView);
-  }
+		document.documentElement.setAttribute('defaultView', defaultMatchView);
+	}
 
 	function toggleDefaultMatchTab() {
-		defaultMatchTab = defaultMatchTab === "_self" ? "_blank" : "_self";
+		defaultMatchTab = defaultMatchTab === '_self' ? '_blank' : '_self';
 		localStorage.setItem('defaultMatchNewTab', defaultMatchTab);
 		location.reload();
-  }
+	}
 
 	function toggleDisplayWinner() {
 		defaultShowWinners = defaultShowWinners === 'true' ? 'false' : 'true';
 		localStorage.setItem('showWinners', defaultShowWinners);
-	  location.reload();
-  }
+		location.reload();
+	}
 
-  function acceptSearch(path: string, param: string) {
+	function acceptSearch(path: string, param: string) {
 		goto(`${path}/search=${param}`);
 	}
 
@@ -275,18 +275,19 @@
 
 <div class="navbar bg-base-100 shadow-sm items-center">
 	<div class="navbar-start flex items-center gap-2 w-full grow">
-		<ul class="bg-base-200 border border-black shadow-lg w-auto p-2 flex items-center gap-2 ">
-				<li class="dropdown menu-dropdown">
-					<button class="btn btn-ghost btn-circle lg:hidden" onclick={() => {menuDropdownOpen = !menuDropdownOpen}}>
-						<Menu />
-					</button>
-					{#if menuDropdownOpen}
-						<ul class="dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-							{@render items()}
-						</ul>
-					{/if}
-
-				</li>
+		<div class="dropdown menu-dropdown">
+			<button class="btn btn-ghost btn-circle lg:hidden" onclick={() => {menuDropdownOpen = !menuDropdownOpen}}>
+				<Menu />
+			</button>
+			{#if menuDropdownOpen}
+				<ul class="dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+					{@render items()}
+				</ul>
+			{/if}
+		</div>
+		<a href="/">
+			<ul
+				class="bg-base-200 border border-black rounded shadow-sm w-auto p-2 flex items-center gap-2 hover:bg-base-300">
 				<li class="shrink-0 p-0">
 					<img
 						src="/favicon.png"
@@ -294,11 +295,13 @@
 						class="h-10 w-auto object-contain"
 					>
 				</li>
-				<li><a href="/" class="text-xl link-hover pl-2 pr-2">
-					Full Restore Tournaments
-				</a></li>
+				<li>
+					<div class="text-xl pl-2 pr-2">
+						Full Restore Tournaments
+					</div>
+				</li>
 			</ul>
-
+		</a>
 	</div>
 	<div class="dropdown">
 

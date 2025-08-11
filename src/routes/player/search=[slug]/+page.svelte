@@ -18,13 +18,18 @@
 	<div class="divider"></div>
 	<ul class="space-y-2">
 	{#each data.players as player}
-		<li class="border border-black rounded p-4 shadow-sm bg-base-200">
-			<h2><strong>
-				<a href="/player/{player.psUser}" class="link-hover">{player.username}</a>
-			</strong></h2>
-			{#if isAlt(player.psUser, player.username)}
-				<small>Also known as: {player.psUser}</small>
-			{/if}
+		<li>
+			<h2>
+				<a href="/player/{player.psUser}"
+					 class="block border border-black rounded p-4 shadow-sm bg-base-200 hover:bg-base-300"
+				>
+					<strong>{player.username}</strong>
+					{#if isAlt(player.psUser, player.username)}
+						<br>
+						<small>Also known as: {player.psUser}</small>
+					{/if}
+				</a>
+			</h2>
 		</li>
 	{/each}
 		{#if data.players.length < 1}

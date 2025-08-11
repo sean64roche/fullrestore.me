@@ -52,37 +52,34 @@
 </svelte:head>
 
 {#snippet pairings(pairing: PairingPage)}
-	<h2 class="border border-black rounded p-4 shadow-sm bg-base-200 mb-2 header flex justify-between items-center">
+	<h2>
 		{#if !pairing.replays || pairing.replays.length < 1}
-			<strong><span class="text-gray-500">{pairing.player1.username} vs. {pairing.player2.username}</span></strong>
-			{#if !!pairing.winner}
+			<div class="border border-black rounded p-4 shadow-sm bg-base-200 mb-2 header flex justify-between items-center ">
+				<strong><span class="text-gray-500">{pairing.player1.username} vs. {pairing.player2.username}</span></strong>
+				{#if !!pairing.winner}
 			<span class="text-gray-500 text-xs text-right sm:text-sm inline-flex items-center">
-				<a href="/player/{pairing.winner.psUser}" class="italic link-hover inline-flex gap-1">
-					{pairing.winner.username}
-					<Crown class="w-4 h-4" />
-				</a>
+				{pairing.winner.username}&nbsp;<Crown class="w-4 h-4" />
 			</span>
-			{/if}
+				{/if}
+			</div>
 		{:else}
-			<strong><a href="
+			<a href="
 							/match
 							/{data.tournament.format}
 							/{data.tournament.slug}
 							/r{data.round.roundNumber}
 							/{pairing.player1.psUser}-vs-{pairing.player2.psUser}"
-								 class="link-hover"
+								 class="border border-black rounded p-4 shadow-sm bg-base-200 mb-2 header flex justify-between items-center hover:bg-base-300"
 								 target={target}
 			>
-				{pairing.player1.username} vs. {pairing.player2.username}
-			</a></strong>
+				<strong>{pairing.player1.username} vs. {pairing.player2.username}</strong>
+
 			{#if showWinners === 'true' && !!pairing.winner}
 				<span class="text-xs text-right sm:text-sm inline-flex items-center">
-					<a href="/player/{pairing.winner.psUser}" class="italic link-hover inline-flex gap-1">
-						{pairing.winner.username}
-						<Crown class="w-4 h-4" />
-					</a>
+					{pairing.winner.username}&nbsp;<Crown class="w-4 h-4" />
 				</span>
 			{/if}
+			</a>
 		{/if}
 	</h2>
 {/snippet}

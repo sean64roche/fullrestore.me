@@ -20,8 +20,8 @@
 		if (!textContainer) return;
 		canExpandDesc = textContainer.scrollHeight > textContainer.clientHeight;
 	});
-	let seasonName: string = typeof tournament.season === 'string' ? ': ' + tournament.season : ' ' + tournament.season.toString();
-	let tournamentName: string = tournament.name + (+tournament.season === 1 ? '' : seasonName);
+	let seasonName: string = $derived(typeof tournament.season === 'string' ? ': ' + tournament.season : ' ' + tournament.season.toString());
+	let tournamentName: string = $derived(tournament.name + (+tournament.season === 1 ? '' : seasonName));
 
 </script>
 

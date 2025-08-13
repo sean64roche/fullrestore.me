@@ -7,7 +7,7 @@ export type Accolade = {
 	tournamentName: string;
 	position: number;
 }
-export async function fetchRecentPlayerMatches(psUser: string, page: number = 1, limit: number = 10): Promise<PairingResponse[]> {
+export async function fetchRecentPlayerMatches(psUser: string, page: number = 1, limit: number = 10): Promise<{ count: number, rows: PairingResponse[] }> {
 	try {
 		const response: AxiosResponse = await axios.get(`${pairingRepo.pairingsUrl}/recent?player=${psUser}&page=${page}&limit=${limit}`);
 		return response.data;
@@ -20,7 +20,7 @@ export async function fetchRecentPlayerMatches(psUser: string, page: number = 1,
 	}
 }
 
-export async function fetchRecentMatches(page: number = 1, limit: number = 10): Promise<PairingResponse[]> {
+export async function fetchRecentMatches(page: number = 1, limit: number = 10): Promise<{ count: number, rows: PairingResponse[] }> {
 	try {
 		const response: AxiosResponse = await axios.get(`${pairingRepo.pairingsUrl}/recent?page=${page}&limit=${limit}`);
 		return response.data;

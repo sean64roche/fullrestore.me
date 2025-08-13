@@ -78,7 +78,7 @@
 	}
 
 	function acceptSearch(path: string, param: string) {
-		goto(`${path}/search=${param}`);
+		goto(`${path}/search${param}`);
 	}
 
 </script>
@@ -103,7 +103,7 @@
 				placeholder="Search tournaments..."
 				onkeydown={(e) => {
 					if (e.key === "Enter") {
-						acceptSearch(tournamentPath, tournamentDropDownValue);
+						acceptSearch(tournamentPath, "?query=" + tournamentDropDownValue + "&page=1");
 						tournamentDropdownOpen = false;
 						tournamentDropDownValue = '';
 				}}}
@@ -125,7 +125,7 @@
 				placeholder="Search players..."
 				onkeydown={(e) => {
 					if (e.key === "Enter") {
-						acceptSearch(playerPath, playerDropDownValue);
+						acceptSearch(playerPath, "=" + playerDropDownValue);
 						playerDropdownOpen = false;
 						playerDropDownValue = '';
 				}}}

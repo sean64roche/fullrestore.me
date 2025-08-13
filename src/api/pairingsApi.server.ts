@@ -24,6 +24,7 @@ export type PlayerPage = {
 	player: PlayerQParams,
 	pairings: PlayerPairing[],
 	accolades: Accolade[],
+	count: number,
 	post: Post
 }
 

@@ -208,7 +208,8 @@
 							<div class="tabs tabs-box list grid w-full {gridList}">
 								{#each replays as replay}
 									<input
-										type="radio" name="my_tabs_1" aria-label="Game {replay.matchNumber}"
+										type="radio" name="my_tabs_1"
+										aria-label="Game {replay.matchNumber}"
 										class="tab link-hover {activeReplay === replay.matchNumber ? 'tab-active' : ''}"
 										onclick={() => {
                       activeReplay = replay.matchNumber;

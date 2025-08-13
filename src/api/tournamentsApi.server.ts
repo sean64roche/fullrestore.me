@@ -10,11 +10,7 @@ export type TournamentQParams = TournamentEntity & {
 	pageApi: PageApi,
 };
 
-export async function loadTournaments(page: number = 1, limit: number = 10): Promise<TournamentEntity[]> {
-	return await tournamentRepo.fetchTournaments(page, limit);
-}
-
-export async function searchTournament(searchParam: string, page: number = 1, limit: number = 10): Promise<TournamentResponse[]> {
+export async function searchTournament(searchParam: string, page: number = 1, limit: number = 10): Promise<{ count: number, rows: TournamentResponse[] }> {
 	try {
 		const response: AxiosResponse = await axios.get(`${tournamentRepo.tournamentsUrl}/search_tournament?name=${searchParam}&page=${page}&limit=${limit}`);
 		return response.data;

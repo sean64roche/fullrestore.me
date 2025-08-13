@@ -4,11 +4,14 @@ import type { PlayerPairing, PlayerPage } from '$api/pairingsApi.server';
 import { transformPlayerResponse, transformTournamentResponse } from '@fullrestore/service';
 import type { TournamentQParams } from '$api/tournamentsApi.server';
 
-export const load = async ({ params }) => {
+export const load = async ({ params, url }) => {
 
+	const page = parseInt(url.searchParams.get('recentMatches') || '1');
+	const limit = parseInt(url.searchParams.get('limit') || '10');
 	const player = await playerRepo.fetchPlayer(params.slug);
-	const pairingsData = await fetchRecentPlayerMatches(player.psUser);
-	const pairings: PlayerPairing[] = pairingsData.map((pairing): PlayerPairing => ({
+
+	const pairingsData = await fetchRecentPlayerMatches(player.psUser, page, limit);
+	const pairings: PlayerPairing[] = pairingsData.rows.map((pairing): PlayerPairing => ({
 		round: pairing.Round.round,
 		player1: transformPlayerResponse(pairing.Entrant1.Player) as PlayerQParams,
 		player2: transformPlayerResponse(pairing.Entrant2.Player) as PlayerQParams,
@@ -27,6 +30,7 @@ export const load = async ({ params }) => {
 			Aliases: player.Aliases,
 		},
 		pairings,
+		count: pairingsData.count,
 		accolades,
 		post: {
 			title: `Player: ${player.username} - Full Restore`,

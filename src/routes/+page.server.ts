@@ -6,7 +6,7 @@ import { transformPlayerResponse, transformTournamentResponse } from '@fullresto
 export const load = async ()=> {
 
 	const pairingsData = await fetchRecentMatches(1, 5);
-	const pairings: PlayerPairing[] = pairingsData.map((pairing): PlayerPairing => ({
+	const pairings: PlayerPairing[] = pairingsData.rows.map((pairing): PlayerPairing => ({
 		round: pairing.Round.round,
 		player1: transformPlayerResponse(pairing.Entrant1.Player) as PlayerQParams,
 		player2: transformPlayerResponse(pairing.Entrant2.Player) as PlayerQParams,

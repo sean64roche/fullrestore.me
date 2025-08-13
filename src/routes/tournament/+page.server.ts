@@ -1,15 +1,17 @@
-import { loadTournaments, type TournamentQParams } from '$api/tournamentsApi.server';
+import { searchTournament, type TournamentQParams } from '$api/tournamentsApi.server';
 import { loadRounds, type RoundQParams } from '$api/roundsApi.server';
 import { playerRepo } from '$api/config.server';
 import { compareDesc } from 'date-fns';
+import { transformTournamentResponse } from '@fullrestore/service';
 
 export const load = async ({ url }) => {
-	const page = Number(url.searchParams.get('page') ?? 1);
+	const page = Number(url.searchParams.get('recentTournaments') ?? 1);
 	const limit = Number(url.searchParams.get('limit') ?? 10);
 
-	const tournamentsResponse = await loadTournaments(page, limit);
-	const tournaments = await Promise.all(tournamentsResponse.map(async (tournament) => {
-		const roundsData = await loadRounds(tournament);
+	const tournamentsResponse = await searchTournament('', page, limit);
+	const tournaments = await Promise.all(tournamentsResponse.rows.map(async (tournament) => {
+		const tournamentEntity = transformTournamentResponse(tournament);
+		const roundsData = await loadRounds(tournamentEntity);
 		const rounds: RoundQParams[] = roundsData.map((round) => ({
 			id: round.id,
 			roundNumber: round.roundNumber,
@@ -17,12 +19,12 @@ export const load = async ({ url }) => {
 			slug: `r${round}`,
 		}));
 		let winner: string | undefined = undefined;
-		if (!!tournament.individualWinner) {
-			const response = await playerRepo.findPlayerByAlias(tournament.individualWinner.psUser) || undefined;
+		if (!!tournamentEntity.individualWinner) {
+			const response = await playerRepo.findPlayer(tournamentEntity.individualWinner.psUser) || undefined;
 			winner = response?.psUser;
 		}
 		return {
-			...tournament,
+			...tournamentEntity,
 			rounds,
 			winner,
 			pageApi: {
@@ -36,6 +38,7 @@ export const load = async ({ url }) => {
 
 	return {
 		tournaments,
+		count: tournamentsResponse.count,
 		post: {
 			title: `Tournaments - Full Restore`,
 			content: `Tournaments search`,

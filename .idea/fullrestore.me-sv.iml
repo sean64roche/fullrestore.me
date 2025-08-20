@@ -18,5 +18,6 @@
     <orderEntry type="library" name="replay" level="application" />
     <orderEntry type="library" name="utilichart" level="application" />
     <orderEntry type="library" name="script.hash.outbound-links" level="application" />
+    <orderEntry type="library" name="overlay-widget" level="application" />
   </component>
 </module>

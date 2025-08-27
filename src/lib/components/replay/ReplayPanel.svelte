@@ -155,7 +155,7 @@
 
     .controls {
         position: absolute;
-        left: 10px;
+        left: 85%;
         top: 62%;
         transform: translateY(-50%);
         z-index: 20;
@@ -173,6 +173,7 @@
         .controls {
             position: relative;
             top: 20px;
+						left: auto;
         }
     }
 

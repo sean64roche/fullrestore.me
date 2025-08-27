@@ -9,16 +9,79 @@
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover" class="min-h-screen flex flex-col">
-		<div style="display: contents">%sveltekit.body%</div>
+		<div style="display: contents">
+			%sveltekit.body%
+		</div>
 	</body>
-	<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
-
-	<script>
-		kofiWidgetOverlay.draw('rezzo64', {
+	<span id="kofi-widget"></span>
+</html>
+<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+<script>
+	kofiWidgetOverlay.draw(
+		'rezzo64',
+		{
 			'type': 'floating-chat',
-			'floating-chat.donateButton.text': 'Support me',
+			'floating-chat.donateButton.text': isSmallScreen(),
 			'floating-chat.donateButton.background-color': '#5cb85c',
 			'floating-chat.donateButton.text-color': '#fff'
-		});
-	</script>
-</html>
+		},
+		'kofi-widget'
+	);
+	function isSmallScreen() {
+		if (window.innerWidth <= 820) {
+			return '';
+		} else {
+			return 'Support me!';
+		}
+	}
+</script>
+<style>
+    .floatingchat-container,
+    .floatingchat-container-mobi {
+				width: 179px !important;
+        height: 46px !important;
+        border-radius: 25px 25px !important;
+    }
+    .floatingchat-container-wrap,
+    .floatingchat-container-wrap-mobi {
+				position: absolute !important;
+        top: 12px !important;
+        left: auto !important;
+        right: 72px !important;
+    }
+
+    .floating-chat-kofi-popup-iframe,
+    .floating-chat-kofi-popup-iframe-mobi {
+        position: absolute !important;
+				right: 12px !important;
+        left: auto !important;
+        min-height: 712px !important;
+    }
+
+		@media (max-width: 820px) {
+        .floatingchat-container,
+        .floatingchat-container-mobi {
+						width: 87px !important;
+						height: 46px !important;
+            background: transparent !important;
+				}
+        .floatingchat-container-wrap,
+        .floatingchat-container-wrap-mobi {
+            width: 87px !important;
+            right: 60px !important;
+						top: 12px !important;
+						transform: scale(0.67, 0.67);
+				}
+    }
+		@media (min-width: 1024px) {
+        .floatingchat-container-wrap,
+        .floatingchat-container-wrap-mobi {
+            right: 12px !important;
+        }
+    }
+    .floatingchat-container iframe {
+        border-radius: 9999px;
+        overflow: hidden;
+        background: transparent !important;
+    }
+</style>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{battle, font-awesome, overlay-widget, replay, replay-embed, script.hash.outbound-links, utilichart}" />
-    <file url="PROJECT" libraries="{classless}" />
+    <file url="file://$PROJECT_DIR$" libraries="{Widget_2, bootstrap, overlay-widget, replay-embed, script.hash.outbound-links}" />
   </component>
 </project>

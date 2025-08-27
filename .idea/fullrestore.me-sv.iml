@@ -19,5 +19,10 @@
     <orderEntry type="library" name="utilichart" level="application" />
     <orderEntry type="library" name="script.hash.outbound-links" level="application" />
     <orderEntry type="library" name="overlay-widget" level="application" />
+    <orderEntry type="library" name="overlay-widget" level="application" />
+    <orderEntry type="library" name="script.hash.outbound-links" level="application" />
+    <orderEntry type="library" name="replay-embed" level="application" />
+    <orderEntry type="library" name="Widget_2" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
   </component>
 </module>

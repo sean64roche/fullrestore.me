@@ -6,7 +6,8 @@
 		ReplayEntity,
 		ContentEntity
 	} from '@fullrestore/service';
-	import { goto } from '$app/navigation';
+  import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import ReplayPanel from '$components/replay/ReplayPanel.svelte';
 	import { Share2, Braces } from 'lucide-svelte';
@@ -27,11 +28,18 @@
 
 	let { tournament, round, player1, player2, replays = [], content = [], defaultView }: Props = $props();
 	let activeTab = $state('replay');
+	let rawReplayButtonBehaviour = $state('_self');
 	let activeReplay: number = $state(1);
 	let gridList = !!replays ? getGridClass(replays.length) : 0;
 	replays = replays.sort((a, b) => a.matchNumber - b.matchNumber);
 
-	const getYouTubeId = (url: string) => {
+  onMount(() => {
+	  const storedTarget = localStorage.getItem('defaultMatchNewTab');
+	  if (storedTarget) {
+		rawReplayButtonBehaviour = storedTarget;
+	  }
+  });
+  const getYouTubeId = (url: string) => {
 		const match = url.match(/(?:^|\/|v=)([a-zA-Z0-9_-]{11})(?:[^a-zA-Z0-9_-]|$)/);
 		return match ? match[1] : null;
 	};
@@ -169,9 +177,16 @@
 									aria-label="Copy source replay link to clipboard and share"
 									disabled={!replays[activeReplay - 1] || activeTab === 'content'}
 									onclick={async () => {
+										if (rawReplayButtonBehaviour === '_blank') {
+											for (const replay of replays) {
+												window.open(replay.url);
+											}
+										}
 										// @ts-ignore
-										await navigator.clipboard.writeText(replays[activeReplay - 1].url);
-										toast.success('Raw replay URL successfully copied to clipboard');
+										await navigator.clipboard.writeText(replays.map(
+											(replay) => replay.url
+											).join('\n'));
+										toast.success('Raw replay URLs successfully copied to clipboard');
 									}}
 					>
 						<Braces class="min-w-6 max-w-6 min-h-6 max-h-6" viewBox="0 0 24 24" />

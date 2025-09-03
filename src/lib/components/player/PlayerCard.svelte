@@ -3,19 +3,28 @@
   import type { Accolade, PlayerQParams } from '$api/playerApi.server';
   import { isAlt } from '$lib/helpers';
 
-	let { player, accolades }: { player: PlayerQParams, accolades: Accolade[] } = $props();
+  let logoError = $state(false);
+  let { player, accolades }: { player: PlayerQParams, accolades: Accolade[] } = $props();
+	let randomPlaceholder = (Math.random() * 10 < 5);
 
-
-  let randomPlaceholder = (Math.random() * 10 < 5);
 </script>
 
 <div class="card md:card-side bg-base-100 shadow-sm hover:shadow-lg transition-shadow">
 	<figure class="md:w-auto h-auto md:min-w-[200px] flex items-center justify-center">
+		{#if !logoError}
+			<img
+				src="https://fullrestore.b-cdn.net/{player.username}.webp"
+				alt="Image of {player.username} Logo"
+				class="h-auto md:h-[200px] object-contain w-auto max-w-full"
+				onerror="{() => logoError = true}"
+			/>
+		{:else }
 			<img
 				src={randomPlaceholder? "/lucas-silhouette.png" : "/dawn-silhouette.png"}
 				alt="Image of {player.username} Logo"
 				class="h-auto md:h-[200px] object-contain w-auto max-w-full"
 			/>
+		{/if}
 	</figure>
 	<div class="card-body flex flex-col justify-between">
 		<div class="flex justify-between items-start flex-wrap">
